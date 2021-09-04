@@ -5,7 +5,7 @@ import os
 # * Important Information.
 # ? Why is this so cool?
 # ! Critical Error causing crash starts here!
-#  //// forget this line of code for now
+#  //// forget this line of code for now!
 os.system("cls")
 
 for x in range(5):
