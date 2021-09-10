@@ -1,15 +1,11 @@
 import random
 import time
 import os
+from clearScreen import clearScr
 
 #add AI difficulty?
 
-def clearScr():
-    sysName = os.name
-    if sysName == 'posix':
-        os.system("clear")
-    elif sysName == 'nt':
-        os.system("cls")
+
 
 def printBoard(stoneCount):
     print (f"({stoneCount}) " + " ♥" * stoneCount)
