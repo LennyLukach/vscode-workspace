@@ -3,9 +3,6 @@ import time
 import os
 from clearScreen import clearScr
 
-#add AI difficulty?
-
-
 
 def printBoard(stoneCount):
     print (f"({stoneCount}) " + " ♥" * stoneCount)
