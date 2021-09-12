@@ -1,3 +1,4 @@
+package Java.GhostLemmings.src;
 //Update ghost death to have 2 lives to increase survival rate
 //Add trading of tea leaves
 //Add marriage
