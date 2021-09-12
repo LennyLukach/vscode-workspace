@@ -20,6 +20,7 @@ public class blackjack {
 				userHand.displayHand();
 				System.out.println("Dealer's Hand:\n------------");
 				dealerHand.displayHand();
+				in.close();
 				break;
 			}
 			else {
