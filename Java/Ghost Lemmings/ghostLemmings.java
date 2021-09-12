@@ -7,7 +7,6 @@
 //Clean up un-used code maybe?
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ghostLemmings {
 
@@ -30,9 +29,7 @@ public class ghostLemmings {
 		int w = 2;
 		GhostPopulation.getGhost(num).ghostDescription();
 		System.out.println("Total Ghosts: " + GhostPopulation.popSize());
-		int start = GhostPopulation.popSize();
 		System.out.println("\n");
-		Scanner in = new Scanner(System.in);
 		//int test = in.nextInt();
 		//Count Days
 		for(days = 0; days < 500; days++) {
