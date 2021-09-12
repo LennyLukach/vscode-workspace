@@ -12,9 +12,11 @@ public class goFish {
         Hand userHand = new Hand(set);
         Hand dealerHand = new Hand(set);
 
+        System.out.println("\n");
         userHand.displayHand();
-        System.out.println("\n\n");
+        System.out.println("\n");
         dealerHand.displayHand();
+        System.out.println("\n");
     }
 
 }
