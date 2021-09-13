@@ -2,6 +2,7 @@ import os
 import math
 import sys
 import time
+from usefulCustomImports import *
 
 #----------!!! Explains useful feautures !!!----------#
 #-----------------------------------------------------#
@@ -20,7 +21,7 @@ import time
 
 
 
-os.system("cls")
+clearScr()
 
 #---------------------------- METHODS ----------------------------#
 #---------------------------- METHODS ----------------------------#
@@ -85,7 +86,7 @@ def strToBinary(word):
                     sys.exit(f"{letter} was found in input.")
                 elif choice == 2:
                     doCheck = False
-                    os.system("cls")
+                    clearScr()
                     print(f"Enter a word: {word}")
                     continue
 
