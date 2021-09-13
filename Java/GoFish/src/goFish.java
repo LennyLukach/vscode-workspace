@@ -17,6 +17,23 @@ public class goFish {
         System.out.println("\n");
         dealerHand.displayHand();
         System.out.println("\n");
+
+        String askFor = in.nextLine();
+        for (int x = 0; x < dealerHand.size(); x++) {
+            System.out.println(askFor + " " + dealerHand.getCard(x).idName);
+            System.out.println(dealerHand.getCard(x).idName.equals(askFor));
+            if (dealerHand.getCard(x).idName.equals(askFor)) {
+                System.out.println("should work!");
+                Card theCard = new Card(dealerHand.getCard(x).value, dealerHand.getCard(x).suit, dealerHand.getCard(x).name, dealerHand.getCard(x).idName);
+                x = dealerHand.removeCard(theCard, userHand, x);
+            }
+        }
+        System.out.println("\n");
+        userHand.displayHand();
+        System.out.println("\n");
+        dealerHand.displayHand();
+        System.out.println("\n");
+        in.close();
     }
 
 }
@@ -25,25 +42,31 @@ public class goFish {
 class Deck {
     ArrayList<Card> deck;
     String suits[] = {"spades", "hearts", "diamonds", "clubs"};
+    String idName;
     Deck() {
 
         this.deck = new ArrayList<Card>();
         for (int amt = 0; amt < 4; amt++) {
 			for (int count = 2; count < 15; count++) {
 				if (count == 11) {
-					deck.add(new Card(10, suits[amt], "Jack of " + suits[amt]));
+                    idName = "jack";
+					deck.add(new Card(10, suits[amt], "Jack of " + suits[amt], idName));
 				}
 				else if (count == 12) {
-					deck.add(new Card(10, suits[amt], "Queen of " + suits[amt]));
+                    idName = "queen";
+					deck.add(new Card(10, suits[amt], "Queen of " + suits[amt], idName));
 				}
 				else if (count == 13) {
-					deck.add(new Card(10, suits[amt], "King of " + suits[amt]));
+                    idName = "king";
+					deck.add(new Card(10, suits[amt], "King of " + suits[amt], idName));
 				}
 				else if (count == 14) {
-					deck.add(new Card(11, suits[amt], "Ace of " + suits[amt]));
+                    idName = "ace";
+					deck.add(new Card(11, suits[amt], "Ace of " + suits[amt], idName));
 				}
 				else {
-					deck.add(new Card(count, suits[amt], count + " of " + suits[amt]));
+                    idName = Integer.toString(count);
+					deck.add(new Card(count, suits[amt], count + " of " + suits[amt], idName));
 				}
 			}
 		}
@@ -84,16 +107,36 @@ class Hand {
 			System.out.print(this.hand.get(x).name + " | ");
 		}
     }
+
+    public int removeCard(Card card, Hand turnPerson, int x) {
+        this.hand.remove(x);
+        turnPerson.addCard(card);
+        return x -= 1;
+    }
+
+    public void addCard(Card card) {
+        this.hand.add(new Card(card.value, card.suit, card.name, card.idName));
+    }
+
+    public int size() {
+        return this.hand.size();
+    }
+
+    public Card getCard(int x) {
+        return this.hand.get(x);
+    }
 }
 
 class Card {
     int value;
     String suit;
     String name;
-    Card(int value, String suit, String name) {
+    String idName;
+    Card(int value, String suit, String name, String idName) {
         this.value = value;
         this.suit = suit;
         this.name = name;
+        this.idName = idName;
     }
 
 }
