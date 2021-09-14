@@ -39,6 +39,8 @@ public class goFish {
             if (playerTurn == true) {
                 System.out.println("Your Hand:\n");
                 userHand.displayHand();
+                System.out.println();
+                dealerHand.displayHand();
                 System.out.println("\n");
                 System.out.println("What card would you like to take?\n");
                 String askFor = in.nextLine();
@@ -51,7 +53,8 @@ public class goFish {
                         int tempBooks = userBooks;
                         userBooks = userHand.makeBook(userBooks);
                         if (userBooks > tempBooks) {
-                            System.out.println("You made " + (userBooks - tempBooks) + ".");
+                            System.out.println("You made " + (userBooks - tempBooks) + " books.");
+                            System.err.println(userBooks);
                         }
                         Thread.sleep(1500);
                     }
@@ -133,7 +136,7 @@ class Hand {
     public Hand(Deck set) {
         this.set = set;
         this.hand = new ArrayList<Card>();
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 15; x++) {
             this.drawCard();
         }
     }
@@ -180,6 +183,7 @@ class Hand {
     }
 
     public int makeBook(int personBooks) {
+        this.sortHand();
         for (int x = 0; x < this.hand.size(); x++) {
             int value = this.hand.get(x).value;
             int occur = 0;
@@ -188,12 +192,12 @@ class Hand {
                     occur++;
                 }
                 if (occur == 4) {
+                    personBooks++;
                     for (int i = 0; i < this.hand.size(); i++) {
                         if (this.hand.get(i).value == value) {
                             this.hand.remove(i);
                         }
                     }
-                    personBooks++;
                 }
             }
         }
@@ -210,12 +214,16 @@ class Hand {
     }
 
     public boolean takeCard(String askFor, Hand takerHand) {
+        boolean didTake = false;
         for (int x = 0; x < this.hand.size(); x++) {
             if (this.hand.get(x).idName.equals(askFor)) {
                 Card theCard = new Card(this.hand.get(x).value, this.hand.get(x).idName);
                 x = this.removeCard(theCard, takerHand, x);
-                return true;
+                didTake = true;
             }
+        }
+        if (didTake) {
+            return true;
         }
         return false;
     }
