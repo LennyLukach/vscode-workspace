@@ -6,24 +6,69 @@ import java.util.Scanner;
 public class goFish {
 
     public static void main(String[] args) throws InterruptedException {
-        // Create input object
+
+        clearScr();
+
         Scanner in = new Scanner(System.in);
 
-        // Create gamepaly objects
         Deck set = new Deck();
         set.shuffle();
         Hand userHand = new Hand(set);
         Hand dealerHand = new Hand(set);
+        int userBooks = 0;
+        int aiBooks = 0;
+        boolean playerTurn = true;
 
-        //Prep player hands to be used
-        userHand.sortHand();
-        dealerHand.sortHand();
+        while (userBooks + aiBooks < 13) {
 
-        // Clears screen to look good
-        clearScr();
-
-        // Driver code for gameplay
+            if (userHand.size() < 7) {
+                int amt = 7 - userHand.size();
+                for (int x = 0; x < amt; x++) {
+                    userHand.drawCard();
+                }
+            }
+            if (dealerHand.size() < 7) {
+                int amt = 7 - dealerHand.size();
+                for (int x = 0; x < amt; x++) {
+                    dealerHand.drawCard();
+                }
+            }
+            clearScr();
+            userHand.sortHand();
+            dealerHand.sortHand();
+            if (playerTurn == true) {
+                System.out.println("Your Hand:\n");
+                userHand.displayHand();
+                System.out.println("\n");
+                System.out.println("What card would you like to take?\n");
+                String askFor = in.nextLine();
+                if (userHand.checkIfInHand(askFor) == true) {
+                    int tempSize = userHand.size();
+                    if (dealerHand.takeCard(askFor, userHand) == true) {
+                        if (userHand.size() > tempSize) {
+                            System.out.println("You took " + (userHand.size() - tempSize) + " " + askFor + "(s) from the computer.");
+                        }
+                        int tempBooks = userBooks;
+                        userBooks = userHand.makeBook(userBooks);
+                        if (userBooks > tempBooks) {
+                            System.out.println("You made " + (userBooks - tempBooks) + ".");
+                        }
+                        Thread.sleep(1500);
+                    }
+                    else {
+                        System.out.println("The computer did not have any " + askFor + "s in hand");
+                        Thread.sleep(1500);
+                    }
+                }
+                else {
+                    System.out.println("You do not have a " + askFor + " in your hand. Unfortunately, I don't know a good way to handle this yet so I guess you just lose for being a dumbass.");
+                    break;
+                }
+            }
+        }
+        in.close();
         
+
     }
 
     public static void clearScr() {
@@ -74,9 +119,10 @@ class Deck {
 		Card card = this.deck.get(0);
 		this.deck.remove(0);
 		return card;
-		
 	}
-
+    public int size() {
+        return this.deck.size();
+    }
 }
 
 class Hand {
@@ -87,7 +133,7 @@ class Hand {
     public Hand(Deck set) {
         this.set = set;
         this.hand = new ArrayList<Card>();
-        for (int x = 0; x < 26; x++) {
+        for (int x = 0; x < 7; x++) {
             this.drawCard();
         }
     }
@@ -133,7 +179,7 @@ class Hand {
         return this.hand.get(x);
     }
 
-    public void makeBook() {
+    public int makeBook(int personBooks) {
         for (int x = 0; x < this.hand.size(); x++) {
             int value = this.hand.get(x).value;
             int occur = 0;
@@ -147,9 +193,11 @@ class Hand {
                             this.hand.remove(i);
                         }
                     }
+                    personBooks++;
                 }
             }
         }
+        return personBooks;
     }
 
     public boolean checkIfInHand(String askFor) {
@@ -161,13 +209,15 @@ class Hand {
         return false;
     }
 
-    public void takeCard(String askFor, Hand takerHand) {
+    public boolean takeCard(String askFor, Hand takerHand) {
         for (int x = 0; x < this.hand.size(); x++) {
             if (this.hand.get(x).idName.equals(askFor)) {
                 Card theCard = new Card(this.hand.get(x).value, this.hand.get(x).idName);
                 x = this.removeCard(theCard, takerHand, x);
+                return true;
             }
         }
+        return false;
     }
 }
 
