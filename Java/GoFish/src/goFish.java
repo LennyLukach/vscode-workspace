@@ -1,50 +1,35 @@
-import java.util.Scanner;
-import java.util.Collections;
 import java.util.ArrayList;
-// TODO: Make books
-// TODO: Make so players can only ask for cards they have
+import java.util.Collections;
+import java.util.Scanner;
+
+
 public class goFish {
 
     public static void main(String[] args) throws InterruptedException {
+        // Create input object
         Scanner in = new Scanner(System.in);
+
+        // Create gamepaly objects
         Deck set = new Deck();
         set.shuffle();
-
         Hand userHand = new Hand(set);
         Hand dealerHand = new Hand(set);
-        userHand.sortHand();
-        dealerHand.sortHand();
-        System.out.println("\n");
-        userHand.displayHand();
-        System.out.println("\n");
-        dealerHand.displayHand();
-        System.out.println("\n");
 
-        System.out.println("Which card do you want to ask for?\n");
-        String askFor = in.nextLine();
-        for (int x = 0; x < dealerHand.size(); x++) {
-            if (dealerHand.getCard(x).idName.equals(askFor)) {
-                Card theCard = new Card(dealerHand.getCard(x).value, dealerHand.getCard(x).idName);
-                x = dealerHand.removeCard(theCard, userHand, x);
-            }
-        }
+        //Prep player hands to be used
         userHand.sortHand();
         dealerHand.sortHand();
+
+        // Clears screen to look good
         clearScr();
-        userHand.makeBook();
-        System.out.println("\n");
-        userHand.displayHand();
-        System.out.println("\n");
-        dealerHand.displayHand();
-        System.out.println("\n");
-        in.close();
+
+        // Driver code for gameplay
+        
     }
 
     public static void clearScr() {
         System.out.print("\033[H\033[2J");  
         System.out.flush(); 
     }
-
 }
 
 
@@ -149,7 +134,40 @@ class Hand {
     }
 
     public void makeBook() {
-        
+        for (int x = 0; x < this.hand.size(); x++) {
+            int value = this.hand.get(x).value;
+            int occur = 0;
+            for (int y = 0; y < this.hand.size(); y++) {
+                if (this.hand.get(y).value == value) {
+                    occur++;
+                }
+                if (occur == 4) {
+                    for (int i = 0; i < this.hand.size(); i++) {
+                        if (this.hand.get(i).value == value) {
+                            this.hand.remove(i);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public boolean checkIfInHand(String askFor) {
+        for (int x = 0; x < this.hand.size(); x++) {
+            if (this.hand.get(x).idName.equals(askFor)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void takeCard(String askFor, Hand takerHand) {
+        for (int x = 0; x < this.hand.size(); x++) {
+            if (this.hand.get(x).idName.equals(askFor)) {
+                Card theCard = new Card(this.hand.get(x).value, this.hand.get(x).idName);
+                x = this.removeCard(theCard, takerHand, x);
+            }
+        }
     }
 }
 
