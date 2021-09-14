@@ -5,14 +5,15 @@ import java.util.ArrayList;
 // TODO: Make so players can only ask for cards they have
 public class goFish {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Scanner in = new Scanner(System.in);
         Deck set = new Deck();
         set.shuffle();
 
         Hand userHand = new Hand(set);
         Hand dealerHand = new Hand(set);
-
+        userHand.sortHand();
+        dealerHand.sortHand();
         System.out.println("\n");
         userHand.displayHand();
         System.out.println("\n");
@@ -27,12 +28,21 @@ public class goFish {
                 x = dealerHand.removeCard(theCard, userHand, x);
             }
         }
+        userHand.sortHand();
+        dealerHand.sortHand();
+        clearScr();
+        userHand.makeBook();
         System.out.println("\n");
         userHand.displayHand();
         System.out.println("\n");
         dealerHand.displayHand();
         System.out.println("\n");
         in.close();
+    }
+
+    public static void clearScr() {
+        System.out.print("\033[H\033[2J");  
+        System.out.flush(); 
     }
 
 }
@@ -92,7 +102,7 @@ class Hand {
     public Hand(Deck set) {
         this.set = set;
         this.hand = new ArrayList<Card>();
-        for (int x = 0; x < 7; x++) {
+        for (int x = 0; x < 26; x++) {
             this.drawCard();
         }
     }
@@ -101,8 +111,7 @@ class Hand {
         this.hand.add(set.dealTop());
     }
 
-    public void displayHand() {
-        
+    public void sortHand() {
         int n = this.hand.size();
         for (int i = 0; i < n-1; i++) {   
             for (int j = 0; j < n-i-1; j++) {
@@ -114,6 +123,8 @@ class Hand {
                 }
             }
         }
+    }
+    public void displayHand() {
         for (int x = 0; x < this.hand.size(); x++) {
             System.out.print(this.hand.get(x).idName + " | ");
         }
