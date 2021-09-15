@@ -1,7 +1,7 @@
 import random
 import time
 import os
-from clearScreen import clearScr
+from usefulCustomImports import clearScr
 
 
 def printBoard(stoneCount):
