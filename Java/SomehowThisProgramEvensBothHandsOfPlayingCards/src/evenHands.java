@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class goFish {
+public class evenHands {
 
     public static void main(String[] args) throws InterruptedException {
 
