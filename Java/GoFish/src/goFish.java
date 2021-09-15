@@ -35,35 +35,45 @@ public class goFish {
         System.out.println();
         String askFor = in.nextLine();
         if (playerTurn) {
-            if (dealerHand.checkIfInHand(askFor)) {
+            if (dealerHand.checkIfInHand(askFor) == true) {
+                int amtTaken = 0;
                 for (int y = 0; y < dealerHand.size(); y++) {
                     if (dealerHand.getCard(y).idName.equals(askFor)) {
                         Card theCard = new Card(dealerHand.getCard(y).value, dealerHand.getCard(y).idName);
                         userHand.addCard(theCard);
                         dealerHand.removeCard(y);
                         y--;
-                        int occur = 0;
-                        for (int x = 0; x < userHand.size(); x++) {
-                            if (userHand.getCard(x).idName.equals(askFor)) {
-                                occur++;
-                            }
-                            if (occur == 4) {
-                                userBooks++;
-                                for (int i = 0; i < userHand.size(); i++) {
-                                    if (userHand.getCard(i).idName.equals(askFor)) {
-                                        userHand.removeCard(i);
-                                        i--;
-                                    }
-                                }
+                        amtTaken++;
+                    }
+                }
+                System.out.println("You took " + amtTaken + " " + askFor + "(s) from the computer!");
+                Thread.sleep(1500);
+                clearScr();
+                int occur = 0;
+                for (int x = 0; x < userHand.size(); x++) {
+                    if (userHand.getCard(x).idName.equals(askFor)) {
+                        occur++;
+                    }
+                    if (occur == 4) {
+                        userBooks++;
+                        System.out.println("You have a set of " + askFor + "s. You now have " + userBooks + " books.");
+                        Thread.sleep(1500);
+                        clearScr();
+                        for (int i = 0; i < userHand.size(); i++) {
+                            if (userHand.getCard(i).idName.equals(askFor)) {
+                                userHand.removeCard(i);
+                                i--;
                             }
                         }
                     }
                 }
             }
             else {
+                clearScr();
                 System.out.println("The computer did not have any " + askFor + "s. Here's a free pity draw.");
                 userHand.drawCard();
                 System.out.println("You drew a card!");
+                Thread.sleep(3250);
                 clearScr();
                 playerTurn = false;
             }
