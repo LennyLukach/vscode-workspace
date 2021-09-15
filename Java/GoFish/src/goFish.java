@@ -15,31 +15,72 @@ public class goFish {
         
         Hand userHand = new Hand(set);
         Hand dealerHand = new Hand(set);
-        int[] createdBooks = new int[14];
+
         int userBooks = 0;
         int aiBooks = 0;
+        
         boolean playerTurn = true;
+        
+        clearScr();
+
         userHand.sortHand();
         dealerHand.sortHand();
 
-
         userHand.displayHand();
-        System.out.println("\n");
+        System.out.println(userBooks);
+        System.out.println();
         dealerHand.displayHand();
+        
 
+        System.out.println();
         String askFor = in.nextLine();
-        System.out.println("\n");
-        if (userHand.checkIfInHand(askFor)) {
-            clearScr();
-            dealerHand.takeCard(askFor, userHand);
-            userHand.sortHand();
-            dealerHand.sortHand();
-            userHand.displayHand();
-            System.out.println("\n");
-            userHand.displayHand();
+        if (playerTurn) {
+            if (dealerHand.checkIfInHand(askFor)) {
+                for (int y = 0; y < dealerHand.size(); y++) {
+                    if (dealerHand.getCard(y).idName.equals(askFor)) {
+                        Card theCard = new Card(dealerHand.getCard(y).value, dealerHand.getCard(y).idName);
+                        userHand.addCard(theCard);
+                        dealerHand.removeCard(y);
+                        y--;
+                        int occur = 0;
+                        for (int x = 0; x < userHand.size(); x++) {
+                            if (userHand.getCard(x).idName.equals(askFor)) {
+                                occur++;
+                            }
+                            if (occur == 4) {
+                                userBooks++;
+                                for (int i = 0; i < userHand.size(); i++) {
+                                    if (userHand.getCard(i).idName.equals(askFor)) {
+                                        userHand.removeCard(i);
+                                        i--;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                System.out.println("The computer did not have any " + askFor + "s. Here's a free pity draw.");
+                userHand.drawCard();
+                System.out.println("You drew a card!");
+                clearScr();
+                playerTurn = false;
+            }
         }
 
-        in.close();
+        else {
+
+        }
+
+        userHand.sortHand();
+        dealerHand.sortHand();
+
+        System.out.println(userBooks);
+        userHand.displayHand();
+        System.out.println();
+        dealerHand.displayHand();
+
         
 
     }
@@ -106,7 +147,7 @@ class Hand {
     public Hand(Deck set) {
         this.set = set;
         this.hand = new ArrayList<Card>();
-        for (int x = 0; x < 26; x++) {
+        for (int x = 0; x < 15; x++) {
             this.drawCard();
         }
     }
@@ -134,10 +175,8 @@ class Hand {
         }
     }
 
-    public void removeCard(Card card, Hand turnPerson, int x) {
+    public void removeCard(int x) {
         this.hand.remove(x);
-        turnPerson.addCard(card);
-        //return x -= 1;
     }
 
     public void addCard(Card card) {
@@ -152,46 +191,11 @@ class Hand {
         return this.hand.get(x);
     }
 
-    public int makeBook(String askFor) {
-        int booksMade = 0;
-        int occur = 0;
-        for (int x = 0; x < this.hand.size(); x++) {
-            if (this.hand.get(x).idName.equals(askFor)) {
-                occur++;
-            }
-        }
-        if (occur >= 4 ) {
-            booksMade++;
-        }
-        return booksMade;
-    }
-
     public boolean checkIfInHand(String askFor) {
         for (int x = 0; x < this.hand.size(); x++) {
             if (this.hand.get(x).idName.equals(askFor)) {
                 return true;
             }
-        }
-        return false;
-    }
-
-    public boolean takeCard(String askFor, Hand takerHand) {
-        boolean didTake = false;
-        for (int x = 0; x < this.hand.size(); x++) {
-            if (this.hand.get(x).idName.equals(askFor)) {
-                Card theCard = new Card(this.hand.get(x).value, this.hand.get(x).idName);
-                this.removeCard(theCard, takerHand, x);
-                didTake = true;
-            }
-        }
-        if (didTake) {
-            for (int x = 0; x < this.hand.size(); x++) {
-                if (this.hand.get(x).idName.equals(askFor)) {
-                    this.hand.remove(x);
-                    x--;
-                }
-            }
-            return true;
         }
         return false;
     }
