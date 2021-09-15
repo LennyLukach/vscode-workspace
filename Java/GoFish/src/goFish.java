@@ -12,25 +12,15 @@ public class goFish {
 
         Deck set = new Deck();
         set.shuffle();
+        
         Hand userHand = new Hand(set);
         Hand dealerHand = new Hand(set);
         int userBooks = 0;
         int aiBooks = 0;
         boolean playerTurn = true;
-
-        userHand.makeBook(userBooks);
-        dealerHand.makeBook(aiBooks);
-        if (userBooks > 0) {
-            System.out.println("You got lucky and drew a book at the start!");
-            Thread.sleep(2000);
-        }
-        if (aiBooks > 0 ) {
-            System.out.println("The computer got lucky and drew a book at the start!");
-            Thread.sleep(2000);
-        }
+        
         while (userBooks + aiBooks < 13) {
-            userBooks += userHand.makeBook(userBooks);
-            aiBooks += dealerHand.makeBook(aiBooks);
+            userHand.displayHand();
             if (userHand.size() < 7) {
                 int amt = 7 - userHand.size();
                 for (int x = 0; x < amt; x++) {
@@ -61,11 +51,22 @@ public class goFish {
                         if (userHand.size() > tempSize) {
                             System.out.println("You took " + (userHand.size() - tempSize) + " " + askFor + "(s) from the computer.");
                         }
+                        int tempBooks = userBooks;
+                        userBooks += userHand.makeBook(askFor);
+                        if (userBooks > tempBooks) {
+                            System.out.println("You made " + (userBooks - tempBooks) + " book(s). You now have " + userBooks + " book(s).");
+                        }
                         playerTurn = true;
+                        for (int x = 0; x < userHand.size(); x++) {
+                            userHand.otherRemove(userHand.getCard(x), askFor, x);
+                        }
                         Thread.sleep(1500);
                     }
                     else {
-                        System.out.println("The computer did not have any " + askFor + "s in hand");
+                        System.out.println("The computer did not have any " + askFor + "s in hand. You drew a card");
+                        userHand.drawCard();
+                        userBooks += userHand.makeBook(userHand.getCard(userHand.size()).idName);
+                    
                         //playerTurn = false;
                         Thread.sleep(1500);
                     }
@@ -189,27 +190,18 @@ class Hand {
         return this.hand.get(x);
     }
 
-    public int makeBook(int persBooks) {
-        this.sortHand();
+    public int makeBook(String askFor) {
+        int booksMade = 0;
+        int occur = 0;
         for (int x = 0; x < this.hand.size(); x++) {
-            int value = this.hand.get(x).value;
-            int occur = 0;
-            for (int y = 0; y < this.hand.size(); y++) {
-                if (this.hand.get(y).value == value) {
-                    occur++;
-                }
-                if (occur == 4) {
-                    persBooks++;
-                    occur = 0;
-                    for (int i = 0; i < this.hand.size(); i++) {
-                        if (this.hand.get(i).value == value) {
-                            this.hand.remove(i);
-                        }
-                    }
-                }
+            if (this.hand.get(x).idName.equals(askFor)) {
+                occur++;
             }
         }
-        return persBooks;
+        if (occur >= 4 ) {
+            booksMade++;
+        }
+        return booksMade;
     }
 
     public boolean checkIfInHand(String askFor) {
@@ -234,6 +226,12 @@ class Hand {
             return true;
         }
         return false;
+    }
+
+    public void otherRemove(Card theCard, String askFor, int index) {
+        if (theCard.idName.equals(askFor)) {
+            this.hand.remove(index);
+        }
     }
 }
 
