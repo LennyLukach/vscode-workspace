@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-public class goFish {
+public class evenHands {
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -15,82 +15,31 @@ public class goFish {
         
         Hand userHand = new Hand(set);
         Hand dealerHand = new Hand(set);
-
+        int[] createdBooks = new int[14];
         int userBooks = 0;
         int aiBooks = 0;
-        
         boolean playerTurn = true;
-        
-        clearScr();
-
         userHand.sortHand();
         dealerHand.sortHand();
 
-        userHand.displayHand();
-        System.out.println(userBooks);
-        System.out.println();
-        dealerHand.displayHand();
-        
 
-        System.out.println();
+        userHand.displayHand();
+        System.out.println("\n");
+        dealerHand.displayHand();
+
         String askFor = in.nextLine();
-        if (playerTurn) {
-            if (dealerHand.checkIfInHand(askFor) == true) {
-                int amtTaken = 0;
-                for (int y = 0; y < dealerHand.size(); y++) {
-                    if (dealerHand.getCard(y).idName.equals(askFor)) {
-                        Card theCard = new Card(dealerHand.getCard(y).value, dealerHand.getCard(y).idName);
-                        userHand.addCard(theCard);
-                        dealerHand.removeCard(y);
-                        y--;
-                        amtTaken++;
-                    }
-                }
-                System.out.println("You took " + amtTaken + " " + askFor + "(s) from the computer!");
-                Thread.sleep(1500);
-                clearScr();
-                int occur = 0;
-                for (int x = 0; x < userHand.size(); x++) {
-                    if (userHand.getCard(x).idName.equals(askFor)) {
-                        occur++;
-                    }
-                    if (occur == 4) {
-                        userBooks++;
-                        System.out.println("You have a set of " + askFor + "s. You now have " + userBooks + " books.");
-                        Thread.sleep(1500);
-                        clearScr();
-                        for (int i = 0; i < userHand.size(); i++) {
-                            if (userHand.getCard(i).idName.equals(askFor)) {
-                                userHand.removeCard(i);
-                                i--;
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                clearScr();
-                System.out.println("The computer did not have any " + askFor + "s. Here's a free pity draw.");
-                userHand.drawCard();
-                System.out.println("You drew a card!");
-                Thread.sleep(3250);
-                clearScr();
-                playerTurn = false;
-            }
+        System.out.println("\n");
+        if (userHand.checkIfInHand(askFor)) {
+            clearScr();
+            dealerHand.takeCard(askFor, userHand);
+            userHand.sortHand();
+            dealerHand.sortHand();
+            userHand.displayHand();
+            System.out.println("\n");
+            userHand.displayHand();
         }
 
-        else {
-
-        }
-
-        userHand.sortHand();
-        dealerHand.sortHand();
-
-        System.out.println(userBooks);
-        userHand.displayHand();
-        System.out.println();
-        dealerHand.displayHand();
-
+        in.close();
         
 
     }
@@ -157,7 +106,7 @@ class Hand {
     public Hand(Deck set) {
         this.set = set;
         this.hand = new ArrayList<Card>();
-        for (int x = 0; x < 15; x++) {
+        for (int x = 0; x < 26; x++) {
             this.drawCard();
         }
     }
@@ -185,8 +134,10 @@ class Hand {
         }
     }
 
-    public void removeCard(int x) {
+    public void removeCard(Card card, Hand turnPerson, int x) {
         this.hand.remove(x);
+        turnPerson.addCard(card);
+        //return x -= 1;
     }
 
     public void addCard(Card card) {
@@ -201,11 +152,46 @@ class Hand {
         return this.hand.get(x);
     }
 
+    public int makeBook(String askFor) {
+        int booksMade = 0;
+        int occur = 0;
+        for (int x = 0; x < this.hand.size(); x++) {
+            if (this.hand.get(x).idName.equals(askFor)) {
+                occur++;
+            }
+        }
+        if (occur >= 4 ) {
+            booksMade++;
+        }
+        return booksMade;
+    }
+
     public boolean checkIfInHand(String askFor) {
         for (int x = 0; x < this.hand.size(); x++) {
             if (this.hand.get(x).idName.equals(askFor)) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public boolean takeCard(String askFor, Hand takerHand) {
+        boolean didTake = false;
+        for (int x = 0; x < this.hand.size(); x++) {
+            if (this.hand.get(x).idName.equals(askFor)) {
+                Card theCard = new Card(this.hand.get(x).value, this.hand.get(x).idName);
+                this.removeCard(theCard, takerHand, x);
+                didTake = true;
+            }
+        }
+        if (didTake) {
+            for (int x = 0; x < this.hand.size(); x++) {
+                if (this.hand.get(x).idName.equals(askFor)) {
+                    this.hand.remove(x);
+                    x--;
+                }
+            }
+            return true;
         }
         return false;
     }
