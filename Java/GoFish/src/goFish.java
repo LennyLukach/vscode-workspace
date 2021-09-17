@@ -26,8 +26,10 @@ public class goFish {
         userHand.sortHand();
         dealerHand.sortHand();
 
+        System.out.println("Your books: " + userBooks);
+        System.out.print("---------------\n");
         userHand.displayHand();
-        System.out.println(userBooks);
+        System.out.println();
         System.out.println();
         dealerHand.displayHand();
         
@@ -47,7 +49,7 @@ public class goFish {
                     }
                 }
                 System.out.println("You took " + amtTaken + " " + askFor + "(s) from the computer!");
-                Thread.sleep(1500);
+                Thread.sleep(2000);
                 clearScr();
                 int occur = 0;
                 for (int x = 0; x < userHand.size(); x++) {
@@ -57,7 +59,7 @@ public class goFish {
                     if (occur == 4) {
                         userBooks++;
                         System.out.println("You have a set of " + askFor + "s. You now have " + userBooks + " books.");
-                        Thread.sleep(1500);
+                        Thread.sleep(2000);
                         clearScr();
                         for (int i = 0; i < userHand.size(); i++) {
                             if (userHand.getCard(i).idName.equals(askFor)) {
@@ -72,9 +74,27 @@ public class goFish {
                 clearScr();
                 System.out.println("The computer did not have any " + askFor + "s. Here's a free pity draw.");
                 userHand.drawCard();
-                System.out.println("You drew a card!");
-                Thread.sleep(3250);
+                System.out.println("You drew a " + userHand.getCard(userHand.size() - 1).idName + ".");
+                Thread.sleep(2000);
                 clearScr();
+                int occur = 0;
+                for (int x = 0; x < userHand.size(); x++) {
+                    if (userHand.getCard(x).idName.equals(askFor)) {
+                        occur++;
+                    }
+                    if (occur == 4) {
+                        userBooks++;
+                        System.out.println("You have a set of " + askFor + "s. You now have " + userBooks + " books.");
+                        Thread.sleep(2000);
+                        clearScr();
+                        for (int i = 0; i < userHand.size(); i++) {
+                            if (userHand.getCard(i).idName.equals(askFor)) {
+                                userHand.removeCard(i);
+                                i--;
+                            }
+                        }
+                    }
+                }
                 playerTurn = false;
             }
         }
@@ -86,8 +106,10 @@ public class goFish {
         userHand.sortHand();
         dealerHand.sortHand();
 
-        System.out.println(userBooks);
+        System.out.println("Your books: " + userBooks);
+        System.out.print("---------------\n");
         userHand.displayHand();
+        System.out.println();
         System.out.println();
         dealerHand.displayHand();
 
