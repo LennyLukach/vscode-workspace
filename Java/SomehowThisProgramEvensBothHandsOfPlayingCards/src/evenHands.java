@@ -15,10 +15,10 @@ public class evenHands {
         
         Hand userHand = new Hand(set);
         Hand dealerHand = new Hand(set);
-        int[] createdBooks = new int[14];
-        int userBooks = 0;
-        int aiBooks = 0;
-        boolean playerTurn = true;
+        //int[] createdBooks = new int[14];
+        //int userBooks = 0;
+        //int aiBooks = 0;
+        //boolean playerTurn = true;
         userHand.sortHand();
         dealerHand.sortHand();
 

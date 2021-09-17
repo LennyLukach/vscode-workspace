@@ -17,7 +17,7 @@ public class goFish {
         Hand dealerHand = new Hand(set);
 
         int userBooks = 0;
-        int aiBooks = 0;
+        //int aiBooks = 0;
         
         boolean playerTurn = true;
         
