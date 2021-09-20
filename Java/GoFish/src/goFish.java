@@ -12,7 +12,7 @@ public class goFish {
 
         Deck set = new Deck();
         set.shuffle();
-        //sup
+        
         Hand userHand = new Hand(set);
         Hand dealerHand = new Hand(set);
 
