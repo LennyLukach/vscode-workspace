@@ -15,7 +15,7 @@ public class goFish {
         
         Hand userHand = new Hand(set);
         Hand dealerHand = new Hand(set);
-        //test
+        
         int userBooks = 0;
         //int aiBooks = 0;
         
