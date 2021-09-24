@@ -1,3 +1,6 @@
+# Made By: Lenny
+# Date: 9/24/21
+# Function: Take 1-3 stones, last to take stones wins
 import random
 import time
 import os
@@ -25,7 +28,9 @@ if gameModeSelect == 2:
         turnPlayer = 2
     elif orderStartSelect == 3:
         rpsp = int(input("1. Rock\n2. Paper\n3. Scissors\n"))
-        rpsa = random.randint(1, 3)
+        rpsa = rpsp
+        while (rpsa == rpsp):
+            rpsa = random.randint(1, 3)
         clearScr()
         if rpsp == 1:
             print ("Player chose rock")
@@ -81,7 +86,10 @@ if gameModeSelect == 1:
                 clearScr()
                 print ("Player 1 removed all stones. Player wins!")
                 break
+            clearScr()
             print (f"Player 1 removed {minusStone} stone(s).")
+            time.sleep(2)
+            clearScr()
             turnPlayer = 2
         if turnPlayer == 2:
             printBoard(stoneCount)
@@ -91,7 +99,10 @@ if gameModeSelect == 1:
                 clearScr()
                 print ("Player 2 removed all stones. Player wins!")
                 break
+            clearScr()
             print (f"Player 2 removed {minusStone} stone(s).")
+            time.sleep(2)
+            clearScr()
             turnPlayer = 1
 
 elif gameModeSelect == 2:
@@ -105,6 +116,8 @@ elif gameModeSelect == 2:
                 print ("Player removed all stones. Player wins!")
                 break
             print (f"Player removed {minusStone} stone(s).")
+            time.sleep(1.5)
+            clearScr()
             turnPlayer = 2
         if turnPlayer == 2:
             printBoard(stoneCount)
@@ -117,4 +130,6 @@ elif gameModeSelect == 2:
                 print ("AI removed all stones. Player wins!")
                 break
             print (f"AI removed {minusStone} stone(s).")
+            time.sleep(2.5)
+            clearScr()
             turnPlayer = 1
