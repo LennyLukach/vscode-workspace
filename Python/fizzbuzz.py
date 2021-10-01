@@ -1,7 +1,6 @@
 import os
 import time
 import sys
-import usefulCustomImports
 
 os.system("cls")
 
