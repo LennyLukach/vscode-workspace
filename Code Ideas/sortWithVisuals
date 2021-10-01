@@ -1,0 +1,15 @@
+use sorting method to sort displayed lines with varried length:
+
+---
+-------
+-
+-----
+--------
+
+to
+
+-
+---
+----
+------
+--------
