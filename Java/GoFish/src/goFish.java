@@ -17,7 +17,8 @@ public class goFish {
         Hand dealerHand = new Hand(set);
         
         int userBooks = 0;
-        //int aiBooks = 0;
+        int aiBooks = 0;
+        int totalBooks = userBooks + aiBooks;
         
         boolean playerTurn = true;
         
@@ -26,96 +27,101 @@ public class goFish {
         userHand.sortHand();
         dealerHand.sortHand();
 
-        System.out.println("Your books: " + userBooks);
+        System.out.println("Your hand:");
         System.out.print("---------------\n");
         userHand.displayHand();
         System.out.println();
         System.out.println();
+        System.out.println("Dealer's hand:");
+        System.out.print("---------------\n");
         dealerHand.displayHand();
+        System.out.println("\n\nYour books: " + userBooks + "\nDealer's books: " + aiBooks);
         
-
-        System.out.println();
-        String askFor = in.nextLine();
-        if (playerTurn) {
-            if (dealerHand.checkIfInHand(askFor) == true) {
-                int amtTaken = 0;
-                for (int y = 0; y < dealerHand.size(); y++) {
-                    if (dealerHand.getCard(y).idName.equals(askFor)) {
-                        Card theCard = new Card(dealerHand.getCard(y).value, dealerHand.getCard(y).idName);
-                        userHand.addCard(theCard);
-                        dealerHand.removeCard(y);
-                        y--;
-                        amtTaken++;
+        while (totalBooks < 13) {
+            if (playerTurn) {
+                System.out.println();
+                String askFor = in.nextLine();
+                if (dealerHand.checkIfInHand(askFor) == true) {
+                    int amtTaken = 0;
+                    for (int y = 0; y < dealerHand.size(); y++) {
+                        if (dealerHand.getCard(y).idName.equals(askFor)) {
+                            Card theCard = new Card(dealerHand.getCard(y).value, dealerHand.getCard(y).idName);
+                            userHand.addCard(theCard);
+                            dealerHand.removeCard(y);
+                            y--;
+                            amtTaken++;
+                        }
                     }
-                }
-                System.out.println("You took " + amtTaken + " " + askFor + "(s) from the computer!");
-                Thread.sleep(2000);
-                clearScr();
-                int occur = 0;
-                for (int x = 0; x < userHand.size(); x++) {
-                    if (userHand.getCard(x).idName.equals(askFor)) {
-                        occur++;
-                    }
-                    if (occur == 4) {
-                        userBooks++;
-                        System.out.println("You have a set of " + askFor + "s. You now have " + userBooks + " books.");
-                        Thread.sleep(2000);
-                        clearScr();
-                        for (int i = 0; i < userHand.size(); i++) {
-                            if (userHand.getCard(i).idName.equals(askFor)) {
-                                userHand.removeCard(i);
-                                i--;
+                    System.out.println("You took " + amtTaken + " " + askFor + "(s) from the computer!");
+                    Thread.sleep(2000);
+                    clearScr();
+                    int occur = 0;
+                    for (int x = 0; x < userHand.size(); x++) {
+                        if (userHand.getCard(x).idName.equals(askFor)) {
+                            occur++;
+                        }
+                        if (occur == 4) {
+                            userBooks++;
+                            System.out.println("You have a set of " + askFor + "s. You now have " + userBooks + " books.");
+                            Thread.sleep(2000);
+                            clearScr();
+                            for (int i = 0; i < userHand.size(); i++) {
+                                if (userHand.getCard(i).idName.equals(askFor)) {
+                                    userHand.removeCard(i);
+                                    i--;
+                                }
                             }
                         }
                     }
+                }
+                else {
+                    clearScr();
+                    System.out.println("The computer did not have any " + askFor + "s. Here's a free pity draw.");
+                    userHand.drawCard();
+                    System.out.println("You drew a " + userHand.getCard(userHand.size() - 1).idName + ".");
+                    Thread.sleep(2000);
+                    clearScr();
+                    int occur = 0;
+                    for (int x = 0; x < userHand.size(); x++) {
+                        if (userHand.getCard(x).idName.equals(askFor)) {
+                            occur++;
+                        }
+                        if (occur == 4) {
+                            userBooks++;
+                            System.out.println("You have a set of " + askFor + "s. You now have " + userBooks + " books.");
+                            Thread.sleep(2000);
+                            clearScr();
+                            for (int i = 0; i < userHand.size(); i++) {
+                                if (userHand.getCard(i).idName.equals(askFor)) {
+                                    userHand.removeCard(i);
+                                    i--;
+                                }
+                            }
+                        }
+                    }
+                    playerTurn = false;
                 }
             }
             else {
-                clearScr();
-                System.out.println("The computer did not have any " + askFor + "s. Here's a free pity draw.");
-                userHand.drawCard();
-                System.out.println("You drew a " + userHand.getCard(userHand.size() - 1).idName + ".");
-                Thread.sleep(2000);
-                clearScr();
-                int occur = 0;
-                for (int x = 0; x < userHand.size(); x++) {
-                    if (userHand.getCard(x).idName.equals(askFor)) {
-                        occur++;
-                    }
-                    if (occur == 4) {
-                        userBooks++;
-                        System.out.println("You have a set of " + askFor + "s. You now have " + userBooks + " books.");
-                        Thread.sleep(2000);
-                        clearScr();
-                        for (int i = 0; i < userHand.size(); i++) {
-                            if (userHand.getCard(i).idName.equals(askFor)) {
-                                userHand.removeCard(i);
-                                i--;
-                            }
-                        }
-                    }
-                }
-                playerTurn = false;
+                
             }
-        }
-
-        else {
-
-        }
 
         userHand.sortHand();
         dealerHand.sortHand();
 
-        System.out.println("Your books: " + userBooks);
+        System.out.println("Your hand:");
         System.out.print("---------------\n");
         userHand.displayHand();
         System.out.println();
         System.out.println();
+        System.out.println("Dealer's hand:");
+        System.out.print("---------------\n");
         dealerHand.displayHand();
-
+        System.out.println("\n\nYour books: " + userBooks + "\nDealer's books: " + aiBooks);
         
-        in.close();
     }
+    in.close();
+}
 
     
     public static void clearScr() {
