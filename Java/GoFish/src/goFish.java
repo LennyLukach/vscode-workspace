@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+//TODO: fix bug with AI taking the same card
+//TODO: fix timings of text and appearance of the game
 
 public class goFish {
 
@@ -38,6 +40,7 @@ public class goFish {
         System.out.println("\n\nYour books: " + userBooks + "\nDealer's books: " + aiBooks);
         
         while (totalBooks < 13) {
+            String randChoice = dealerHand.getCard((int) Math.random() * dealerHand.size()).idName;
             if (playerTurn) {
                 System.out.println();
                 String askFor = in.nextLine();
@@ -103,7 +106,70 @@ public class goFish {
                 }
             }
             else {
-                
+                clearScr();
+                System.out.println("The dealer asked for " + randChoice + ".");
+                Thread.sleep(3500);
+                if (userHand.checkIfInHand(randChoice) == true) {
+                    int amtTaken = 0;
+                    for (int y = 0; y < userHand.size(); y++) {
+                        if (userHand.getCard(y).idName.equals(randChoice)) {
+                            Card theCard = new Card(userHand.getCard(y).value, userHand.getCard(y).idName);
+                            dealerHand.addCard(theCard);
+                            userHand.removeCard(y);
+                            y--;
+                            amtTaken++;
+                        }
+                    }
+                    System.out.println("The dealer took " + amtTaken + " " + randChoice + "(s) from you!");
+                    Thread.sleep(3500);
+                    clearScr();
+                    int occur = 0;
+                    for (int x = 0; x < dealerHand.size(); x++) {
+                        if (dealerHand.getCard(x).idName.equals(randChoice)) {
+                            occur++;
+                        }
+                        if (occur == 4) {
+                            aiBooks++;
+                            System.out.println("The dealer has a set of " + randChoice + "s. They now have " + aiBooks + " books.");
+                            Thread.sleep(3500);
+                            clearScr();
+                            for (int i = 0; i < dealerHand.size(); i++) {
+                                if (dealerHand.getCard(i).idName.equals(randChoice)) {
+                                    dealerHand.removeCard(i);
+                                    i--;
+                                }
+                            }
+                        }
+                    }
+                }
+                else {
+                    clearScr();
+                    System.out.println("You did not have any " + randChoice + "s. The dealer gets a free pity draw.");
+                    dealerHand.drawCard();
+                    Thread.sleep(3500);
+                    System.out.println("They drew a " + dealerHand.getCard(dealerHand.size() - 1).idName + ".");
+                    Thread.sleep(3500);
+                    clearScr();
+                    int occur = 0;
+                    for (int x = 0; x < dealerHand.size(); x++) {
+                        if (dealerHand.getCard(x).idName.equals(randChoice)) {
+                            occur++;
+                        }
+                        if (occur == 4) {
+                            aiBooks++;
+                            System.out.println("The dealer has a set of " + randChoice + "s. They now have " + aiBooks + " books.");
+                            Thread.sleep(3500);
+                            clearScr();
+                            for (int i = 0; i < dealerHand.size(); i++) {
+                                if (dealerHand.getCard(i).idName.equals(randChoice)) {
+                                    dealerHand.removeCard(i);
+                                    i--;
+                                }
+                            }
+                        }
+                    }
+                    playerTurn = true;
+                }
             }
 
         userHand.sortHand();
