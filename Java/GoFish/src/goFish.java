@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
+//TODO: Check for books every time a card is drawn
+
 public class goFish {
 
     public static void main(String[] args) throws InterruptedException {
@@ -145,16 +147,16 @@ public class goFish {
                     clearScr();
                     int occur = 0;
                     for (int x = 0; x < userHand.size(); x++) {
-                        if (userHand.getCard(x).idName.equals(askFor)) {
+                        if (userHand.getCard(x).idName.equals(userHand.getCard(userHand.size() - 1).idName)) {
                             occur++;
                         }
                         if (occur == 4) {
                             userBooks++;
-                            System.out.println("You have a set of " + askFor + "s. You now have " + userBooks + " book(s).");
+                            System.out.println("You have a set of " + userHand.getCard(userHand.size() - 1).idName + "s. You now have " + userBooks + " book(s).");
                             Thread.sleep(3000);
                             clearScr();
                             for (int i = 0; i < userHand.size(); i++) {
-                                if (userHand.getCard(i).idName.equals(askFor)) {
+                                if (userHand.getCard(i).idName.equals(userHand.getCard(userHand.size() - 1).idName)) {
                                     userHand.removeCard(i);
                                     i--;
                                 }
@@ -211,7 +213,7 @@ public class goFish {
                     clearScr();
                     int occur = 0;
                     for (int x = 0; x < dealerHand.size(); x++) {
-                        if (dealerHand.getCard(x).idName.equals(randChoice)) {
+                        if (dealerHand.getCard(x).idName.equals(dealerHand.getCard(dealerHand.size() - 1).idName)) {
                             occur++;
                         }
                         if (occur == 4) {
