@@ -2,9 +2,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-//TODO: fix timings of text and appearance of the game
-//TODO: make each person have at least 7 cards
-
 public class goFish {
 
     public static void main(String[] args) throws InterruptedException {
@@ -55,13 +52,13 @@ public class goFish {
                         }
                     }
                 }
-                if (userHand.size() >= 7 || set.size() < 1) {
-                    clearScr();
-                    if (set.size() < 1) {
-                        System.out.println("All cards have been drawn. Good luck.");
-                        Thread.sleep(2500);
-                    }
+                if (userHand.size() >= 7) {
                     break;
+                }
+                if (set.size() < 1) {
+                    clearScr();
+                    System.out.println("All cards have been drawn. Good luck.");
+                    Thread.sleep(2500);
                 }
             }
             if (dealerHand.size() < 7 && set.size() > 0) {
@@ -91,12 +88,12 @@ public class goFish {
                         }
                     }
                     if (dealerHand.size() >= 7) {
-                        clearScr();
-                        if (set.size() < 1) {
-                            System.out.println("All cards have been drawn. Good luck.");
-                            Thread.sleep(2500);
-                        }
                         break;
+                    }
+                    if (set.size() < 1) {
+                        clearScr();
+                        System.out.println("All cards have been drawn. Good luck.");
+                        Thread.sleep(2500);
                     }
                 }
             }
