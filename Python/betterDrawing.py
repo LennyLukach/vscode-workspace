@@ -1,4 +1,3 @@
-from typing import Collection
 import pygame
 import sys
 from pygame import mouse
