@@ -6,7 +6,6 @@ import math
 from pygame.draw import circle
 from pygame.sprite import collide_circle
 
-
 pygame.init()
 
 SCREEN = pygame.display.set_mode((1280, 800))
