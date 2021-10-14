@@ -3,7 +3,6 @@ import sys
 from pygame import mouse
 from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP, QUIT
 import math
-
 from pygame.draw import circle
 from pygame.sprite import collide_circle
 
