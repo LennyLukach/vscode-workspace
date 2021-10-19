@@ -34,6 +34,7 @@ trigFunc = trigs[random.randrange(0, len(trigs))]
 
 print (str(trigFunc) + " " + str(trigVal))
 
+
 '''
 userAnswer =  input("Enter the exact trigonometric value:\n")
 
