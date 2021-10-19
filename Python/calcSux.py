@@ -3,7 +3,6 @@ import random
 from fractions import Fraction
 import os
 
-# TODO add answer checking
 # TODO add negative / positive values
 
 degList  = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330, 360]
@@ -22,22 +21,24 @@ for deg in degList:
             newerPi = newPi[:indexA] + "pi"  + newPi[indexA:]
             piList.append(newerPi)
 
-isRad = random.randint(0, 1)
-if isRad == 0:
-    trigVal = degList[random.randrange(0, len(degList))]
-else:
-    trigVal = piList[random.randrange(0, len(piList))]
 
+for x in range(20):
+    isRad = random.randint(0, 1)
+    if isRad == 0:
+        trigVal = degList[random.randrange(0, len(degList))]
+    else:
+        trigVal = piList[random.randrange(0, len(piList))]
 
-trigFunc = trigs[random.randrange(0, len(trigs))]
+    isPos = random.randint(0, 1)
 
+    if isPos == 0:
+        integer = " -"
+    else:
+        integer = " "
 
-print (str(trigFunc) + " " + str(trigVal))
+    trigFunc = trigs[random.randrange(0, len(trigs))]
 
-
-'''
-userAnswer =  input("Enter the exact trigonometric value:\n")
-
-if isRad == 0:
-    if userAnswer == trigVal
-'''
+    if isRad == 0:
+        print (str(x + 1) + ". " + str(trigFunc) + integer + str(trigVal) +  "°")
+    else:
+        print (str(x + 1) + ". " + str(trigFunc) + integer + str(trigVal))
