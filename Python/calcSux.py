@@ -3,8 +3,6 @@ import random
 from fractions import Fraction
 import os
 
-# TODO add negative / positive values
-
 degList  = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330, 360]
 radList  = []
 piList = []
