@@ -16,12 +16,12 @@ class ticTacToe {
 
         System.out.println("\n");
 
-        board[2][0] = "x";
-        board[2][1] = "x";
+        board[0][0] = "x";
+        board[1][1] = "x";
         board[2][2] = "x";
 
         printBoard(board);
-        System.out.println(checkRow(board, "x"));
+        System.out.println(checkDiag(board, "x"));
 
 
     }
@@ -47,6 +47,20 @@ class ticTacToe {
                 return true;
             }
         }
+        return false;
+    }
+
+    public static boolean checkDiag(String[][] board, String icon) {
+        if (board[0][0] == icon && board[1][1] == icon && board[2][2] == icon) {
+            return true;
+        }
+        if (board[0][2] == icon && board[1][1] == icon && board[2][0] == icon) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean checkCol(String[][] board, String icon) {
         return false;
     }
 }
