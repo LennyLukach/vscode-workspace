@@ -8,32 +8,56 @@ class ticTacToe {
         Scanner in = new Scanner(System.in);
         String board[][] = new String[3][3];
         boolean gameActive = true;
+        int playerTurn = (int) Math.round(Math.random());
 
 
         for (int x = 0; x < board.length; x++) {
             for (int y = 0; y < board[0].length; y++) {
                 board[x][y] = ".";
-                locations.add(new Location(x, y));
+                locations.add(new Location(x, y, false));
             }
         }
         
         while (gameActive) {
             printBoard(board);
-            if (true) {
+            if (playerTurn == 1) {
                 int pos = in.nextInt();
                 
                 int x = locations.get(pos - 1).getX();
-                int y = locations.get(pos - 1).y;
+                int y = locations.get(pos - 1).getY();
 
-                if (board[x][y] != ".") {
+                if (locations.get(pos - 1).used) {
                     System.out.println("You can't go there. For being that stupid, you lose your turn.");
                 }
                 else {
+                    locations.get(pos - 1).used = true;
                     board[x][y] = "x";
                 }
+                if (checkCol(board, "x") || checkRow(board, "x") || checkDiag(board, "x")) {
+                    System.out.println("Player wins!");
+                    break;
+                }
+                playerTurn = 0;
+            }
+            else if (playerTurn == 0) {
+                while (true) {
+                    int pos = (int) (Math.random() *locations.size());
+                    if (locations.get(pos).used == false) {
+                        int x = locations.get(pos).getX();
+                        int y = locations.get(pos).getY();
+                        locations.get(pos).used = true;
+                        board[x][y] = "o";
+                        break;
+                    }
+                }
+
+                if (checkCol(board, "o") || checkRow(board, "o") || checkDiag(board, "o")) {
+                    System.out.println("Computer wins!");
+                    break;
+                }
+                playerTurn = 1;
             }
             System.out.println();
-
 
         }
 
@@ -97,10 +121,12 @@ class Location {
 
     int x;
     int y;
+    boolean used;
 
-    Location(int x, int y) {
+    Location(int x, int y, boolean used) {
         this.x = x;
         this.y = y;
+        this.used = used;
     }
 
     public int getX() {
