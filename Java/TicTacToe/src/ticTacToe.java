@@ -63,6 +63,7 @@ class ticTacToe {
 
         }
 
+        printBoard(board);
         in.close();
     }
 
