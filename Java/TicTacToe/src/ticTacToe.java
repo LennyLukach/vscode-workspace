@@ -1,3 +1,5 @@
+//https://en.wikipedia.org/wiki/Tic-tac-toe - make perfect AI
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
