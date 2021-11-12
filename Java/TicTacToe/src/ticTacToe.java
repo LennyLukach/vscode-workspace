@@ -47,7 +47,10 @@ class ticTacToe {
             }
             else if (playerTurn == 0) {
                 while (true) {
-                    int pos = (int) (Math.random() *locations.size());
+                    int pos = getBestMove(board, locations);
+                    if (!(pos > 0 && pos < 10)) {
+                        pos = (int) (Math.random() *locations.size());
+                    }
                     if (locations.get(pos).used == false) {
                         int x = locations.get(pos).getX();
                         int y = locations.get(pos).getY();
@@ -137,15 +140,68 @@ class ticTacToe {
         return false;
     }
 
-    public static int getBestMove(String[][] board) {
+    public static int getBestMove(String[][] board, ArrayList<Location> locations) {
+        int count = 0;
+        int movePos = -1;
+        int tempMove = -1;
+        int temp = 0;
         for (int x = 0; x < board.length; x++) {
+            count = 0;
             for (int y = 0; y < board[0].length; y++) {
                 if (board[x][y] == "o")  {
-                    
+                    count++;
+                }
+                else if (board[x][y] == ".") {
+                    tempMove = findLocation(locations, temp, x, y);
                 }
             }
+            if (count >= 2) {
+                movePos = tempMove;
+            }
         }
-        return 0;
+
+        count = 0;
+        int y = 0;
+        for (int x = 0; x < board.length; x++) {
+            y = x;
+            if (board[x][y] == "0") {
+                count++;
+            }
+            else if (board[x][y] == ".") {
+                tempMove = findLocation(locations, temp, x, y);
+            }
+        }
+        if (count >= 2) {
+            movePos = tempMove;
+        }
+
+        count = 0;
+        y = 0;
+        for (int x = 2; x >= 0; x--) {
+            if (board[x][y] == "o") {
+                count++;
+            }
+            else if (board[x][y] == ".") {
+                tempMove = findLocation(locations, temp, x, y);
+            }
+            y++;
+        }
+
+        if (count >= 2) {
+            movePos = tempMove;
+        }
+
+        return movePos;
+    }
+
+    public static int findLocation(ArrayList<Location> locations, int temp, int x, int y) {
+        int tempMove = -1;
+        for (temp = 0; temp < locations.size(); temp++) {
+            if (locations.get(temp).x == x && locations.get(temp).y == y) {
+                tempMove = temp;
+            }
+        }
+        return tempMove;
     }
 
 
