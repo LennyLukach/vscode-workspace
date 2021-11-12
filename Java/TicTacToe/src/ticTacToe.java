@@ -137,6 +137,18 @@ class ticTacToe {
         return false;
     }
 
+    public static int getBestMove(String[][] board) {
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[0].length; y++) {
+                if (board[x][y] == "o")  {
+                    
+                }
+            }
+        }
+        return 0;
+    }
+
+
 }
 
 class Location {
