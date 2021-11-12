@@ -6,3 +6,7 @@ def clearScr():
         os.system("clear")
     elif sysName == 'nt':
         os.system("cls")
+
+
+def printOutTheWorld():
+    print("hello")
