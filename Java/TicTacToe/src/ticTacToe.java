@@ -21,6 +21,10 @@ class ticTacToe {
         }
         
         while (gameActive) {
+            if (isDraw(board)) {
+                System.out.println("It's a draw!");
+                break;
+            }
             printBoard(board);
             if (playerTurn == 1) {
                 int pos = in.nextInt();
@@ -114,6 +118,21 @@ class ticTacToe {
             if  (count == 3) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public static boolean isDraw(String[][] board) {
+        int count = 0;
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[0].length; y++) {
+                if (board[x][y] != ".") {
+                    count++;
+                }
+            }
+        }
+        if (count == 9) {
+            return true;
         }
         return false;
     }
