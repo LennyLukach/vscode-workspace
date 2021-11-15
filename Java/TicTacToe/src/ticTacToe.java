@@ -180,7 +180,7 @@ class ticTacToe {
         }
 
 
-        //Check right diagonal win - broken
+        //Check right diagonal win
         count = 0;
         int y = 0;
         for (int x = 0; x < board.length; x++) {
