@@ -145,6 +145,8 @@ class ticTacToe {
         int movePos = -1;
         int tempMove = -1;
         int temp = 0;
+
+        //Check horizontal win
         for (int x = 0; x < board.length; x++) {
             count = 0;
             for (int y = 0; y < board[0].length; y++) {
@@ -160,6 +162,7 @@ class ticTacToe {
             }
         }
 
+        //Checks right diagonal win - broken
         count = 0;
         int y = 0;
         for (int x = 0; x < board.length; x++) {
@@ -175,6 +178,7 @@ class ticTacToe {
             movePos = tempMove;
         }
 
+        //Checks left diagonal win
         count = 0;
         y = 0;
         for (int x = 2; x >= 0; x--) {
