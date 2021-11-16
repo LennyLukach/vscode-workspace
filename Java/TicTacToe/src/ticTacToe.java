@@ -146,43 +146,137 @@ class ticTacToe {
         int tempMove = -1;
         int temp = 0;
 
-        //Check horizontal win
+        //!Check opponent horizontal win
         for (int x = 0; x < board.length; x++) {
             count = 0;
             for (int y = 0; y < board[0].length; y++) {
+                if (board[x][y] == "x")  {
+                    count++;
+                }
+                else if (board[x][y] == ".") {
+                    tempMove = findLocation(locations, temp, x, y);
+                }
+                else if (board[x][y] == "o") {
+                    count -= 10;
+                }
+            }
+            if (count >= 2) {
+                movePos = tempMove;
+                System.out.println("opp hor");
+                break;
+            }
+        }
+
+        //!Check opponent vertical win
+        count = 0;
+        for (int x = 0; x < board.length; x++) {
+            count = 0;
+            for (int y = 0; y < board[0].length; y++) {
+                if (board[y][x] == "x") {
+                    count++;
+                }
+                else if (board[y][x] == ".") {
+                    tempMove = findLocation(locations, temp, y, x);
+                }
+                else if (board[y][x] == "o") {
+                    count -= 10;
+                }
+            }
+            if (count >= 2) {
+                System.out.println("opp vert");
+                movePos = tempMove;
+                break;
+            }
+        }
+
+        //!Check opponent right diagonal win \
+        count = 0;
+        for (int x = 0; x < board.length; x++) {
+            int y = x;
+            if (board[x][y] == "x") {
+                count++;
+            }
+            else if (board[x][y] == ".") {
+                tempMove = findLocation(locations, temp, x, y);
+            }
+            else if (board[x][y] == "o") {
+                count -= 10;
+            }
+        }
+        if (count >= 2) {
+            System.out.println("opp right");
+            movePos = tempMove;
+        }
+
+        //!Check opponent left diagonal win /
+        count = 0;
+        int y = 0;
+        for (int x = 2; x >= 0; x--) {
+            if (board[x][y] == "x") {
+                count++;
+            }
+            else if (board[x][y] == ".") {
+                tempMove = findLocation(locations, temp, x, y);
+            }
+            else if (board[x][y] == "o") {
+                count -= 10;
+            }
+            y++;
+        }
+
+        if (count >= 2) {
+            System.out.println("opp left");
+            movePos = tempMove;
+        }
+
+
+        //!Check horizontal win
+        count = 0;
+        for (int x = 0; x < board.length; x++) {
+            count = 0;
+            for (y = 0; y < board[0].length; y++) {
                 if (board[x][y] == "o")  {
                     count++;
                 }
                 else if (board[x][y] == ".") {
                     tempMove = findLocation(locations, temp, x, y);
                 }
+                else if (board[x][y] == "x") {
+                    count -= 10;
+                }
             }
             if (count >= 2) {
+                System.out.println("hor");
                 movePos = tempMove;
+                break;
             }
         }
 
-        //Check vertical win
+        //!Check vertical win
         count = 0;
         for (int x = 0; x < board.length; x++) {
             count = 0;
-            for (int y = 0; y < board[0].length; y++) {
+            for (y = 0; y < board[0].length; y++) {
                 if (board[y][x] == "o") {
                     count++;
                 }
                 else if (board[y][x] == ".") {
                     tempMove = findLocation(locations, temp, y, x);
                 }
+                else if (board[y][x] == "x") {
+                    count -= 10;
+                }
             }
             if (count >= 2) {
+                System.out.println("vert");
                 movePos = tempMove;
+                break;
             }
         }
 
 
-        //Check right diagonal win
+        //!Check right diagonal win \
         count = 0;
-        int y = 0;
         for (int x = 0; x < board.length; x++) {
             y = x;
             if (board[x][y] == "o") {
@@ -191,12 +285,17 @@ class ticTacToe {
             else if (board[x][y] == ".") {
                 tempMove = findLocation(locations, temp, x, y);
             }
+            else if (board[x][y] == "x") {
+                count -= 10;
+            }
         }
         if (count >= 2) {
+            System.out.println("right");
             movePos = tempMove;
+            return movePos;
         }
 
-        //Check left diagonal win
+        //!Check left diagonal win /
         count = 0;
         y = 0;
         for (int x = 2; x >= 0; x--) {
@@ -206,11 +305,16 @@ class ticTacToe {
             else if (board[x][y] == ".") {
                 tempMove = findLocation(locations, temp, x, y);
             }
+            else if (board[x][y] == "x") {
+                count -= 10;
+            }
             y++;
         }
 
         if (count >= 2) {
+            System.out.println("left");
             movePos = tempMove;
+            return movePos;
         }
 
         return movePos;
