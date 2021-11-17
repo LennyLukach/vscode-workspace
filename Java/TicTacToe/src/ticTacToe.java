@@ -48,7 +48,7 @@ class ticTacToe {
             else if (playerTurn == 0) {
                 while (true) {
                     int pos = getBestMove(board, locations);
-                    if (!(pos > 0 && pos < 10)) {
+                    if (!(pos >= 0 && pos < 10)) {
                         pos = (int) (Math.random() *locations.size());
                     }
                     if (locations.get(pos).used == false) {
