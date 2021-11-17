@@ -19,7 +19,8 @@ class ticTacToe {
                 locations.add(new Location(x, y, false));
             }
         }
-        
+
+        int Ppos = -10;
         while (gameActive) {
             if (isDraw(board)) {
                 System.out.println("It's a draw!");
@@ -28,6 +29,7 @@ class ticTacToe {
             printBoard(board);
             if (playerTurn == 1) {
                 int pos = in.nextInt();
+                Ppos = pos;
                 
                 int x = locations.get(pos - 1).getX();
                 int y = locations.get(pos - 1).getY();
@@ -47,7 +49,7 @@ class ticTacToe {
             }
             else if (playerTurn == 0) {
                 while (true) {
-                    int pos = getBestMove(board, locations);
+                    int pos = getBestMove(board, locations, Ppos);
                     if (!(pos >= 0 && pos < 10)) {
                         pos = (int) (Math.random() *locations.size());
                     }
@@ -140,11 +142,43 @@ class ticTacToe {
         return false;
     }
 
-    public static int getBestMove(String[][] board, ArrayList<Location> locations) {
+    public static int getBestMove(String[][] board, ArrayList<Location> locations, int playerPos) {
         int count = 0;
         int movePos = -1;
         int tempMove = -1;
         int temp = 0;
+
+        //!Move opposite corner
+        if (playerPos > -1) {
+            int botX;
+            int botY;
+            int playerX = locations.get(playerPos - 1).x;
+            int playerY = locations.get(playerPos - 1).y;
+            if (playerX == 0 || playerX == 2) {
+                if (playerY == 0 || playerY == 2) {
+                    if (playerX == 0) {
+                        botX = 2;
+                    }
+                    else {
+                        botX = 0;
+                    }
+                    if (playerY == 0) {
+                        botY = 2;
+                    }
+                    else {
+                        botY = 0;
+                    }
+                    for (int x = 0; x < locations.size(); x++) {
+                        if (locations.get(x).x == botX && locations.get(x).y == botY) {
+                            movePos = x;
+                            System.out.println("corner");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
 
         //!Check opponent horizontal win
         for (int x = 0; x < board.length; x++) {
