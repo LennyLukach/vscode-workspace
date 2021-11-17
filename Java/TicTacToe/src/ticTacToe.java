@@ -170,9 +170,14 @@ class ticTacToe {
                     }
                     for (int x = 0; x < locations.size(); x++) {
                         if (locations.get(x).x == botX && locations.get(x).y == botY) {
-                            movePos = x;
-                            System.out.println("corner");
-                            break;
+                            if (board[botX][botY] == ".") {
+                                movePos = x;
+                                System.out.println("corner");
+                                break;
+                            }
+                            else {
+                                break;
+                            }
                         }
                     }
                 }
