@@ -1,6 +1,6 @@
 # Lenny Lukach
 # Date made: 12/2/21
-# Modified last: 12/2/21
+# Modified last: 12/3/21
 # Stock buying and selling
 # Honors Algorithms and Data Structures
 import random
