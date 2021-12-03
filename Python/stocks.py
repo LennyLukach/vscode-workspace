@@ -46,14 +46,14 @@ for x in range(5):
 
 
 # Main menu method that controls GUI
-def mainMenu(portfo, userMoney):
+def mainMenu(stocks, portfo, userMoney):
     clearScr()
     # Lists options to select from
     print("1. See my portfolio.")
     print("2. View stock prices.")
     print("3. Purchase stocks.")
     print("4. Sell stocks.")
-    print("5. Special money drop")
+    print("5. Developer tools")
     print("6. Exit")
     print("7. Credits")
 
@@ -65,26 +65,25 @@ def mainMenu(portfo, userMoney):
         case 1: # List portfolio i.e. stocks and shares
             listPortfo(portfo)
             userWait = input("\nPress enter to continue")
-            mainMenu(portfo, userMoney)
+            mainMenu(stocks, portfo, userMoney)
         case 2: # Lists price of each share
             listPrices(stocks)
             userWait = input("\nPress enter to continue")
-            mainMenu(portfo, userMoney)
+            mainMenu(stocks, portfo, userMoney)
         case 3: # Calls the buying stocks method
             postBuyList = buyStock(stocks, portfo, userMoney)
             portfo = postBuyList[0]
             userMoney = postBuyList[1]
-            mainMenu(portfo, userMoney)
+            mainMenu(stocks, portfo, userMoney)
         case 4: # Calls the selling stocks method
             postSellList = sellStock(stocks, portfo, userMoney)
             portfo = postSellList[0]
             userMoney = postSellList[1]
-            mainMenu(portfo, userMoney)
-        case 5: # Gives user money
-            print(f"A most benevolent being has randomly given you $1,000,000 to buy some more stocks!")
-            userMoney += 1000000
-            time.sleep(4)
-            mainMenu(portfo, userMoney)
+            mainMenu(stocks, portfo, userMoney)
+        case 5: # Opens dev tools
+            devChangeList = devTools(stocks, portfo, userMoney)
+            stocks, portfo, userMoney = devChangeList[0], devChangeList[1],devChangeList[2]
+            mainMenu(stocks, portfo, userMoney)
         case 6: # Saves and exits game
             clearScr()
             print("Saving")
@@ -143,7 +142,7 @@ def buyStock(stocks, portfo, userMoney):
             time.sleep(3.5)
             clearScr()
         else:
-            print(f"You did not have enough money to make the purchase. You are ${stockCost - userMoney} short.")
+            print(f"You did not have enough money to make the purchase. You are ${round(stockCost - userMoney, 2)} short.")
             time.sleep(2)
             clearScr()
     elif confirmPurchase == "n":
@@ -185,5 +184,33 @@ def sellStock(stocks, portfo, userMoney):
         time.sleep(2.5)
     return [portfo, userMoney]
 
+
+def devTools(stocks, portfo, userMoney):
+    isDev = False
+    if os.uname().nodename == "Lennys-MacBook-Pro.local":
+        isDev = True
+    
+    print("1. Set money")
+    print("2. Set owned shares")
+    print("3. Set stock price")
+    print("4. Randomize stock price")
+
+    selection = int(input())
+    if not isDev:
+        print("You do not have access to this.")
+        time.sleep(3)
+        return
+    match selection:
+        case 1:
+                userMoney = int(input("Value:\n"))
+        case 2:
+            pass
+        case 3:
+            pass
+        case 4:
+            pass
+    return [stocks, portfo, userMoney]
+
+
 # Driver code to call the main menu method
-mainMenu(portfo, userMoney)
+mainMenu(stocks, portfo, userMoney)
