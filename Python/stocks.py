@@ -24,7 +24,7 @@ class Stock:
 
 portfo = {"Tesla": 0, "Apple": 0, "Dropbox": 0, "Netflix": 0, "Facebook": 0}
 stocks = []
-userMoney = random.randrange(4000, 20000)
+userMoney = round(random.randrange(4000, 20000), 2)
 stockNames = ["Tesla", "Apple", "Dropbox", "Netflix", "Facebook"]
 stockSym = ["TSLA", "AAPL", "DBX", "NFLX", "FB"]
 for x in range(5):
@@ -45,9 +45,7 @@ def mainMenu(portfo, userMoney):
     clearScr()
     match selection:
         case 1:
-            print ("Stock : Owned")
-            for stock in portfo:
-                print (f"{stock} : {portfo[stock]}")
+            listPortfo(portfo)
             userWait = input("\nPress enter to continue")
             mainMenu(portfo, userMoney)
         case 2:
@@ -60,6 +58,9 @@ def mainMenu(portfo, userMoney):
             userMoney = postBuyList[1]
             mainMenu(portfo, userMoney)
         case 4:
+            postSellList = sellStock(stocks, portfo, userMoney)
+            portfo = postSellList[0]
+            userMoney = postSellList[1]
             mainMenu(portfo, userMoney)
         case 5:
             print(f"A most benevolent being has randomly given you $1,000,000 to buy some more stocks!")
@@ -82,6 +83,13 @@ def listPrices(stocks):
         count += 1
         print(f"{count}. {stock.name}: ${stock.price}")
 
+def listPortfo(portfo):
+    count = 0
+    print ("Stock : Owned")
+    for stock in portfo:
+        count += 1
+        print (f"{count}. {stock} : {portfo[stock]}")
+
 def buyStock(stocks, portfo, userMoney):
     listPrices(stocks)
     chosenStock = int(input("\nWhich stock do you want to buy?\n"))
@@ -92,12 +100,13 @@ def buyStock(stocks, portfo, userMoney):
     buyAmt = int(input())
     stockCost = round(stockCost * buyAmt, 2)
     print(f"The price will be ${stockCost}")
-    confirmPurchase = str(input(f"Are you sure you want to purchase {buyAmt} stocks for {stockName} for ${stockCost}?\n'Y' to confirm 'N' to decline\n"))
+    confirmPurchase = str(input(f"Are you sure you want to purchase {buyAmt} shares of {stockName} for ${stockCost}?\n'Y' to confirm 'N' to decline\n"))
     confirmPurchase.lower()
     if confirmPurchase == "y":
         if stockCost <= userMoney:
             userMoney -= stockCost
-            print(f"You purchased {buyAmt} of {stockName} stocks for ${stockCost}. You now have ${userMoney} left to spend.")
+            userMoney = round(userMoney, 2)
+            print(f"You purchased {buyAmt} shares of {stockName} for ${stockCost}. You now have ${userMoney} left to spend.")
             portfo[stockName] += buyAmt
             time.sleep(3.5)
             clearScr()
@@ -107,9 +116,38 @@ def buyStock(stocks, portfo, userMoney):
             clearScr()
     elif confirmPurchase == "n":
         print("The purchase was cancelled.")
-        time.sleep(1.5)
+        time.sleep(2.5)
 
     return [portfo, userMoney]
 
+def sellStock(stocks, portfo, userMoney):
+    listPortfo(portfo)
+    chosenStock = int(input("\nWhich stock do you want to sell?\n"))
+    chosenStock -= 1
+    stockName = stocks[chosenStock].name
+    stockCost = stocks[chosenStock].price
+    stockOwned = portfo.get(stockName)
+    print(f"You have {stockOwned} shares in {stockName} and they are worth ${stockCost} each. How much do you want to sell?")
+    sellAmt = int(input())
+    stockCost = round(stockCost * sellAmt, 2)
+    print(f"The sale will be worth ${stockCost}")
+    confirmPurchase = str(input(f"Are you sure you want to sell {sellAmt} shares of {stockName} for ${stockCost}?\n'Y' to confirm 'N' to decline\n"))
+    confirmPurchase.lower()
+    if confirmPurchase == "y":
+        if sellAmt <= stockOwned:
+            userMoney += stockCost
+            round(userMoney, 2)
+            print(f"You sold {sellAmt} of {stockName} shares for ${stockCost}. You now have ${userMoney}.")
+            portfo[stockName] -= sellAmt
+            time.sleep(3.5)
+            clearScr()
+        else:
+            print(f"You did not have enough shares to sell. You are {sellAmt - stockOwned} shares short.")
+            time.sleep(2)
+            clearScr()
+    elif confirmPurchase == "n":
+        print("The sale was cancelled.")
+        time.sleep(2.5)
+    return [portfo, userMoney]
 
 mainMenu(portfo, userMoney)
