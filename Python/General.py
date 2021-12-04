@@ -1,3 +1,3 @@
-import os
+import socket
 
-print(os.uname().machine)
+print(socket.gethostname())

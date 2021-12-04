@@ -8,6 +8,7 @@ import os
 import time
 import sys
 import pickle
+import socket
 
 # Get directory program ran in
 savePath = os.getcwd() + "/Python/stockSaveFile.dat"
@@ -187,7 +188,7 @@ def sellStock(stocks, portfo, userMoney):
 
 def devTools(stocks, portfo, userMoney):
     isDev = False
-    if os.uname().nodename == "Lennys-MacBook-Pro.local":
+    if socket.gethostname() == "Lennys-MacBook-Pro.local" or "DESKTOP-56N23MR":
         isDev = True
     
     print("1. Set money")
@@ -202,7 +203,7 @@ def devTools(stocks, portfo, userMoney):
         return
     match selection:
         case 1:
-                userMoney = int(input("Value:\n"))
+            userMoney = int(input("Value:\n"))
         case 2:
             pass
         case 3:
