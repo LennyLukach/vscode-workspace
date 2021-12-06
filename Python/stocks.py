@@ -185,11 +185,34 @@ def sellStock(stocks, portfo, userMoney):
         time.sleep(2.5)
     return [portfo, userMoney]
 
+def setStock(portfo: dict):
+    listPortfo(portfo)
+    chosenStock = int(input("\n"))
+    match chosenStock:
+        case 1:
+            chosenStock = "Tesla"
+        case 2:
+            chosenStock = "Apple"
+        case 3:
+            chosenStock = "Dropbox"
+        case 4:
+            chosenStock = "Netflix"
+        case 5:
+            chosenStock = "Facebook"
+    setShares = int(input())
+    portfo[chosenStock] = setShares
+    return portfo
+
 
 def devTools(stocks, portfo, userMoney):
     isDev = False
-    if socket.gethostname() == "Lennys-MacBook-Pro.local" or "DESKTOP-56N23MR":
-        isDev = True
+    sysName = os.name
+    if sysName == 'posix':
+        if os.uname().nodename == "Lennys-MacBook-Pro.local" or os.uname().nodename == "lennys-mbp.buckleyla.org":
+            isDev = True
+    elif sysName == 'nt':
+        if socket.gethostname() == "DESKTOP-56N23MR":
+           isDev = True
     
     print("1. Set money")
     print("2. Set owned shares")
@@ -200,12 +223,12 @@ def devTools(stocks, portfo, userMoney):
     if not isDev:
         print("You do not have access to this.")
         time.sleep(3)
-        return
+        return [stocks, portfo, userMoney]
     match selection:
         case 1:
             userMoney = int(input("Value:\n"))
         case 2:
-            pass
+            portfo = setStock(portfo)
         case 3:
             pass
         case 4:
