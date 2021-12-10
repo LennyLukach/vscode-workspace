@@ -186,6 +186,7 @@ def sellStock(stocks, portfo, userMoney):
     return [portfo, userMoney]
 
 def setStock(portfo: dict):
+    clearScr()
     listPortfo(portfo)
     chosenStock = int(input("\n"))
     match chosenStock:
@@ -202,6 +203,13 @@ def setStock(portfo: dict):
     setShares = int(input())
     portfo[chosenStock] = setShares
     return portfo
+
+def setPrice(stock: list):
+    clearScr()
+    listPrices(stocks)
+    chosenStock = int(input("\n"))
+    stocks[chosenStock - 1].price = int(input("\n"))
+    return stocks
 
 
 def devTools(stocks, portfo, userMoney):
@@ -230,7 +238,7 @@ def devTools(stocks, portfo, userMoney):
         case 2:
             portfo = setStock(portfo)
         case 3:
-            pass
+            stocks = setPrice(stocks)
         case 4:
             pass
     return [stocks, portfo, userMoney]
