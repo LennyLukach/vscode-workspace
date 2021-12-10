@@ -192,6 +192,7 @@ def sellStock(stocks, portfo, userMoney):
         time.sleep(2.5)
     return [portfo, userMoney]
 
+# Method to set stock
 def setStock(portfo: dict):
     clearScr()
     listPortfo(portfo)
@@ -211,6 +212,8 @@ def setStock(portfo: dict):
     portfo[chosenStock] = setShares
     return portfo
 
+
+# Method to set price
 def setPrice(stocks: list):
     clearScr()
     listPrices(stocks)
@@ -218,6 +221,8 @@ def setPrice(stocks: list):
     stocks[chosenStock - 1].price = int(input("\n"))
     return stocks
 
+
+# Method to randomize prices
 def randomPrice(stocks: list):
     clearScr()
     for stock in stocks:
@@ -225,8 +230,10 @@ def randomPrice(stocks: list):
     return stocks
 
 
+# Developer tools method
 def devTools(stocks, portfo, userMoney):
     isDev = False
+    # Checks if the user is the developer to verify access
     sysName = os.name
     if sysName == 'posix':
         if os.uname().nodename == "Lennys-MacBook-Pro.local" or os.uname().nodename == "lennys-mbp.buckleyla.org":
@@ -235,6 +242,7 @@ def devTools(stocks, portfo, userMoney):
         if socket.gethostname() == "DESKTOP-56N23MR":
            isDev = True
     
+    # Options
     print("1. Set money")
     print("2. Set owned shares")
     print("3. Set stock price")
