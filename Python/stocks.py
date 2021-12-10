@@ -12,14 +12,13 @@ import socket
 
 # Get directory program ran in
 sysName = os.name
+savePath = os.getcwd() + "/stockSaveFile.dat"
 if sysName == 'posix':
     if os.uname().nodename == "Lennys-MacBook-Pro.local" or os.uname().nodename == "lennys-mbp.buckleyla.org":
         savePath = os.getcwd() + "/Python/stockSaveFile.dat"
 elif sysName == 'nt':
     if socket.gethostname() == "DESKTOP-56N23MR":
         savePath = os.getcwd() + "/Python/stockSaveFile.dat"
-else:
-    savePath = os.getcwd() + "/stockSaveFile.dat"
 
 # Method to clear screen based on OS
 def clearScr():
@@ -108,7 +107,7 @@ def mainMenu(stocks, portfo, userMoney):
                 print("\n" * x)
                 print(" " * int(((os.get_terminal_size().columns - 21) / 2)) + "Made by: Lenny")
                 time.sleep(0.8)
-            mainMenu(portfo, userMoney)
+            mainMenu(stocks, portfo, userMoney)
 
 
 
