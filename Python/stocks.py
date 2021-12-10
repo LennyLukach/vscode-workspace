@@ -204,11 +204,17 @@ def setStock(portfo: dict):
     portfo[chosenStock] = setShares
     return portfo
 
-def setPrice(stock: list):
+def setPrice(stocks: list):
     clearScr()
     listPrices(stocks)
     chosenStock = int(input("\n"))
     stocks[chosenStock - 1].price = int(input("\n"))
+    return stocks
+
+def randomPrice(stocks: list):
+    clearScr()
+    for stock in stocks:
+        stock.price = round(random.random() * random.randint(27, 461), 2)
     return stocks
 
 
@@ -240,7 +246,7 @@ def devTools(stocks, portfo, userMoney):
         case 3:
             stocks = setPrice(stocks)
         case 4:
-            pass
+            stocks = randomPrice(stocks)
     return [stocks, portfo, userMoney]
 
 
