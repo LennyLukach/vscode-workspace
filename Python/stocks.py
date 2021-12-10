@@ -11,7 +11,15 @@ import pickle
 import socket
 
 # Get directory program ran in
-savePath = os.getcwd() + "/Python/stockSaveFile.dat"
+sysName = os.name
+if sysName == 'posix':
+    if os.uname().nodename == "Lennys-MacBook-Pro.local" or os.uname().nodename == "lennys-mbp.buckleyla.org":
+        savePath = os.getcwd() + "/Python/stockSaveFile.dat"
+elif sysName == 'nt':
+    if socket.gethostname() == "DESKTOP-56N23MR":
+        savePath = os.getcwd() + "/Python/stockSaveFile.dat"
+else:
+    savePath = os.getcwd() + "/stockSaveFile.dat"
 
 # Method to clear screen based on OS
 def clearScr():
