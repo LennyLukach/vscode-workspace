@@ -69,28 +69,28 @@ def updateValue():
 
             #! LEFT
             tempPos[1] -= 1
-            if tempPos[1] >= 0 and tempPos[1] <= 4:
+            if tempPos[1] >= 0 and tempPos[1] <= bSize - 1:
                 if board[tempPos[0]][tempPos[1]].isBomb == True:
                     bombsFound += 1
             tempPos = [cell.pos[0], cell.pos[1]]
 
             #! RIGHT
             tempPos[1] += 1
-            if tempPos[1] >= 0 and tempPos[1] <= 4:
+            if tempPos[1] >= 0 and tempPos[1] <= bSize - 1:
                 if board[tempPos[0]][tempPos[1]].isBomb == True:
                     bombsFound += 1
             tempPos = [cell.pos[0], cell.pos[1]]
 
             #! UP
             tempPos[0] -= 1
-            if tempPos[0] >= 0 and tempPos[0] <= 4:
+            if tempPos[0] >= 0 and tempPos[0] <= bSize - 1:
                 if board[tempPos[0]][tempPos[1]].isBomb == True:
                     bombsFound += 1
             tempPos = [cell.pos[0], cell.pos[1]]
 
             #! DOWN
             tempPos[0] += 1
-            if tempPos[0] >= 0 and tempPos[0] <= 4:
+            if tempPos[0] >= 0 and tempPos[0] <= bSize - 1:
                 if board[tempPos[0]][tempPos[1]].isBomb == True:
                     bombsFound += 1
             tempPos = [cell.pos[0], cell.pos[1]]
@@ -98,7 +98,7 @@ def updateValue():
             #! TOP LEFT
             tempPos[1] -= 1
             tempPos[0] -= 1
-            if tempPos[1] >= 0 and tempPos[1] <= 4 and tempPos[0] >= 0 and tempPos[0] <= 4:
+            if tempPos[1] >= 0 and tempPos[1] <= bSize - 1 and tempPos[0] >= 0 and tempPos[0] <= bSize - 1:
                 if board[tempPos[0]][tempPos[1]].isBomb == True:
                     bombsFound += 1
             tempPos = [cell.pos[0], cell.pos[1]]
@@ -106,7 +106,7 @@ def updateValue():
             #! TOP RIGHT
             tempPos[1] += 1
             tempPos[0] -= 1
-            if tempPos[1] >= 0 and tempPos[1] <= 4 and tempPos[0] >= 0 and tempPos[0] <= 4:
+            if tempPos[1] >= 0 and tempPos[1] <= bSize - 1 and tempPos[0] >= 0 and tempPos[0] <= bSize - 1:
                 if board[tempPos[0]][tempPos[1]].isBomb == True:
                     bombsFound += 1
             tempPos = [cell.pos[0], cell.pos[1]]
@@ -114,7 +114,7 @@ def updateValue():
             #! BOTTOM LEFT
             tempPos[1] -= 1
             tempPos[0] += 1
-            if tempPos[1] >= 0 and tempPos[1] <= 4 and tempPos[0] >= 0 and tempPos[0] <= 4:
+            if tempPos[1] >= 0 and tempPos[1] <= bSize - 1 and tempPos[0] >= 0 and tempPos[0] <= bSize - 1:
                 if board[tempPos[0]][tempPos[1]].isBomb == True:
                     bombsFound += 1
             tempPos = [cell.pos[0], cell.pos[1]]
@@ -122,7 +122,7 @@ def updateValue():
             #! BOTTOM RIGHT
             tempPos[1] += 1
             tempPos[0] += 1
-            if tempPos[1] >= 0 and tempPos[1] <= 4 and tempPos[0] >= 0 and tempPos[0] <= 4:
+            if tempPos[1] >= 0 and tempPos[1] <= bSize - 1 and tempPos[0] >= 0 and tempPos[0] <= bSize - 1:
                 if board[tempPos[0]][tempPos[1]].isBomb == True:
                     bombsFound += 1
             tempPos = [cell.pos[0], cell.pos[1]]
