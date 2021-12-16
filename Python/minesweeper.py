@@ -8,7 +8,7 @@ coverIcon = "-"
 bombIcon = "B"
 
 class Cell:
-    def __init__(self, pos: tuple, value, shown, icon, isBomb):
+    def __init__(self, pos, value, shown, icon, isBomb):
         self.pos = pos
         self.value = value
         self.shown = shown
@@ -42,7 +42,7 @@ def printBoard():
         print(line)
 
 def createBomb():
-    numBombs = random.randint(1, bombAmt)
+    numBombs = random.randint(2, bombAmt)
     for x in range(numBombs):
         while True:
             bombPos = (random.randint(0, bSize - 1), random.randint(0, bSize - 1))
@@ -53,13 +53,11 @@ def createBomb():
         
 def digCell():
     userRow = int(input("\nPick x coord:\n"))
-    userCol = int(input("\nPick y coor:\n"))
+    userCol = int(input("\nPick y coord:\n"))
     chosenCell = (userCol - 1, userRow - 1)
     for row in board:
         for cell in row:
             if cell.pos == chosenCell:
-                if cell.isBomb:
-                    print("BOMB")
                 cell.shown = True
     return board
 
@@ -132,9 +130,40 @@ def updateValue():
 
             cell.value = bombsFound
 
+def checkWin():
+    revealedBomb = False
+    wonGame = True;
+    for row in board:
+        for cell in row:
+            if cell.shown:
+                if cell.isBomb:
+                    revealedBomb = True
+                    wonGame = False
+            elif cell.shown == False and cell.isBomb == False:
+                wonGame = False
+
+    if revealedBomb:
+        for row in board:
+            for cell in row:
+                cell.shown = True
+        print("\n")
+        printBoard()
+        print("\nYou found a bomb. Game over.")
+    elif wonGame:
+        for row in board:
+            for cell in row:
+                cell.shown = True
+        print("\n")
+        printBoard()
+        print("\nYou win!")
+    return [wonGame, revealedBomb]
+
 
 createBomb()
 updateValue()
 while True:
     printBoard()
     digCell()
+    potential = checkWin()
+    if potential[0] or potential[1]:
+        break
