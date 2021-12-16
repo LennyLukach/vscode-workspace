@@ -3,7 +3,7 @@ import random
 
 clearScr()
 bSize = 5
-bombAmt = 4
+bombAmt = 6
 coverIcon = "-"
 bombIcon = "B"
 
@@ -42,7 +42,7 @@ def printBoard():
         print(line)
 
 def createBomb():
-    numBombs = random.randint(2, bombAmt)
+    numBombs = random.randint(bombAmt/2, bombAmt)
     for x in range(numBombs):
         while True:
             bombPos = (random.randint(0, bSize - 1), random.randint(0, bSize - 1))
