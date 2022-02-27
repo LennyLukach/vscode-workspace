@@ -1,6 +1,7 @@
-y = 2
-for x in range(100000):
-    x = y / 3
-    y += 1
+import pymsgbox
+import os
 
-print(x)
+os.system("pip install Pymsgbox")
+
+pymsgbox.alert("Fuck you", "You dad is a pedo")
+response = pymsgbox.prompt("Credit info plz")
