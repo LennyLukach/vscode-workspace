@@ -25,6 +25,7 @@ y = (hs/2) - (h/2)
 
 root.geometry('%dx%d+%d+%d' % (w, h, x, y))
 
+root.grid_columnconfigure(5, weight=1)
 
 #Vars
 destList = ["Start"]
@@ -70,23 +71,23 @@ def getVals():
     if debugMode:
         print(destListNums)
 
-#Create Widgets
-txt_addDest = tk.Entry(root, text="asdf", bd=5)
+#?Create Widgets
+txt_addDest = tk.Entry(root, text="asdf", bd=4)
 txt_addDest.insert(0, "Enter Destination")
 txt_addDest.bind("<FocusIn>", temp_text)
 
-lbl_enterDes = tk.Label(root, text="    Enter Desired Destination     ")
+lbl_enterDes = tk.Label(root, text="Enter Desired Destination")
 
 btn_addDes = tk.Button(root, text="Add", command=addDestination)
 btn_genList = tk.Button(root, text="Generate List", command=genList)
 
-#Add Widgets
-txt_addDest.place(x=40, y=50)
+#?Add Widgets
+txt_addDest.grid(row=18, column=5, padx=5)
 
 lbl_enterDes.place(x=40, y=30)
 
-btn_addDes.place(x=173, y=50)
-btn_genList.place(x=210, y=40)
+btn_addDes.place(x=210, y=60)
+btn_genList.place(x=210, y=35)
 
 
 
