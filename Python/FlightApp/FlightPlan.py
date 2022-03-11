@@ -8,7 +8,9 @@
 #? write plan to a file and provide file path
 from audioop import add
 import tkinter as tk
+from turtle import back
 from typing import Text
+from PIL import ImageTk, Image
 
 debugMode = True
 
@@ -24,8 +26,6 @@ x = (ws/2) - (w/2)
 y = (hs/2) - (h/2)
 
 root.geometry('%dx%d+%d+%d' % (w, h, x, y))
-
-root.grid_columnconfigure(5, weight=1)
 
 #Vars
 destList = ["Start"]
@@ -71,6 +71,10 @@ def getVals():
     if debugMode:
         print(destListNums)
 
+#?Images
+background_image = ImageTk.PhotoImage(Image.open("Python\FlightApp\planeLanding.jpg.png"))
+background_lbl = tk.Label(root, image=background_image).place(x=0, y=0)
+
 #?Create Widgets
 txt_addDest = tk.Entry(root, text="asdf", bd=4)
 txt_addDest.insert(0, "Enter Destination")
@@ -82,14 +86,12 @@ btn_addDes = tk.Button(root, text="Add", command=addDestination)
 btn_genList = tk.Button(root, text="Generate List", command=genList)
 
 #?Add Widgets
-txt_addDest.grid(row=18, column=5, padx=5)
+txt_addDest.place(relx=0.052, rely=0.075)
 
-lbl_enterDes.place(x=40, y=30)
+lbl_enterDes.place(relx=0.05, rely=0.045)
 
-btn_addDes.place(x=210, y=60)
-btn_genList.place(x=210, y=35)
-
-
+btn_addDes.place(relx=0.23, rely=0.045)
+btn_genList.place(relx=0.23, rely=0.075)
 
 
 
