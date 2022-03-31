@@ -1,7 +1,5 @@
-import pymsgbox
-import os
+myString = ("6295")
 
-os.system("pip install Pymsgbox")
+newString = myString * 10000
 
-pymsgbox.alert("Fuck you", "You dad is a pedo")
-response = pymsgbox.prompt("Credit info plz")
+print(newString[274])
