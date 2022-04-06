@@ -1,72 +1,65 @@
+from multiprocessing import Event
+from operator import ne
 import tkinter as tk
-from functools import partial
+from turtle import right
 
-# global variable
-tempVal = "Celsius"
+import click
 
-
-# getting drop down value
-def store_temp(sel_temp):
-    global tempVal
-    tempVal = sel_temp
-
-
-# the main conversion
-def call_convert(rlabel1, rlabe12, inputn):
-    tem = inputn.get()
-    if tempVal == 'Celsius':
-        f = float((float(tem) * 9 / 5) + 32)
-        k = float((float(tem) + 273.15))
-        rlabel1.config(text="%f Fahrenheit" % f)
-        rlabe12.config(text="%f Kelvin" % k)
-    if tempVal == 'Fahrenheit':
-        c = float((float(tem) - 32) * 5 / 9)
-        k = c + 273
-        rlabel1.config(text="%f Celsius" % c)
-        rlabe12.config(text="%f Kelvin" % k)
-    if tempVal == 'Kelvin':
-        c = float((float(tem) - 273.15))
-        f = float((float(tem) - 273.15) * 1.8000 + 32.00)
-        rlabel1.config(text="%f Celsius" % c)
-        rlabe12.config(text="%f Fahrenheit" % f)
-    return
-
-
-# app window configuration and UI
 root = tk.Tk()
-root.geometry('400x150+100+200')
-root.title('Temperature Converter')
-root.configure(background='#09A3BA')
-root.resizable(width=False, height=False)
-root.grid_columnconfigure(1, weight=1)
-root.grid_rowconfigure(0, weight=1)
+root.title("Temperature App")
+root.geometry("400x400")
 
-numberInput = tk.StringVar()
-var = tk.StringVar()
+enteredDegFahrenheit = tk.IntVar()
+enteredDegCelsius = tk.IntVar()
 
-# label and entry field
-input_label = tk.Label(root, text="Enter temperature", background='#09A3BA', foreground="#FFFFFF")
-input_entry = tk.Entry(root, textvariable=numberInput)
-input_label.grid(row=1)
-input_entry.grid(row=1, column=1)
 
-# result label's for showing the other two temperatures
-result_label1 = tk.Label(root, background='#09A3BA', foreground="#FFFFFF")
-result_label1.grid(row=3, columnspan=4)
-result_label2 = tk.Label(root, background='#09A3BA', foreground="#FFFFFF")
-result_label2.grid(row=4, columnspan=4)
+#? Widgets
 
-# drop down initalization and setup
-dropDownList = ["Celsius", "Fahrenheit", "Kelvin"]
-dropdown = tk.OptionMenu(root, var, *dropDownList, command=store_temp)
-var.set(dropDownList[0])
-dropdown.grid(row=1, column=3)
-dropdown.config(background='#09A3BA', foreground="#FFFFFF")
-dropdown["menu"].config(background='#09A3BA', foreground="#FFFFFF")
+ent_tempLeft = tk.Entry(root, textvariable=enteredDegFahrenheit, bd=4)
+ent_tempRight = tk.Entry(root, textvariable=enteredDegCelsius, bd=4)
 
-# button click
-call_convert = partial(call_convert, result_label1, result_label2, numberInput)
-result_button = tk.Button(root, text="Convert", command=call_convert, background='#09A3BA', foreground="#FFFFFF")
-result_button.grid(row=2, columnspan=4)
+lbl_fahrenheit = tk.Label(root, text="Fahrenheit")
+lbl_celsius = tk.Label(root, text="Celsius")
 
-root.mainloop()
+#? ---------
+
+ent_tempLeft.place(relx=0.08, rely=0.3)
+ent_tempRight.place(relx=0.92, rely=0.3, anchor=tk.NE)
+
+lbl_fahrenheit.place(relx=0.23, rely=0.26, anchor=tk.CENTER)
+lbl_celsius.place(relx=0.23, rely=0.56, anchor=tk.CENTER)
+
+def FahtoCel():
+    enterFah = enteredDegFahrenheit.get()
+    int(enterFah)
+    enterFah -= 32
+    enterFah *= 5
+    enterFah /= 9
+    enteredDegCelsius.set(enterFah)
+
+def CeltoFah():
+    enterCel = enteredDegCelsius.get()
+    int(enterCel)
+    enterCel *= 9
+    enterCel /= 5
+    enterCel += 32
+    enteredDegFahrenheit.set(enterCel)
+
+def clickLeft(key):
+    FahtoCel()
+
+def clickRight(key):
+    CeltoFah()
+
+ent_tempLeft.bind("<Key>", clickLeft)
+ent_tempRight.bind("<Key>", clickRight)
+
+def mainLoop():
+
+
+    root.update()
+
+ent_tempLeft.delete(0, tk.END)
+ent_tempRight.delete(0, tk.END)
+while True:
+    mainLoop()
