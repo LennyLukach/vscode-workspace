@@ -1,2 +1,1 @@
-
-def addDestination():
+300

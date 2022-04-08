@@ -7,12 +7,17 @@
 #? create plan
 #? write plan to a file and provide file path
 from audioop import add
+import operator
 import tkinter as tk
 from turtle import back
 from typing import Text
 from PIL import ImageTk, Image
+import pickle
+import collections
 
 debugMode = True
+
+savePath = "Python/FlightApp/FlightPlanMap.txt"
 
 root = tk.Tk()
 root.title("Flight Plan")
@@ -51,9 +56,9 @@ def addDestination():
 
 def genList():
     btn_getVals = tk.Button(root, text="Save Order", command=getVals)
-    btn_createPlan = tk.Button(root, text="Create Plan")
+    btn_createPlan = tk.Button(root, text="Create Plan", command=createPlanFunc)
     btn_getVals.place(x=50, y=120)
-    btn_createPlan.place(x=300, y=200)
+    btn_createPlan.place(x=125, y=120)
     destListEntries.clear()
     addY = 0
     for i in range(len(destList)):
@@ -70,6 +75,35 @@ def getVals():
         destListNums.append(entry.get())
     if debugMode:
         print(destListNums)
+
+def createPlanFunc():
+    odestList = destList[1:]
+    newDestList = "["
+    newDestListNums = "["
+    a123 = len(odestList) - 1
+    b123 = len(destListNums) - 1
+    with open(savePath, "w") as f:
+        for dest in odestList:
+            if odestList[a123] != dest:
+                newDestList += dest + ", "
+            else:
+                newDestList += dest + "]"
+
+        for dest in destListNums:
+            if destListNums[b123] != dest:
+                newDestListNums += dest + ", "
+            else:
+                newDestListNums += dest + "]"
+        f.write(f"newDestList = {newDestList}")
+        f.write(f"\nnewDestListNums = {newDestListNums}")
+
+        destDict = {}
+        for count in range(len(odestList)):
+            destDict.update({odestList[count - 1]: destListNums[count - 1]})
+        f.write("\n" * 6)
+        sorted_x = sorted(destDict.items(), key=operator.itemgetter(1))
+        f.write(str(sorted_x))
+        f.close()
 
 #?Images
 try:
