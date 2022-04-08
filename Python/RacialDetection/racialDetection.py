@@ -82,7 +82,7 @@ except FileNotFoundError:
 	race_model.load_weights('Python/RacialDetection/weights/race_model_single_batch.h5')
 #------------------------
 
-races = ['Asian', 'Indian',  'Black', 'White', 'Middle Eastern', 'Latino_Hispanic']
+races = ['Asian', 'Indian',  'Black', 'White', 'Middle Eastern', 'Latino/Hispanic']
 
 #------------------------
 
