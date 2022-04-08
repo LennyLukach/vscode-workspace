@@ -3,5 +3,6 @@
         "system_error": "cpp",
         "xlocale": "cpp"
     },
-    "C_Cpp.intelliSenseEngineFallback": "Enabled"
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
+    "git.showUnpublishedCommitsButton": "always"
 }
