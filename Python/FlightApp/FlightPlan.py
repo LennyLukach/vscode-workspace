@@ -41,7 +41,7 @@ class Location:
 
 #Functions
 def temp_text(e):
-       txt_addDest.delete(0, "end")
+    txt_addDest.delete(0, "end")
 
 def addDestination():
     destList.append(txt_addDest.get())
