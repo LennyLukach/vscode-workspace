@@ -8,3 +8,5 @@ opencv-python
 keras
 matplotlib
 tensorflow
+
+python version: 3.7.2
