@@ -90,6 +90,7 @@ cap = cv2.VideoCapture(0) #webcam
 
 while(True):
 	ret, img = cap.read()
+	img = cv2.flip(img, 1) #flips camera
 	#img = cv2.resize(img, (640, 360))
 	faces = face_cascade.detectMultiScale(img, 1.3, 5)
 	
@@ -147,7 +148,7 @@ while(True):
 					cv2.line(img,(int((x+x+w)/2),y+15),(x+w,y-20),(67, 67, 67),1)
 					cv2.line(img,(x+w,y-20),(x+w+10,y-20),(67, 67, 67),1)
 	
-	cv2.imshow('img',img)
+	cv2.imshow('Facial Detection? Nah, I prefer Racial Detection',img)
 	
 	if cv2.waitKey(1) & 0xFF == ord('q'): #press q to quit
 		break
