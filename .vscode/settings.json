@@ -4,5 +4,5 @@
         "xlocale": "cpp"
     },
     "C_Cpp.intelliSenseEngineFallback": "Enabled",
-    "git.showUnpublishedCommitsButton": "always"
+    "git.showUnpublishedCommitsButton": "whenEmpty"
 }
