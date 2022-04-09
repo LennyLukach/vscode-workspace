@@ -85,8 +85,10 @@ except FileNotFoundError:
 races = ['Asian', 'Indian',  'Black', 'White', 'Middle Eastern', 'Latino_Hispanic']
 
 #------------------------
-
-cap = cv2.VideoCapture(0) #webcam
+try:
+	cap = cv2.VideoCapture(1) #webcam
+except Exception as e:
+	cap = cv2.VideoCapture(0) #2nd webcam attempt
 
 while(True):
 	ret, img = cap.read()
