@@ -86,7 +86,7 @@ races = ['Asian', 'Indian',  'Black', 'White', 'Middle Eastern', 'Latino_Hispani
 
 #------------------------
 try:
-	cap = cv2.VideoCapture(1) #webcam
+	cap = cv2.VideoCapture(0) #webcam
 except Exception as e:
 	cap = cv2.VideoCapture(0) #2nd webcam attempt
 
