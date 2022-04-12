@@ -4,7 +4,7 @@ def fibSeq(limit):
     for x in range(limit):
         tempNum = curNum
         print(curNum)
-        curNum += prevNum
+        curiNum += prevNum
         prevNum = tempNum
 
 
