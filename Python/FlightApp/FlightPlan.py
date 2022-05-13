@@ -107,9 +107,9 @@ def createPlanFunc():
 
 #?Images
 try:
-    background_image = ImageTk.PhotoImage(Image.open("Python\FlightApp\planeLanding.jpg.png"))
-except FileNotFoundError:
     background_image = ImageTk.PhotoImage(Image.open("Python/FlightApp/planeLanding.jpg.png"))
+except FileNotFoundError:
+    background_image = ImageTk.PhotoImage(Image.open("Python\FlightApp\planeLanding.jpg.png"))
     
 background_lbl = tk.Label(root, image=background_image).place(x=0, y=0)
 
