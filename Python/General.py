@@ -1,12 +1,18 @@
+# import module
+import numpy as np
 import matplotlib.pyplot as plt
-
-fig = plt.figure()
-ax = fig.add_subplot(1, 1, 1)
-
-x = [0, 1, 2, 3]
-y = [3, 2, 1, 0]
-
-points = ax.scatter(x, y)
-print(points.get_offsets().data)
+  
+# initialize x and y coordinates
+x = [0.1, 0.2, 0.3, 0.4, 0.5]
+y = [6.2, -8.4, 8.5, 9.2, -6.3]
+  
+# set the title of a plot
+plt.title("Connected Scatterplot points with lines")
+  
+# plot scatter plot with x and y data
+plt.scatter(x, y)
+  
+# plot with x and y data
+plt.plot(x, y)
 
 plt.show()
