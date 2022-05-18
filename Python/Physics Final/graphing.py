@@ -13,7 +13,6 @@ Cylinder, hollow cylinder
 Rotational inertia
 Rotational dynamics
 
-add energy
 '''
 def clearScr():
     sysName = os.name
