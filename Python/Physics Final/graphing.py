@@ -85,7 +85,7 @@ for point in range(11):
 
 count = 0
 for point in pointSpots:
-    plt.annotate(f"   Vx:{speedX[count]}m/s\n   Vy:{speedY[count]}m/s\n   X:{point[0]}m\n   Y:{point[1]}m\n   E:{ball_energy[count]}J", point, horizontalalignment='left', verticalalignment='top') 
+    plt.annotate(f"   Vx:{speedX[count]}m/s\n   Vy:{speedY[count]}m/s\n   X:{point[0]}m\n   Y:{point[1]}m\n   E:{ball_energy[count]}J", point, horizontalalignment='left', verticalalignment='top', fontsize=9) 
     count += 1
 
 print(f"SpeedX: {speedX}")
