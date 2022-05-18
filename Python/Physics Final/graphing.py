@@ -68,9 +68,6 @@ for x in range(11):
     energy = round((1/2 * pow(Vf, 2)) + (Sy * accely), 2)
     ball_energy.append(energy)
 
-print(f"Distance: {ball_distances}")
-print(f"Height: {ball_heights}")
-
 fig, ax = plt.subplots()
 
 points = ax.scatter(ball_distances, ball_heights, color="orange")
@@ -88,13 +85,22 @@ for point in pointSpots:
     plt.annotate(f"   Vx:{speedX[count]}m/s\n   Vy:{speedY[count]}m/s\n   X:{point[0]}m\n   Y:{point[1]}m\n   E:{ball_energy[count]}J", point, horizontalalignment='left', verticalalignment='top', fontsize=9) 
     count += 1
 
-print(f"SpeedX: {speedX}")
-print(f"SpeedY: {speedY}")
-print(f"Energy: {ball_energy}")
+
+
+#print(f"SpeedX: {speedX}")
+#print(f"SpeedY: {speedY}")
+#print(f"Energy: {ball_energy}")
+#print(f"Distance: {ball_distances}")
+#print(f"Height: {ball_heights}")
+
+
 
 '''
 plt.figure()
 plt.plot(ball_distances, ball_heights)
 '''
+
+
+
 
 plt.show()
