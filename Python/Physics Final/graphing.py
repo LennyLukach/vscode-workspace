@@ -4,29 +4,43 @@ from re import A
 from turtle import distance
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 '''
-How to get an A+
+How to get an A+:
+
 Cylinder, hollow cylinder
 Rotational inertia
 Rotational dynamics
+
+add energy
 '''
+def clearScr():
+    sysName = os.name
+    if sysName == 'posix':
+        os.system("clear")
+    elif sysName == 'nt':
+        os.system("cls")
+
+clearScr()
+
 sind = lambda degrees: round(np.sin(np.deg2rad(degrees)), 2)
 cosd = lambda degrees: round(np.cos(np.deg2rad(degrees)), 2)
 
-distances = []
-heights = []
+ball_distances = []
+ball_heights = []
 pointSpots = []
 speedX = []
 speedY = []
+ball_energy = []
 
 launch_angle = 45
 Vi = 15
 accely = -9.8
 
-Viy = Vi * sind(launch_angle)
+Viy = round(Vi * sind(launch_angle), 2)
 Vfy = -Viy
-Vix = Vi * cosd(launch_angle)
+Vix = round(Vi * cosd(launch_angle), 2)
 delta_V = Vfy - Viy
 
 time = round(delta_V/accely, 2)
@@ -45,32 +59,43 @@ Sx = round(Vix * time, 2)
 
 for x in range(11):
     Sx = round(Vix * time_increment * (x), 2)
-    Sy = round(Viy * time_increment * (x) + (1/2) * accely * pow((time_increment * (x)), 2), 3)
-    distances.append(Sx)
-    heights.append(Sy)
+    Sy = round(Viy * time_increment * (x) + (1/2) * accely * pow((time_increment * (x)), 2), 2)
+    ball_distances.append(Sx)
+    ball_heights.append(Sy)
+    Vfy = round(Sy / time_increment * (x), 2)
     speedX.append(Vix)
-    speedY.append(Viy)
+    speedY.append(Vfy)
+    Vf = math.sqrt(pow(Vfy, 2) + pow(Vix, 2))
+    energy = round((1/2 * pow(Vf, 2)) + (Sy * accely), 2)
+    ball_energy.append(energy)
 
-print(f"Distance: {distance}")
-print(f"Height: {heights}")
+print(f"Distance: {ball_distances}")
+print(f"Height: {ball_heights}")
 
 fig, ax = plt.subplots()
 
-points = ax.scatter(distances, heights)
-ax.plot(distances, heights)
+points = ax.scatter(ball_distances, ball_heights, color="orange")
+ax.plot(ball_distances, ball_heights)
 
-ax.set_title("Projectile Trajectory Graph")
+ax.set_title("Ball Trajectory Graph")
 ax.set_xlabel("Distance")
 ax.set_ylabel("Height")
 
 for point in range(11):
     pointSpots.append((points.get_offsets().data[point][0], points.get_offsets().data[point][1]))
 
+count = 0
 for point in pointSpots:
-    plt.annotate(f"   Vx:{1}m/s\n   Vy:{2}m/s\n   X:{point[0]}m\n   Y:{point[1]}m", point, horizontalalignment='left', verticalalignment='center') 
+    plt.annotate(f"   Vx:{speedX[count]}m/s\n   Vy:{speedY[count]}m/s\n   X:{point[0]}m\n   Y:{point[1]}m\n   E:{ball_energy[count]}J", point, horizontalalignment='left', verticalalignment='top') 
+    count += 1
 
 print(f"SpeedX: {speedX}")
 print(f"SpeedY: {speedY}")
+print(f"Energy: {ball_energy}")
 
+'''
+plt.figure()
+plt.plot(ball_distances, ball_heights)
+'''
 
 plt.show()
