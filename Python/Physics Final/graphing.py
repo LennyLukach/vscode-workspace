@@ -33,8 +33,8 @@ speedX = []
 speedY = []
 ball_energy = []
 
-launch_angle = 45
-Vi = 15
+launch_angle = 30
+Vi = 10
 accely = -9.8
 
 Viy = round(Vi * sind(launch_angle), 2)
@@ -45,16 +45,16 @@ delta_V = Vfy - Viy
 time = round(delta_V/accely, 2)
 time_increment = time/10
 
-'''
-Viy = Vi * sind(launch_angle)
+
+'''Viy = Vi * sind(launch_angle)
 Vfy = -Viy
 accely = -9.8
 delta_V = Vfy - Viy
 time = round(delta_V/accely, 2)
 
 Vix = Vi * cosd(launch_angle)
-Sx = round(Vix * time, 2)
-'''
+Sx = round(Vix * time, 2)'''
+
 
 for x in range(11):
     Sx = round(Vix * time_increment * (x), 2)
