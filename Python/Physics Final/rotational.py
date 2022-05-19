@@ -3,6 +3,7 @@ import numpy as np
 import math
 import os
 
+# plot angular velocity / time
 
 #? I = rotaional inertia / I = L/W ### kg * m^2
 #? L = angular momentum/ L = mass * velocity * radius ### kgm^2/sec
@@ -22,5 +23,10 @@ angularMomentum = mass * Vi * radius
 rotationalInertia = angularMomentum/angularVelocity
 
 os.system("clear")
+time_increment2 = deltaTime / 11
+
+for x in range(10):
+    pass
+
 
 print(f"{round(rotationalInertia, 2)}kg*m^2c")

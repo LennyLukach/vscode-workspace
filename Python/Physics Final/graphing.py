@@ -95,6 +95,24 @@ for point in pointSpots:
 #print(f"Height: {ball_heights}")
 
 
+#? I = rotaional inertia / I = L/W ### kg * m^2
+#? L = angular momentum/ L = mass * velocity * radius ### kgm^2/sec
+#? W = anuglar velocity / W = deltaTheta/deltaTime ### rad/sec
+#? deltaTheta = angular rotation ### sec
+
+angularRotation = np.rad2deg(2 * math.pi) #! deg
+deltaTime = 7 #! sec
+mass = 9.12 #! kg
+radius = 8 #! meters
+Vi = 1.23 #! m/s
+
+angularVelocity = angularRotation/deltaTime
+
+angularMomentum = mass * Vi * radius
+
+rotationalInertia = angularMomentum/angularVelocity
+
+print(f"{round(rotationalInertia, 2)}k*m^2")
 
 '''
 plt.figure()
