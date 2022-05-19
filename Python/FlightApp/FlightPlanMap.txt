@@ -1,8 +1,14 @@
-newDestList = [q, w, e]
-newDestListNums = [1, 3, 2]
+newDestList = [
+newDestListNums = [
+
+
+
+Magnetic Heading: 135
+Cardinal Direction: NE
+Distance to Airport: 1990
 
 
 
 
 
-[('q', '1'), ('e', '2'), ('w', '3')]
+[]

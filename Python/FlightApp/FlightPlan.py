@@ -82,6 +82,9 @@ def createPlanFunc():
     newDestListNums = "["
     a123 = len(odestList) - 1
     b123 = len(destListNums) - 1
+    magHeading = txt_magHeading.get()
+    directionCardinal = txt_directionCardinal.get()
+    distance = txt_distance.get()
     with open(savePath, "w") as f:
         for dest in odestList:
             if odestList[a123] != dest:
@@ -96,6 +99,11 @@ def createPlanFunc():
                 newDestListNums += dest + "]"
         f.write(f"newDestList = {newDestList}")
         f.write(f"\nnewDestListNums = {newDestListNums}")
+
+        f.write("\n" * 4)
+        f.write(f"Magnetic Heading: {magHeading}\n")
+        f.write(f"Cardinal Direction: {directionCardinal}\n")
+        f.write(f"Distance to Airport: {distance}")
 
         destDict = {}
         for count in range(len(odestList)):
@@ -118,13 +126,28 @@ txt_addDest = tk.Entry(root, text="asdf", bd=4)
 txt_addDest.insert(0, "Enter Destination")
 txt_addDest.bind("<FocusIn>", temp_text)
 
+txt_directionCardinal = tk.Entry(root, bd=4)
+txt_magHeading = tk.Entry(root, bd=4)
+txt_distance = tk.Entry(root, bd=4)
+
 lbl_enterDes = tk.Label(root, text="Enter Desired Destination")
+lbl_directionCardinal = tk.Label(root, text="Enter Direction(CARDINAL)")
+lbl_magHeading = tk.Label(root, text="Enter magnetic heading")
+lbl_distance = tk.Label(root, text="    Distance to Airport    ")
 
 btn_addDes = tk.Button(root, text="Add", command=addDestination)
 btn_genList = tk.Button(root, text="Generate List", command=genList)
 
 #?Add Widgets
 txt_addDest.place(relx=0.052, rely=0.075)
+
+txt_directionCardinal.place(relx=0.6, rely=0.075)
+txt_magHeading.place(relx=0.4, rely=0.075)
+txt_distance.place(relx=0.8, rely=0.075)
+
+lbl_directionCardinal.place(relx=0.6, rely=0.045)
+lbl_magHeading.place(relx=0.4, rely=0.045)
+lbl_distance.place(relx=0.8, rely=0.045)
 
 lbl_enterDes.place(relx=0.05, rely=0.045)
 
