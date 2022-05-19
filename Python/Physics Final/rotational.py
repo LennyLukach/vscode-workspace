@@ -10,6 +10,16 @@ import os
 #? W = anuglar velocity / W = deltaTheta/deltaTime ### rad/sec
 #? deltaTheta = angular rotation ### sec
 
+#wf = wi + alpha(t)
+#L=mvr
+#T =  I(alpha)
+#T = Frsin(theta)
+#T = Fr
+#Fr = I(alpha)
+#alpha = Fr/if = mgr/
+#I = 2mr^2/2
+    
+
 angularRotation = np.rad2deg(2 * pi) #! deg
 deltaTime = 7 #! sec
 mass = 9.12 #! kg
@@ -26,7 +36,8 @@ os.system("clear")
 time_increment2 = deltaTime / 11
 
 for x in range(10):
-    pass
+    angularVelocity = angularRotation / (time_increment2 * (x))
+    print(round(angularVelocity, 2))
 
 
-print(f"{round(rotationalInertia, 2)}kg*m^2c")
+#print(f"{round(rotationalInertia, 2)}kg*m^2c")
