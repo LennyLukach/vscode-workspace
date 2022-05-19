@@ -23,8 +23,8 @@ def clearScr():
 
 clearScr()
 
-sind = lambda degrees: round(np.sin(np.deg2rad(degrees)), 2)
-cosd = lambda degrees: round(np.cos(np.deg2rad(degrees)), 2)
+sind = lambda degrees: (np.sin(np.deg2rad(degrees)))
+cosd = lambda degrees: (np.cos(np.deg2rad(degrees)))
 
 ball_distances = []
 ball_heights = []
@@ -37,7 +37,7 @@ launch_angle = 30
 Vi = 10
 accely = -9.8
 
-Viy = round(Vi * sind(launch_angle), 2)
+Viy = (Vi * sind(launch_angle))
 Vfy = -Viy
 Vix = round(Vi * cosd(launch_angle), 2)
 delta_V = Vfy - Viy
@@ -61,7 +61,7 @@ for x in range(11):
     Sy = round(Viy * time_increment * (x) + (1/2) * accely * pow((time_increment * (x)), 2), 2)
     ball_distances.append(Sx)
     ball_heights.append(Sy)
-    Vfy = round(Sy / time_increment * (x), 2)
+    Vfy = round(Viy + accely * time_increment * (x), 2)
     speedX.append(Vix)
     speedY.append(Vfy)
     Vf = math.sqrt(pow(Vfy, 2) + pow(Vix, 2))
