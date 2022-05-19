@@ -9,11 +9,11 @@ import math
 #W = anuglar velocity / W = deltaTheta/deltaTime : rad/sec
 #deltaTheta = angular rotation : sec
 
-angularRotation = np.rad2deg(2 * pi)
-deltaTime = 8
-mass = 5
-radius = 10
-Vi = 10
+angularRotation = np.rad2deg(2 * pi) # deg
+deltaTime = 8 # sec
+mass = 5 # kg
+radius = 10 # meters
+Vi = 10 # m/s
 
 angularVelocity = angularRotation/deltaTime
 
