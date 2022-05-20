@@ -21,23 +21,23 @@ import os
     
 
 angularRotation = np.rad2deg(2 * pi) #! deg
-deltaTime = 7 #! sec
-mass = 9.12 #! kg
-radius = 8 #! meters
-Vi = 1.23 #! m/s
+deltaTime = 2 #! sec
+mass = 2 #! kg
+radius = 2 #! meters
+Wi = 0 #! m/s
+gravity = 9.8
 
-angularVelocity = angularRotation/deltaTime
+vals = []
 
-angularMomentum = mass * Vi * radius
-
-rotationalInertia = angularMomentum/angularVelocity
-
-os.system("clear")
-time_increment2 = deltaTime / 11
-
+#? velcity over time for a 
 for x in range(10):
-    angularVelocity = angularRotation / (time_increment2 * (x))
-    print(round(angularVelocity, 2))
+    I = (2 * mass * pow(radius, 2))/2
+    alpha = mass * gravity * radius
+    T = I * alpha
+    Wf = round(Wi + alpha * deltaTime, 2)
+    Wi = Wf
+    vals.append(Wf)
 
+print(vals)
 
-#print(f"{round(rotationalInertia, 2)}kg*m^2c")
+#print(f"{round(rotationalInertia

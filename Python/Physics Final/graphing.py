@@ -101,34 +101,33 @@ for point in pointSpots:
 #? deltaTheta = angular rotation ### sec
 
 angularRotation = np.rad2deg(2 * math.pi) #! deg
-deltaTime = 200 #! sec
-mass = 1.2 #! kg
+deltaTime = 2 #! sec
+mass = 2 #! kg
 radius = 2 #! meters
-Vi = 1.23 #! m/s
+Wi = 0 #! m/s
+gravity = 9.8
 
-angularVelocity = angularRotation/deltaTime
-
-angularMomentum = mass * Vi * radius
-
-rotationalInertia = angularMomentum/angularVelocity
-
-time_increment2 = deltaTime / 10
-
+vals = []
 timeIncrements = []
-angularVelocities = []
+time_increment2 = deltaTime/10
 
-for x in range(11):
-    angularVelocity = angularRotation / (time_increment2 * (x))
-    timeIncrements.append(round(time_increment2 * (x), 2))
-    angularVelocities.append(angularVelocity)
-    print(round(angularVelocity, 2))
+#? velcity over time for a 
+for x in range(10):
+    I = (2 * mass * pow(radius, 2))/2
+    alpha = mass * gravity * radius
+    T = I * alpha
+    Wf = round(Wi + alpha * deltaTime, 2)
+    Wi = Wf
+    vals.append(Wf)
+    timeIncrements.append(time_increment2 * x)
+
+
 
 #print(f"{round(rotationalInertia, 2)}k*m^2")
 
 
 plt.figure()
-plt.plot(timeIncrements, angularVelocities)
-plt.plot(timeIncrements, ball_distances)
+plt.plot(timeIncrements, vals)
 plt.title("Angular Velocity over time")
 plt.ylabel("Angular Velocity")
 plt.xlabel("Time")
