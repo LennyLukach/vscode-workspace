@@ -113,9 +113,7 @@ time_increment2 = deltaTime/10
 
 #? velcity over time for a 
 for x in range(10):
-    I = (2 * mass * pow(radius, 2))/2
-    alpha = mass * gravity * radius
-    T = I * alpha
+    alpha = (2 * gravity) / radius
     Wf = round(Wi + alpha * deltaTime, 2)
     Wi = Wf
     vals.append(Wf)
@@ -127,7 +125,7 @@ for x in range(10):
 
 
 plt.figure()
-plt.plot(timeIncrements, vals)
+plt.plot(timeIncrements, vals, color="lightgreen")
 plt.title("Angular Velocity over time")
 plt.ylabel("Angular Velocity")
 plt.xlabel("Time")
