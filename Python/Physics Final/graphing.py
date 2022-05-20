@@ -111,7 +111,7 @@ vals = []
 timeIncrements = []
 time_increment2 = deltaTime/10
 
-#? velcity over time for a 
+#? velcity over time for a disc
 for x in range(10):
     alpha = (2 * gravity) / radius
     Wf = round(Wi + alpha * deltaTime, 2)
@@ -126,13 +126,33 @@ for x in range(10):
 
 plt.figure()
 plt.plot(timeIncrements, vals, color="lightgreen")
-plt.title("Angular Velocity over time")
+plt.title("Angular Velocity over time for a disc")
 plt.ylabel("Angular Velocity")
 plt.xlabel("Time")
 
+angularRotation = np.rad2deg(2 * math.pi) #! deg
+deltaTime = 2 #! sec
+mass = 2 #! kg
+radius = 2 #! meters
+Wi = 0 #! m/s
+gravity = 9.8
 
+vals = []
+timeIncrements = []
+time_increment2 = deltaTime/10
 
+#? velcity over time for a spherical shell
+for x in range(10):
+    alpha = (2/3 * mass * pow(radius, 2))
+    Wf = round(Wi + alpha * deltaTime, 2)
+    Wi = Wf
+    vals.append(Wf)
+    timeIncrements.append(time_increment2 * x)
 
-
+plt.figure()
+plt.plot(timeIncrements, vals, color="yellow")
+plt.title("Angular Velocity for a spherical shell")
+plt.xlabel("Time")
+plt.xlabel("Angular Velocity")
 
 plt.show()
