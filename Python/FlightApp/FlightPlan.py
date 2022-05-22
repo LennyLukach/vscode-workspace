@@ -2,10 +2,7 @@
 # Data Structures and Algorithms
 # Flight Plan UI
 # Date Made: 2/26/22
-# Date Modified: 2/26/22
-#? preview plan
-#? create plan
-#? write plan to a file and provide file path
+# Date Modified: 5/18/22
 from audioop import add
 import operator
 import tkinter as tk
