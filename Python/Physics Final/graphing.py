@@ -66,7 +66,7 @@ for x in range(11):
     speedX.append(Vix)
     speedY.append(Vfy)
     Vf = math.sqrt(pow(Vfy, 2) + pow(Vix, 2))
-    energy = round((1/2 * pow(Vf, 2)) + (Sy * accely), 2)
+    energy = round((1/2 * pow(Vf, 2)) + (Sy * accely))
     ball_energy.append(energy)
 
 fig, ax = plt.subplots()
