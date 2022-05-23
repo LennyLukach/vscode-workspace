@@ -34,7 +34,7 @@ speedX = []
 speedY = []
 ball_energy = []
 
-launch_angle = 45
+launch_angle = 35
 Vi = 15
 accely = -9.8
 
