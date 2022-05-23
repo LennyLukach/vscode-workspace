@@ -32,10 +32,11 @@ ball_heights = []
 pointSpots = []
 speedX = []
 speedY = []
-ball_energy = []
+ball_ke = []
+ball_mgh = []
 
-launch_angle = 35
-Vi = 15
+launch_angle = 30
+Vi = 10
 accely = -9.8
 
 Viy = (Vi * sind(launch_angle))
@@ -66,10 +67,13 @@ for x in range(11):
     speedX.append(Vix)
     speedY.append(Vfy)
     Vf = math.sqrt(pow(Vfy, 2) + pow(Vix, 2))
-    energy = round((1/2 * pow(Vf, 2)) + (Sy * accely))
-    ball_energy.append(energy)
+    ke = round(1/2 * pow(Vfy, 2), 1)
+    ball_ke.append(ke)
+    mgh = round(accely * -1 * Sy, 1)
+    ball_mgh.append(mgh)
 
 ball_heights[-1] = 0.00
+
 
 fig, ax = plt.subplots()
 
@@ -85,7 +89,7 @@ for point in range(11):
 
 count = 0
 for point in pointSpots:
-    plt.annotate(f"   Vx:{speedX[count]}m/s\n   Vy:{speedY[count]}m/s\n   X:{point[0]}m\n   Y:{point[1]}m\n   E:{ball_energy[count]}J", point, horizontalalignment='left', verticalalignment='top', fontsize=9) 
+    plt.annotate(f"   Vx:{speedX[count]}m/s\n   Vy:{speedY[count]}m/s\n   X:{point[0]}m\n   Y:{point[1]}m\n   KE:{ball_ke[count]}J\n   MGH:{ball_mgh[count]}J", point, horizontalalignment='left', verticalalignment='top', fontsize=9) 
     count += 1
 
 
