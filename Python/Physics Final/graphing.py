@@ -34,8 +34,8 @@ speedX = []
 speedY = []
 ball_energy = []
 
-launch_angle = 30
-Vi = 10
+launch_angle = 45
+Vi = 15
 accely = -9.8
 
 Viy = (Vi * sind(launch_angle))
@@ -68,6 +68,8 @@ for x in range(11):
     Vf = math.sqrt(pow(Vfy, 2) + pow(Vix, 2))
     energy = round((1/2 * pow(Vf, 2)) + (Sy * accely))
     ball_energy.append(energy)
+
+ball_heights[-1] = 0.00
 
 fig, ax = plt.subplots()
 
@@ -153,6 +155,6 @@ plt.figure()
 plt.plot(timeIncrements, vals, color="yellow")
 plt.title("Angular Velocity for a spherical shell")
 plt.xlabel("Time")
-plt.xlabel("Angular Velocity")
+plt.ylabel("Angular Velocity")
 
 plt.show()
