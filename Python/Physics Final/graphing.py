@@ -35,8 +35,8 @@ speedY = []
 ball_ke = []
 ball_mgh = []
 
-launch_angle = 30
-Vi = 10
+launch_angle = 45
+Vi = 15
 accely = -9.8
 
 Viy = (Vi * sind(launch_angle))
