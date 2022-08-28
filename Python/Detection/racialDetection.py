@@ -77,9 +77,9 @@ race_model = Model(inputs=model.input, outputs=base_model_output)
 
 #pre-trained race and ethnicity prediction model weights can be found here: https://drive.google.com/file/d/1nz-WDhghGQBC4biwShQ9kYjvQMpO6smj/view?usp=sharing
 try:
-	race_model.load_weights(r"Python\RacialDetection\weights\race_model_single_batch.h5")
+	race_model.load_weights(r"Python\Detection\weights\race_model_single_batch.h5")
 except FileNotFoundError:
-	race_model.load_weights('Python/RacialDetection/weights/race_model_single_batch.h5')
+	race_model.load_weights('Python/Detection/weights/race_model_single_batch.h5')
 #------------------------
 
 races = ['Asian', 'Indian',  'Black', 'White', 'Middle Eastern', 'Latino_Hispanic']
