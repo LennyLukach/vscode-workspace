@@ -32,5 +32,6 @@ while True:
     fps = 1/(cTime - pTime)
     pTime = cTime
     cv2.putText(img, str(int(fps)), (10, 100), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 3)
-    cv2.imshow("hello", img) 
-    cv2.waitKey(1)
+    cv2.imshow("hello", img)
+    if cv2.waitKey(1) & 0xFF == ord("q"):
+        break
