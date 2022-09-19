@@ -6,6 +6,7 @@ import sys
 clearScr()
 
 lineLengths = []
+'''
 for y in range(3):
     sys.stdout.write("Creating random list")
     for x in range(3):
@@ -22,14 +23,14 @@ for y in range(3):
         sys.stdout.flush()
     clearScr()
 
-
+'''
 for i in range(40):
     lineLengths.append(random.randint(1, 25))
     print("-" * lineLengths[i])
     time.sleep(0.02)
 
-time.sleep(3)
-
+time.sleep(1.75)
+'''
 clearScr()
 for y in range(3):
     sys.stdout.write("Starting sorting process")
@@ -38,7 +39,7 @@ for y in range(3):
         sys.stdout.write(".")
         sys.stdout.flush()
     clearScr()
-
+'''
 
 for i in range(len(lineLengths)):
     clearScr()
