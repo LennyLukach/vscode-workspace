@@ -14,11 +14,11 @@ public class ghostLemmings {
 		
 		Population GhostPopulation = new Population();
 
-		int num = 5;
+		//int num = 5;
 		
 		//CHANGE NUMBER OF DAYS: 100 FOR SMALL TEST \ 1000 FOR BIG TEST \ DONT USE 10,000
 		
-		int days = 100;
+		int days = 1000;
 		
 		//GhostPopulation.printPopulation();
 		int startGhost = GhostPopulation.popSize();
@@ -27,7 +27,7 @@ public class ghostLemmings {
 		int deadGhosts = 0;
 		int g = 1;
 		int w = 2;
-		GhostPopulation.getGhost(num).ghostDescription();
+		//GhostPopulation.getGhost(num).ghostDescription();
 		System.out.println("Total Ghosts: " + GhostPopulation.popSize());
 		System.out.println("\n");
 		//int test = in.nextInt();
