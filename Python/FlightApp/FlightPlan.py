@@ -14,7 +14,7 @@ import collections
 
 debugMode = True
 
-savePath = "Python/FlightApp/FlightPlanMap.txt"
+savePath = "Python\FlightApp\FlightPlanMap.txt"
 
 root = tk.Tk()
 root.title("Flight Plan")
@@ -112,7 +112,7 @@ def createPlanFunc():
 
 #?Images
 try:
-    background_image = ImageTk.PhotoImage(Image.open("Python/FlightApp/planeLanding.jpg.png"))
+    background_image = ImageTk.PhotoImage(Image.open("/Users/lluakch/Development/Pycharm Project/vscode-workspace/Python/FlightApp/planeLanding.jpg.png"))
 except FileNotFoundError:
     background_image = ImageTk.PhotoImage(Image.open("Python\FlightApp\planeLanding.jpg.png"))
     

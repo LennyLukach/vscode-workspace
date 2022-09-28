@@ -1,4 +1,2 @@
-from turtle import *
-space = Screen()
-alex = Turtle()
-alex.forward(100)
+import math
+print(round(math.sqrt(10), 1))
