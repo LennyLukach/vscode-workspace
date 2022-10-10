@@ -1,7 +1,11 @@
 #include<stdio.h>
+#include<graphcs.h>
 
 int main()
 {
-    printf("hello world");
+    
+
+
+    
     return 0;
 }
