@@ -172,7 +172,7 @@ class ticTacToe {
                         if (locations.get(x).x == botX && locations.get(x).y == botY) {
                             if (board[botX][botY] == ".") {
                                 movePos = x;
-                                System.out.println("corner");
+                               // System.out.println("corner");
                                 break;
                             }
                             else {
@@ -201,7 +201,7 @@ class ticTacToe {
             }
             if (count >= 2) {
                 movePos = tempMove;
-                System.out.println("opp hor");
+                //System.out.println("opp hor");
                 break;
             }
         }
@@ -222,7 +222,7 @@ class ticTacToe {
                 }
             }
             if (count >= 2) {
-                System.out.println("opp vert");
+                //System.out.println("opp vert");
                 movePos = tempMove;
                 break;
             }
@@ -243,7 +243,7 @@ class ticTacToe {
             }
         }
         if (count >= 2) {
-            System.out.println("opp right");
+            //System.out.println("opp right");
             movePos = tempMove;
         }
 
@@ -264,7 +264,7 @@ class ticTacToe {
         }
 
         if (count >= 2) {
-            System.out.println("opp left");
+            //System.out.println("opp left");
             movePos = tempMove;
         }
 
@@ -285,7 +285,7 @@ class ticTacToe {
                 }
             }
             if (count >= 2) {
-                System.out.println("hor");
+                //System.out.println("hor");
                 movePos = tempMove;
                 break;
             }
@@ -307,7 +307,7 @@ class ticTacToe {
                 }
             }
             if (count >= 2) {
-                System.out.println("vert");
+                //System.out.println("vert");
                 movePos = tempMove;
                 break;
             }
@@ -329,7 +329,7 @@ class ticTacToe {
             }
         }
         if (count >= 2) {
-            System.out.println("right");
+            //System.out.println("right");
             movePos = tempMove;
             return movePos;
         }
@@ -351,7 +351,7 @@ class ticTacToe {
         }
 
         if (count >= 2) {
-            System.out.println("left");
+            //System.out.println("left");
             movePos = tempMove;
             return movePos;
         }
