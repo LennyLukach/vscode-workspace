@@ -89,7 +89,7 @@ for point in range(11):
 
 count = 0
 for point in pointSpots:
-    plt.annotate(f"   Vx:{speedX[count]}m/s\n   Vy:{speedY[count]}m/s\n   X:{point[0]}m\n   Y:{point[1]}m\n   KE:{ball_ke[count]}J\n   MGH:{ball_mgh[count]}J", point, horizontalalignment='left', verticalalignment='top', fontsize=9) 
+    plt.annotate(f"   Vx:{speedX[count]}m/s\n   Vy:{speedY[count]}m/s\n   X:{point[0]}m\n   Y:{point[1]}m\n   KE:{ball_ke[count]}\n   MGH:{ball_mgh[count]}", point, horizontalalignment='left', verticalalignment='top', fontsize=9) 
     count += 1
 
 
@@ -101,7 +101,7 @@ for point in pointSpots:
 #print(f"Height: {ball_heights}")
 
 
-#? I = rotaional inertia / I = L/W ### kg * m^2
+#? I = rotational inertia / I = L/W ### kg * m^2
 #? L = angular momentum/ L = mass * velocity * radius ### kgm^2/sec
 #? W = anuglar velocity / W = deltaTheta/deltaTime ### rad/sec
 #? deltaTheta = angular rotation ### sec
