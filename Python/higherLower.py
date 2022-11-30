@@ -1,5 +1,7 @@
 import random
+import os
 
+os.system("clear")
 num = random.randint(1, 1000)
 x = None
 while x != num:
