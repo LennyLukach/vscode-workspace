@@ -101,12 +101,12 @@ order = random.randint(1,9)
 getSquareLocations(squareSizeX, squareSizeY)
 while True:
     if startMenu and not tutDone:
+        buttons = drawSquares(squareColor, squareSizeX, squareSizeY)
+        pygame.display.update()
         print("Welcome to the soundboard app. Enter any key to begin.")
         input("")
         print("For the tutorial scene, you will be given a random note to play and you must play the corresponding note. Enter to continue.")
         input()
-        buttons = drawSquares(squareColor, squareSizeX, squareSizeY)
-        pygame.display.update()
         print(f"Play note {order}")
         startMenu = False
     if not startMenu and tutDone:
