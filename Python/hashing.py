@@ -405,8 +405,8 @@ for prime in longPrime :
 
 # Remove comments on print statements to see the hexadecimal values of the first 8 and 64 prime numbers that will be used during compression
 # ------------------------------------------------------------------------------------------------------------------------------#
-# print(hashlist)
-# print(roundlist)
+print(hashlist)
+print(roundlist)
 
 # Gets the input to convert to SHA-256
 inputString = input("Enter a word: ")
@@ -416,7 +416,7 @@ padStr = strToBinary(inputString)
 padStr = createPadding(padStr)
 # Remove the comment on the print statement print the fully padded binary version of the users input
 # --------------------------------------------------------------------------------------------------#
-# print(padStr)
+print(padStr)
 
 # Counts length of the padding
 len0 = 0
@@ -424,7 +424,7 @@ for item in padStr :
     len0 += len(item)
 # Remove the comment on the print statement to get length of the padded binary word
 # ---------------------------------------------------------------------------------#
-# print(f"Length: {len0}")
+print(f"Length: {len0}")
 
 
 # Creates the messageSchedule using the prepared binary input
@@ -437,8 +437,8 @@ msgBlock = extendSchedule(msgBlock)
 # Remove comment on the print statement to see the message schedule and remove the comment on time.sleep for it to look cool
 count = 0
 for line in msgBlock :
-    # print(f"W[{count}]" + line)
-    # time.sleep(0.05)
+    print(f"W[{count}]" + line)
+    time.sleep(0.05)
     count += 1
 
 # Converts each hexadecimal constant to binary so that it can be used
@@ -446,12 +446,12 @@ for line in msgBlock :
 count = 0
 for hexData in hashlist :
     hashlist[count] = hexToBin(hexData)
-    # print(hashlist(count))
+    #print(hashlist(count))
     count += 1
 count = 0
 for roundData in roundlist :
     roundlist[count] = hexToBin(roundData)
-    # print(roundlist(count))
+    #print(roundlist(count))
     count += 1
 
 # Copies the original binary values of the hashlist since the original will be modified but a copy will needed as well
