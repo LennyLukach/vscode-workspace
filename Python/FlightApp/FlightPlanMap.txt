@@ -1,14 +1,14 @@
-newDestList = [
-newDestListNums = [
+newDestList = [Los Angeles, New York, Austin, Las Vegas]
+newDestListNums = [1, 4, 3, 2]
 
 
 
-Magnetic Heading: 135
-Cardinal Direction: NE
-Distance to Airport: 1990
+Magnetic Heading: NE
+Cardinal Direction: N
+Distance to Airport: 5000mi
 
 
 
 
 
-[]
+[('Los Angeles', '1'), ('Las Vegas', '2'), ('Austin', '3'), ('New York', '4')]
