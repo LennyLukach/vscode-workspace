@@ -27,8 +27,7 @@
 fun makeGreeter(greet : String) : (String)->String {
     
     fun greet(name : String) : String {
-        val myGreeter = myGreeter + name
-        return myGreeter
+        return greet + " " +  name
         }
     return ::greet
 }
