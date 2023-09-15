@@ -1,1 +1,1 @@
-cap = cv2.VideoCapture(0)
+base_model_output

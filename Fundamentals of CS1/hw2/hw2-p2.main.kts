@@ -2,10 +2,10 @@
 // Homework 2, Problem 2
 // -----------------------------------------------------------------
 
-import khoury.testSame
-import khoury.EnabledTest
-import khoury.runEnabledTests   
-
+// import khoury.testSame
+// import khoury.EnabledTest
+// import khoury.runEnabledTests  
+import java.util.Scanner
 // TODO 1/1: Finish designing the function wakeupTime that asks at
 //           the console what hour a person likes to wake up in
 //           the morning. Depending on their response, your
@@ -49,3 +49,34 @@ val WAKEUP_OTHER = "8am or later? Coffee time!"
 //     testHelp("8", WAKEUP_OTHER)
 //     testHelp("11", WAKEUP_OTHER)
 // }
+
+
+fun wakeupTime() : String {
+    // creates console input object
+    val reader = Scanner(System.`in`)
+    println(WAKEUP_PROMPT)
+    var hour = 0
+
+    // tries to get input but requires integer; if user enters String it catches error and returns with appropriate return
+    try {
+        hour = reader.nextInt()
+    }
+
+    catch (e : java.util.InputMismatchException) {
+        return(WAKEUP_NOT_A_NUMBER)
+    }
+    // checks if input is in range
+    if (hour > 11 || hour < 1) {
+        return(WAKEUP_NOT_IN_RANGE)
+    }
+
+    if (hour >= 8) {
+        return(WAKEUP_OTHER)
+    }
+
+    else {
+        return(WAKEUP_EARLY)
+    }
+}
+
+println(wakeupTime())
