@@ -2,7 +2,7 @@ public class testJava {
 
     public static void main(String[] args) {
 
-        Account a = new Account("Lenny", 17);
+        Account a = new Account( "Lenny", 17);
         a.accInfo();
         try {
             a.name = "s";
