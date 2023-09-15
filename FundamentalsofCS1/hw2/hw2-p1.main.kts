@@ -2,6 +2,7 @@
 // Homework 2, Problem 1
 // -----------------------------------------------------------------
 
+
 // TODO 1/1: Design the predicate startsWithY that determines if
 //           the supplied string starts with the letter "y"
 //           (either upper or lowercase).
@@ -26,3 +27,4 @@ fun startsWithY(word : String) : Boolean {
 }
 
 println(startsWithY("Hello"))
+
