@@ -26,29 +26,29 @@ val WAKEUP_NOT_IN_RANGE = "You did not enter an hour from 1-11am"
 val WAKEUP_EARLY = "Before 8am? Early bird catches the worm!"
 val WAKEUP_OTHER = "8am or later? Coffee time!"
 
-// @EnabledTest
-// fun testWakeupTime() {
-//     // helps to test, given what is typed at the console
-//     // and what the expected output should be
-//     fun testHelp(consoleIn: String, expectedOut: String) {
-//         testSame(
-//             captureResults(::wakeupTime, consoleIn),
-//             CapturedResult(
-//                 Unit,
-//                 WAKEUP_PROMPT,
-//                 expectedOut,
-//             ),
-//             consoleIn,
-//         )
-//     }
+@EnabledTest
+fun testWakeupTime() {
+    // helps to test, given what is typed at the console
+    // and what the expected output should be
+    fun testHelp(consoleIn: String, expectedOut: String) {
+        testSame(
+            captureResults(::wakeupTime, consoleIn),
+            CapturedResult(
+                Unit,
+                WAKEUP_PROMPT,
+                expectedOut,
+            ),
+            consoleIn,
+        )
+    }
 
-//     testHelp("howdy", WAKEUP_NOT_A_NUMBER)
-//     testHelp("0", WAKEUP_NOT_IN_RANGE)
-//     testHelp("12", WAKEUP_NOT_IN_RANGE)
-//     testHelp("5", WAKEUP_EARLY)
-//     testHelp("8", WAKEUP_OTHER)
-//     testHelp("11", WAKEUP_OTHER)
-// }
+    testHelp("howdy", WAKEUP_NOT_A_NUMBER)
+    testHelp("0", WAKEUP_NOT_IN_RANGE)
+    testHelp("12", WAKEUP_NOT_IN_RANGE)
+    testHelp("5", WAKEUP_EARLY)
+    testHelp("8", WAKEUP_OTHER)
+    testHelp("11", WAKEUP_OTHER)
+}
 
 
 fun wakeupTime() : String {
@@ -79,4 +79,7 @@ fun wakeupTime() : String {
     }
 }
 
-println(wakeupTime())
+
+//println(wakeupTime())
+
+testWakeupTime()

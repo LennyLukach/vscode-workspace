@@ -4,6 +4,10 @@
 
 // Now it's time to write your first full, if not a bit silly, app!
 //
+
+import reactConsole
+
+
 // TODO 1/1: Finish designing the program loopSong, using
 //           reactConsole, that prints...
 //
@@ -76,6 +80,21 @@ enum class SongState {
     EASY123,
     DONE,
 }
+
+fun loopSong() : Int {
+    reactConsole (
+        initialState = SongState.START,
+        stateToText = ::songStateToText,
+        nextState = ::nextSongState,
+        isTerminalState = ::isDone
+    )
+    return count
+}
+
+fun songStateToText(currentState) {
+
+}
+
 
 // @EnabledTest
 // fun testLoopSong() {
