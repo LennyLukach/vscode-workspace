@@ -91,8 +91,10 @@ fun loopSong() : Int {
     return count
 }
 
-fun songStateToText(currentState) {
-
+fun songStateToText(currentState : SongState) : String {
+    SongState.START -> LYRICS_ABC
+    SongState.ABC -> LYRICS_ABC
+    SongState
 }
 
 
