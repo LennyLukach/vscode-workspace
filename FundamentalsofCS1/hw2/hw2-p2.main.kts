@@ -4,7 +4,9 @@
 
 import khoury.testSame
 import khoury.EnabledTest
-import khoury.runEnabledTests  
+import khoury.runEnabledTests
+import khoury.captureResults
+import khoury.CapturedResult
 import java.util.Scanner
 // TODO 1/1: Finish designing the function wakeupTime that asks at
 //           the console what hour a person likes to wake up in

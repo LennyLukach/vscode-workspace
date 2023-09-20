@@ -5,7 +5,11 @@
 // Now it's time to write your first full, if not a bit silly, app!
 //
 
-import reactConsole
+import khoury.reactConsole
+import khoury.input
+
+
+
 
 
 // TODO 1/1: Finish designing the program loopSong, using
@@ -73,7 +77,8 @@ val LYRICS_123 = "Easy as 1-2-3"
 val LYRICS_DONE = "Baby you and me girl!"
 
 // Represents state in the song
-// (no changes here)
+
+
 enum class SongState {
     START,
     ABC,
@@ -81,22 +86,51 @@ enum class SongState {
     DONE,
 }
 
-fun loopSong() : Int {
-    reactConsole (
-        initialState = SongState.START,
-        stateToText = ::songStateToText,
-        nextState = ::nextSongState,
-        isTerminalState = ::isDone
+
+fun loopSong(): Int {
+    var count = 1
+    var currentState = SongState.START
+
+    reactConsole(
+        currentState,
+        ::songStateToText,
+        { state, input ->
+            if (state == SongState.EASY123 && input != "done") {
+                count++
+            }
+            nextSongState(state, input)
+        },
+        ::isDone
     )
+
     return count
 }
 
-fun songStateToText(currentState : SongState) : String {
-    SongState.START -> LYRICS_ABC
-    SongState.ABC -> LYRICS_ABC
-    SongState
+fun songStateToText(state: SongState): String {
+    return when (state) {
+        SongState.START -> LYRICS_ABC
+        SongState.ABC -> LYRICS_ABC
+        SongState.EASY123 -> LYRICS_123
+        SongState.DONE -> LYRICS_DONE
+    }
 }
 
+fun nextSongState(state: SongState, input: String): SongState {
+    return when (state) {
+        SongState.START -> SongState.ABC
+        SongState.ABC -> SongState.EASY123
+        SongState.EASY123 -> if (input == "done") SongState.DONE else SongState.ABC
+        SongState.DONE -> SongState.DONE
+    }
+}
+
+fun isDone(state: SongState): Boolean {
+    return state == SongState.DONE
+}
+
+
+
+loopSong()
 
 // @EnabledTest
 // fun testLoopSong() {
