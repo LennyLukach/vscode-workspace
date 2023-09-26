@@ -1,3 +1,10 @@
+//imports required
+import khoury.testSame
+import khoury.EnabledTest
+import khoury.fileReadAsList
+
+
+
 // -----------------------------------------------------------------
 // Homework 3, Problem 1
 // -----------------------------------------------------------------
@@ -102,41 +109,88 @@ val recordWin = "is crushing it"
 val recordLoss = "needs support"
 val recordUnknown = "is unknown"
 
-// @EnabledTest
-// fun testBuildList() {
-//     testSame(
-//         buildList(2, "BADNAMES.TXT", "BADRECORDS.TXT"),
-//         listOf("", ""),
-//         "emptiness",
-//     )
-//
-//     testSame(
-//         buildList(1, "BADNAMES.TXT", "records.txt"),
-//         listOf("PD is crushing it"),
-//         "PD",
-//     )
-//
-//     testSame(
-//         buildList(3, "names.txt", "records.txt"),
-//         listOf(
-//             "HP is crushing it",
-//             "HG is crushing it",
-//             "RW is crushing it",
-//         ),
-//         "instructors",
-//     )
-//
-//     testSame(
-//         buildList(7, "names.txt", "records.txt"),
-//         listOf(
-//             "HP is crushing it",
-//             "HG is crushing it",
-//             "RW is crushing it",
-//             "CC needs support",
-//             "NL is crushing it",
-//             "LL is unknown",
-//             "GW is unknown",
-//         ),
-//         "army",
-//     )
-// }
+
+fun buildList(desiredSize: Int, namesFilePath: String, recordsFilePath: String): List<String> {
+    val names = fileReadAsList(namesFilePath)
+    val records = fileReadAsList(recordsFilePath)
+
+    val initials = names.map { name ->
+        val nameParts = name.split(" ")
+        val firstInitial = nameParts[0].first()
+        val lastInitial = nameParts[1].first()
+        "$firstInitial$lastInitial"
+    }
+
+    val recordsSummary = records.map { record ->
+        val recordParts = record.split(",")
+        val wins = recordParts.filter { it == "W" }.size
+        val losses = recordParts.filter { it == "L" }.size
+        if (wins >= losses) {
+            recordWin
+        } else {
+            recordLoss
+        }
+    }
+
+    val result = List<String>(desiredSize) { index ->
+        if (index in names.indices && index in recordsSummary.indices) {
+            "${initials[index]} ${recordsSummary[index]}"
+        } else if (index in names.indices) {
+            "${initials[index]} $recordUnknown"
+        } else if (index in recordsSummary.indices) {
+            "$nameUnknown ${recordsSummary[index]}"
+        } else {
+            ""
+        }
+    }
+
+    return result
+}
+
+
+
+
+@EnabledTest
+fun testBuildList() {
+    testSame(
+        buildList(2, "BADNAMES.TXT", "BADRECORDS.TXT"),
+        listOf("", ""),
+        "emptiness",
+    )
+
+    testSame(
+        buildList(1, "BADNAMES.TXT", "records.txt"),
+        listOf("PD is crushing it"),
+        "PD",
+    )
+
+    testSame(
+        buildList(3, "names.txt", "records.txt"),
+        listOf(
+            "HP is crushing it",
+            "HG is crushing it",
+            "RW is crushing it",
+        ),
+        "instructors",
+    )
+
+    testSame(
+        buildList(7, "names.txt", "records.txt"),
+        listOf(
+            "HP is crushing it",
+            "HG is crushing it",
+            "RW is crushing it",
+            "CC needs support",
+            "NL is crushing it",
+            "LL is unknown",
+            "GW is unknown",
+        ),
+        "army",
+    )
+}
+
+testBuildList()
+
+
+// val result = buildList(7, "names.txt", "records.txt")
+// println(result)

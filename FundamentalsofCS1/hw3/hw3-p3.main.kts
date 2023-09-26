@@ -2,6 +2,15 @@
 // Homework 3, Problem 3
 // -----------------------------------------------------------------
 
+
+import khoury.reactConsole
+import khoury.testSame
+import khoury.CapturedResult
+import khoury.captureResults
+import khoury.EnabledTest
+
+
+
 // TODO 1/1: Design the program showNumbers that uses reactConsole
 //           to simply print to the screen all the numbers in a
 //           supplied list. For example, running...
@@ -50,48 +59,80 @@
 //           programs :)
 //
 
-// @EnabledTest
-// fun testShowNumbers() {
-//     // makes a captureResults-friendly function :)
-//     fun helpTest(numList: List<Int>): () -> Unit {
-//         fun showMyNumbers() {
-//             showNumbers(numList)
-//         }
 
-//         return ::showMyNumbers
-//     }
 
-//     testSame(
-//         captureResults(
-//             helpTest(emptyList<Int>()),
-//             "",
-//         ),
-//         CapturedResult(
-//             Unit,
-//             "Done!",
-//         ),
-//         "empty",
-//     )
 
-//     testSame(
-//         captureResults(
-//             helpTest(listOf(5, 4, 3, 2, 1)),
-//             "",
-//             "",
-//             "",
-//             "",
-//             "",
-//             "",
-//         ),
-//         CapturedResult(
-//             Unit,
-//             "5",
-//             "4",
-//             "3",
-//             "2",
-//             "1",
-//             "Done!",
-//         ),
-//         "5/4/3/2/1",
-//     )
-// }
+// fun <S> reactConsole(
+//     initialState: S, 
+//     stateToText: (S) -> String, 
+//     nextState: (S, String) -> S, 
+//     isTerminalState: (S) -> Boolean, 
+//     terminalStateToText: (S) -> String = stateToText
+// ):
+
+
+
+fun showNumbers(numList: List<Int>) {
+    reactConsole(
+        numList,
+        { numList -> numList.first().toString() },
+        { numList, input -> numList.drop(1) },
+        { numList -> numList.isEmpty() },
+        { numList -> "Done!" },
+    )
+}
+
+
+
+@EnabledTest
+fun testShowNumbers() {
+    // makes a captureResults-friendly function :)
+    fun helpTest(numList: List<Int>): () -> Unit {
+        fun showMyNumbers() {
+            showNumbers(numList)
+        }
+
+        return ::showMyNumbers
+    }
+
+    testSame(
+        captureResults(
+            helpTest(emptyList<Int>()),
+            "",
+        ),
+        CapturedResult(
+            Unit,
+            "Done!",
+        ),
+        "empty",
+    )
+
+    testSame(
+        captureResults(
+            helpTest(listOf(5, 4, 3, 2, 1)),
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+        ),
+        CapturedResult(
+            Unit,
+            "5",
+            "4",
+            "3",
+            "2",
+            "1",
+            "Done!",
+        ),
+        "5/4/3/2/1",
+    )
+}
+
+
+
+//showNumbers(listOf(5, 4, 3, 2, 1))
+
+
+testShowNumbers()
