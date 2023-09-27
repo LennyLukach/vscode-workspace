@@ -1,6 +1,11 @@
 from usefulCustomImports import *
 import random
 
+import os
+
+def clearScr():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 clearScr()
 bSize = 5
 bombAmt = 6

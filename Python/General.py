@@ -113,6 +113,8 @@ while True:
         buttons = drawSquares(squareColor, squareSizeX, squareSizeY)
         pygame.display.update()
     for event in pygame.event.get():
+        from pygame.locals import QUIT
+
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
