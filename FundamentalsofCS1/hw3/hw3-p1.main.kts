@@ -110,10 +110,15 @@ val recordLoss = "needs support"
 val recordUnknown = "is unknown"
 
 
+
 fun buildList(desiredSize: Int, namesFilePath: String, recordsFilePath: String): List<String> {
     val names = fileReadAsList(namesFilePath)
     val records = fileReadAsList(recordsFilePath)
+    
 
+    // this is the map function that takes in a name and returns a string that is the initials of the name
+    // the name is split by the space and then the first letter of the first and last name are taken
+    // the first and last initials are then combined into a string
     val initials = names.map { name ->
         val nameParts = name.split(" ")
         val firstInitial = nameParts[0].first()
@@ -121,6 +126,11 @@ fun buildList(desiredSize: Int, namesFilePath: String, recordsFilePath: String):
         "$firstInitial$lastInitial"
     }
 
+
+    // this is the map function that takes in a record and returns a string that is the record summary
+    // the record is split by the comma and then the number of wins and losses are counted by filtering the list for W's and L's
+    // if the number of wins is greater than or equal to the number of losses, then the recordWin string is returned
+    // if the number of wins is less than the number of losses, then the recordLoss string is returned
     val recordsSummary = records.map { record ->
         val recordParts = record.split(",")
         val wins = recordParts.filter { it == "W" }.size
@@ -132,6 +142,13 @@ fun buildList(desiredSize: Int, namesFilePath: String, recordsFilePath: String):
         }
     }
 
+
+    // this is the init function for the list constructor that takes in the desired size and the init function as parameters 
+    // the init function takes in the index of the list and returns a string that is the combination of the initials and the record summary
+    // if the index is in the names and recordsSummary indices, then the initials and record summary are combined
+    // if the index is in the names indices but not the recordsSummary indices, then the initials and recordUnknown are combined
+    // if the index is in the recordsSummary indices but not the names indices, then the nameUnknown and record summary are combined
+    // if the index is not in either the names or recordsSummary indices, then an empty string is returned
     val result = List<String>(desiredSize) { index ->
         if (index in names.indices && index in recordsSummary.indices) {
             "${initials[index]} ${recordsSummary[index]}"

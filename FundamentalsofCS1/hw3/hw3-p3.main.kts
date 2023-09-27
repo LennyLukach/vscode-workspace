@@ -71,7 +71,6 @@ import khoury.EnabledTest
 // ):
 
 
-
 fun showNumbers(numList: List<Int>) {
     reactConsole(
         numList,
