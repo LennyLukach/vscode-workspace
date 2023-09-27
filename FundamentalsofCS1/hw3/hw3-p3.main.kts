@@ -2,12 +2,11 @@
 // Homework 3, Problem 3
 // -----------------------------------------------------------------
 
-
+import khoury.CapturedResult
+import khoury.EnabledTest
+import khoury.captureResults
 import khoury.reactConsole
 import khoury.testSame
-import khoury.CapturedResult
-import khoury.captureResults
-import khoury.EnabledTest
 
 
 
@@ -59,17 +58,13 @@ import khoury.EnabledTest
 //           programs :)
 //
 
-
-
-
 // fun <S> reactConsole(
-//     initialState: S, 
-//     stateToText: (S) -> String, 
-//     nextState: (S, String) -> S, 
-//     isTerminalState: (S) -> Boolean, 
+//     initialState: S,
+//     stateToText: (S) -> String,
+//     nextState: (S, String) -> S,
+//     isTerminalState: (S) -> Boolean,
 //     terminalStateToText: (S) -> String = stateToText
 // ):
-
 
 fun showNumbers(numList: List<Int>) {
     reactConsole(
@@ -80,8 +75,6 @@ fun showNumbers(numList: List<Int>) {
         { numList -> "Done!" },
     )
 }
-
-
 
 @EnabledTest
 fun testShowNumbers() {
@@ -129,9 +122,6 @@ fun testShowNumbers() {
     )
 }
 
-
-
-//showNumbers(listOf(5, 4, 3, 2, 1))
-
+// showNumbers(listOf(5, 4, 3, 2, 1))
 
 testShowNumbers()

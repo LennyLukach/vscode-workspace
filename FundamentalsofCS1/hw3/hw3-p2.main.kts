@@ -2,8 +2,8 @@
 // Homework 3, Problem 2
 // -----------------------------------------------------------------
 
-import khoury.testSame
 import khoury.EnabledTest
+import khoury.testSame
 
 // TODO 1/4: Design the data type FlashCard to represent a single
 //           flash card. You should be able to represent the text
@@ -18,7 +18,6 @@ val fc1 = FlashCard("Hello", "A greeting")
 val fc2 = FlashCard("Goodbye", "A farewell")
 val fc3 = FlashCard("How are you?", "Question")
 
-
 // TODO 2/4: Design the data type Deck to represent a deck of
 //           flash cards. The deck should have a name, as well
 //           as a sequence of flash cards.
@@ -30,8 +29,6 @@ data class Deck(val name: String, val cards: List<FlashCard>)
 val deck1 = Deck("Greetings", listOf(fc1, fc2))
 val deck2 = Deck("Questions", listOf(fc3))
 
-
-
 // TODO 3/4: Design the predicate areAllOneWordAnswers that
 //           determines if the backs of all the cards in a deck
 //           are a single word (i.e., have no spaces, which
@@ -41,11 +38,9 @@ val deck2 = Deck("Questions", listOf(fc3))
 //                 reminder of a useful list function to use :)
 //
 
-
 fun areAllOneWordAnswers(deck: Deck): Boolean {
     return deck.cards.all({ it.definition.contains(" ") == false })
 }
-
 
 // TODO 4/4: Design the predicate anyContainsPhrase that determines
 //           if any of the cards in a deck contain the supplied
@@ -58,12 +53,14 @@ fun areAllOneWordAnswers(deck: Deck): Boolean {
 //             list function we learned!
 //
 
-fun anyContainsPhrase(deck: Deck, phrase: String): Boolean {
+fun anyContainsPhrase(
+    deck: Deck,
+    phrase: String,
+): Boolean {
     return deck.cards.any({ it.definition.contains(phrase) })
 }
 
-
-//write test functions using testSame()
+// write test functions using testSame()
 
 @EnabledTest
 fun testAreAllOneWordAnswers() {
@@ -76,7 +73,6 @@ fun testAnyContainsPhrase() {
     testSame(anyContainsPhrase(deck1, "greeting"), true)
     testSame(anyContainsPhrase(deck2, "greeting"), false)
 }
-
 
 testAnyContainsPhrase()
 testAreAllOneWordAnswers()
