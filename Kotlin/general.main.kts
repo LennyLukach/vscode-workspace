@@ -1,10 +1,3 @@
-// fun product(list : LinkedListNumbers) : Int {
-//     return when(list) {
-//         is LinkedListNumbers.Empty -> return 1
-//         is LinkedListNumbers.Node -> list.data * product(list.next)
-//     }
-// }
-
 
 val numList = List<Int>(4) { it + 1}
 
