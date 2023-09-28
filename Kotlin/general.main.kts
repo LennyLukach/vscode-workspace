@@ -16,3 +16,4 @@ betterProduct(numList)
 fun betterProduct2(list : List<Int>) : Int {
     return list.fold(1) { acc, x -> acc * x }
 }
+
