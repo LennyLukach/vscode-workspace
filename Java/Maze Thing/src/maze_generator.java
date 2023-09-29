@@ -1,3 +1,7 @@
+// Lenny Lukach
+// 12/14/21
+// Honors Data Structure and Algorithms
+
 import java.util.*;
 
 public class maze_generator {
