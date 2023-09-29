@@ -16,7 +16,7 @@ cTime = 0
 while True:
 
     success, img = cap.read()
-    img = cv2.resize(img, (1280, 720))
+    #img = cv2.resize(img, (1280, 720))
     imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     results = hands.process(imgRGB)
     #print(results.multi_hand_landmarks)
