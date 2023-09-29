@@ -1,6 +1,13 @@
 {
     "configurations": [
         {
+            "type": "java",
+            "name": "maze_generator",
+            "request": "launch",
+            "mainClass": "maze_generator",
+            "projectName": "Maze Thing"
+        },
+        {
             "name": "C/C++: clang++ build and debug active file",
             "type": "cppdbg",
             "request": "launch",

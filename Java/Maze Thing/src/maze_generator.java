@@ -1,9 +1,3 @@
-// Jisung Lee
-// 12/14/21
-// 12/15/21
-// Generate maze given dimensions and solve it
-// Honors Data Structures and Algorithms
-
 import java.util.*;
 
 public class maze_generator {
