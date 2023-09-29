@@ -210,7 +210,7 @@ public class maze_generator {
    }
 
    /**
-    * Deafult soling from top left cell to bottom right cell
+    * Deafult solving from top left cell to bottom right cell
     */
    public void solve() { this.solve(0, 0, dimensionX - 1, dimensionY - 1); }
 
