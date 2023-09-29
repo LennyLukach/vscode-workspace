@@ -1,20 +1,3 @@
-public class testJava {
-
-    public static void main(String[] args) {
-
-        Account a = new Account( "Lenny", 17);
-        a.accInfo();
-        try {
-            a.name = "s";
-        }
-        catch (Exception e) {
-            a.setName("t");
-        }
-       
-    }
-
-}
-
 class Account {
     private String name;
     private int age;
@@ -30,5 +13,9 @@ class Account {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }
