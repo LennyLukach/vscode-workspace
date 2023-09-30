@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "evenHands",
+            "request": "launch",
+            "mainClass": "evenHands",
+            "projectName": "SomehowThisProgramEvensBothHandsOfPlayingCards"
+        },
+        {
+            "type": "java",
             "name": "maze_generator",
             "request": "launch",
             "mainClass": "maze_generator",
