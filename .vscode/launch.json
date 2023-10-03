@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ghostLemmings",
+            "request": "launch",
+            "mainClass": "ghostLemmings",
+            "projectName": "GhostLemmings"
+        },
+        {
+            "type": "java",
+            "name": "ticTacToe",
+            "request": "launch",
+            "mainClass": "ticTacToe",
+            "projectName": "TicTacToe"
+        },
+        {
+            "type": "java",
             "name": "evenHands",
             "request": "launch",
             "mainClass": "evenHands",
