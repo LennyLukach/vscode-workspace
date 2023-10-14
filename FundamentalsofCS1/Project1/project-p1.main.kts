@@ -581,9 +581,21 @@ fun transitionStudy(state: StudyState, kbInput: String): StudyState {
         StudyState(state.currentDeck, state.currentCard + 1, true, newCorrectAnswers)
     }
 }
-// testSame(transitionStudy(studyState1, "yes"), studyState1, "studyState1")
-// testSame(transitionStudy(studyState2, "yes"), studyState2, "studyState2")
-// testSame(transitionStudy(studyState3, "yes"), studyState3, "studyState3")
+
+val deckTest = Deck("deck1", listOf(FlashCard("front1", "back1"), FlashCard("front2", "back2")))
+val studyStateTest1 = StudyState(deckTest, 0, true, 0)
+val studyStateTest2 = StudyState(deckTest, 0, false, 0)
+
+
+testSame(transitionStudy(studyState1, "yes").isFront, false, "transitionStudy 1")
+testSame(transitionStudy(studyState1, "yes").correctAnswers, 0, "transitionStudy 1")
+testSame(transitionStudy(studyState1, "yes").currentCard, 1, "transitionStudy 1")
+testSame(transitionStudy(studyState1, "yes").currentDeck, deck1, "transitionStudy 1")
+
+testSame(transitionStudy(studyState2, "yes").isFront, true, "transitionStudy 2")
+testSame(transitionStudy(studyState2, "yes").correctAnswers, 2, "transitionStudy 2")
+testSame(transitionStudy(studyState2, "yes").currentCard, 2, "transitionStudy 2")
+testSame(transitionStudy(studyState2, "yes").currentDeck, deck1, "transitionStudy 2")
 
 // renders the terminal state
 fun renderStudyTerminal(state: StudyState): String {
