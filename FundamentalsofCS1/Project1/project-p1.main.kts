@@ -319,7 +319,7 @@ val promptMenu = "Enter your choice"
 
 // writes the choices in the console as text as a menu
 fun choicesToText(choices: List<String>): String {
-    val lines = List(choices.size, { i -> "${i + 1}. ${choices[i]}"}) + listOf("\n$promptMenu")
+    val lines = List(choices.size, { i -> "${i + 1}. ${choices[i]}"}) + listOf("", "$promptMenu")
     return linesToString(lines)
 }
 
@@ -604,7 +604,49 @@ fun studyDeck(deck: Deck): Int {
     ).correctAnswers
 }
 
-testSame(captureResults(::studyDeck, "deck1"), CapturedResult(0, listOf("You got 0 correct")), "studyDeck")
+@EnabledTest
+fun testStudyDeck() {
+    fun helpTest(deck: Deck): () -> Unit {
+        fun studyMyDeck() {
+            studyDeck(deck)
+        }
+
+        return ::studyMyDeck
+    }
+
+    testSame(
+        captureResults(
+            helpTest(deck1),
+            "y",
+            "y",
+            "y",
+        ),
+        CapturedResult(
+            Unit,
+            "1^2 = ?",
+            "",
+            "Think of the result? Press enter to continue",
+            "1",
+            "",
+            "Correct? (Y)es/(N)o",
+            "2^2 = ?",
+            "",
+            "Think of the result? Press enter to continue",
+            "4",
+            "",
+            "Correct? (Y)es/(N)o",
+            "3^2 = ?",
+            "",
+            "Think of the result? Press enter to continue",
+            "9",
+            "",
+            "Correct? (Y)es/(N)o",
+            "You got 1 correct",
+        ),
+        "deck1",
+    )
+}
+
 
 // -----------------------------------------------------------------
 // Final app!
@@ -661,6 +703,97 @@ fun chooseAndStudy(): Int {
     //    number correctly answered
     return studyDeck(deckChosen)
 }
+
+@EnabledTest
+fun testChooseAndStudy() {
+    fun helpTest(): () -> Unit {
+        fun chooseAndStudyMyDecks() {
+            chooseAndStudy()
+        }
+
+        return ::chooseAndStudyMyDecks
+    }
+
+    testSame(
+        captureResults(
+            helpTest(),
+            "2",
+            "y",
+            "y",
+            "y",
+        ),
+        CapturedResult(
+            Unit,
+            "1. deck1",
+            "2. deck2",
+            "3. deck3",
+            "",
+            "Enter your choice",
+            "you chose: deck2",
+            "1^2 = ?",
+            "",
+            "Think of the result? Press enter to continue",
+            "1",
+            "",
+            "Correct? (Y)es/(N)o",
+            "2^2 = ?",
+            "",
+            "Think of the result? Press enter to continue",
+            "4",
+            "",
+            "Correct? (Y)es/(N)o",
+            "3^2 = ?",
+            "",
+            "Think of the result? Press enter to continue",
+            "9",
+            "",
+            "Correct? (Y)es/(N)o",
+            "You got 1 correct",
+        ),
+        "chooseAndStudy deck2",
+    )
+    testSame(
+        captureResults(
+            helpTest(),
+            "3",
+            "y",
+            "y",
+            "y",
+        ),
+        CapturedResult(
+            Unit,
+            "1. deck1",
+            "2. deck2",
+            "3. deck3",
+            "",
+            "Enter your choice",
+            "you chose: deck3",
+            "1^2 = ?",
+            "",
+            "Think of the result? Press enter to continue",
+            "1",
+            "",
+            "Correct? (Y)es/(N)o",
+            "2^2 = ?",
+            "",
+            "Think of the result? Press enter to continue",
+            "4",
+            "",
+            "Correct? (Y)es/(N)o",
+            "3^2 = ?",
+            "",
+            "Think of the result? Press enter to continue",
+            "9",
+            "",
+            "Correct? (Y)es/(N)o",
+            "You got 1 correct",
+        ),
+        "chooseAndStudy deck3",
+    )
+}
+
+
+
 
 // -----------------------------------------------------------------
 
