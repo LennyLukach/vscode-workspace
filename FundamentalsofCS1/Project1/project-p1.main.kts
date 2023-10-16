@@ -1,9 +1,9 @@
-import khoury.linesToString
 import khoury.CapturedResult
 import khoury.EnabledTest
 import khoury.captureResults
 import khoury.fileReadAsList
 import khoury.isAnInteger
+import khoury.linesToString
 import khoury.reactConsole
 import khoury.runEnabledTests
 import khoury.testSame
