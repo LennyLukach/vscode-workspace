@@ -1,3 +1,4 @@
+import khoury.linesToString
 import khoury.CapturedResult
 import khoury.EnabledTest
 import khoury.captureResults
