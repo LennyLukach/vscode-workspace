@@ -1,19 +1,18 @@
+import khoury.CapturedResult
+import khoury.EnabledTest
+import khoury.captureResults
+import khoury.fileReadAsList
+import khoury.isAnInteger
 import khoury.reactConsole
 import khoury.runEnabledTests
-import khoury.*
 import khoury.testSame
-import khoury.EnabledTest
-import khoury.isAnInteger
-import khoury.fileReadAsList
-import khoury.CapturedResult
-import khoury.captureResults
 
 // -----------------------------------------------------------------
 // Project: Part 1, Summary
 // -----------------------------------------------------------------
 
 // TODO: Add a comment here saying whom you worked with (people or
-// AI), and how it helped. If you did not work with anyone (which 
+// AI), and how it helped. If you did not work with anyone (which
 // would be surprising), say that.
 
 // I worked on this project solo
@@ -83,8 +82,6 @@ val card1 = FlashCard("1^2 = ?", "1")
 val card2 = FlashCard("2^2 = ?", "4")
 val card3 = FlashCard("3^2 = ?", "9")
 
-
-
 // TODO 2/2: Design the data type Deck to represent a deck of
 //           flash cards. The deck should have a name, as well
 //           as a Kotlin list of flash cards.
@@ -106,7 +103,6 @@ data class Deck(val name: String, val cards: List<FlashCard>)
 
 val deck1 = Deck("deck1", listOf(card1, card2, card3))
 val deck2 = Deck("deck2", listOf(card1, card2, card3))
-
 
 // TODO 1/1: Design the function perfectSquares that takes a
 //           count (assumed to be positive) and produces the
@@ -134,27 +130,22 @@ val square1Back = "1"
 val square2Back = "4"
 val square3Back = "9"
 
-
-//returns perfect square given k
-fun kthPerfectSquare(k : Int): FlashCard {
-    return FlashCard("${k}^2 = ?", "${k * k}")
+// returns perfect square given k
+fun kthPerfectSquare(k: Int): FlashCard {
+    return FlashCard("$k^2 = ?", "${k * k}")
 }
 
 val testedNum = 1
 
 testSame(kthPerfectSquare(testedNum), FlashCard("$testedNum^2 = ?", "${testedNum * testedNum}"), "kthPerfectSquare")
 
-
-//returns list of perfect squares given count
+// returns list of perfect squares given count
 fun perfectSquares(count: Int): List<FlashCard> {
     val cards = List(count, { i -> kthPerfectSquare(i + 1) })
     return cards
 }
 
-
 testSame(perfectSquares(3), listOf(card1, card2, card3), "perfectSquares")
-
-
 
 // -----------------------------------------------------------------
 // Files of cards
@@ -174,14 +165,12 @@ val charSep = "|"
 //           test all your card examples!
 //
 
-
-//returns text on flash cards as string
+// returns text on flash cards as string
 fun cardToString(card: FlashCard): String {
     return "${card.front}${charSep}${card.back}"
 }
 
 testSame(cardToString(card1), "1^2 = ?|1", "cardToString")
-
 
 // TODO 2/3: Design the function stringToCard that takes a string,
 //           assumed to be in the format described above, and
@@ -198,8 +187,7 @@ testSame(cardToString(card1), "1^2 = ?|1", "cardToString")
 //             original flash card back :)
 //
 
-
-//returns string as card
+// returns string as card
 fun stringToCard(str: String): FlashCard {
     val split = str.split(charSep)
     return FlashCard(split[0], split[1])
@@ -255,10 +243,13 @@ fun isPositive(str: String): Boolean {
     return str.startsWith("y", ignoreCase = true)
 }
 
-//test to see if ifPostive works in all appropriate cases
+// test to see if ifPostive works in all appropriate cases
 @EnabledTest
 fun testIsPositive() {
-    fun helpTest(str: String, expected: Boolean) {
+    fun helpTest(
+        str: String,
+        expected: Boolean,
+    ) {
         testSame(isPositive(str), expected, str)
     }
 
@@ -316,10 +307,9 @@ fun testIsPositive() {
 
 val promptMenu = "Enter your choice"
 
-
 // writes the choices in the console as text as a menu
 fun choicesToText(choices: List<String>): String {
-    val lines = List(choices.size, { i -> "${i + 1}. ${choices[i]}"}) + listOf("", "$promptMenu")
+    val lines = List(choices.size, { i -> "${i + 1}. ${choices[i]}" }) + listOf("", "$promptMenu")
     return linesToString(lines)
 }
 
@@ -339,7 +329,7 @@ fun testChoicesToText() {
             "",
             promptMenu,
         ),
-        "one"
+        "one",
     )
 
     testSame(
@@ -351,7 +341,7 @@ fun testChoicesToText() {
             "",
             promptMenu,
         ),
-        "three"
+        "three",
     )
 }
 
@@ -381,17 +371,18 @@ fun testChoicesToText() {
 // a program to allow the user to interactively select
 // a deck from the supplied, non-empty list of decks
 
-
-//gets the deck name
+// gets the deck name
 fun getDeckName(deck: Deck): String {
     return deck.name
 }
 
 testSame(getDeckName(deck1), "deck1", "getDeckName")
 
-
 // keeps the inputted value for a deck if its withtin the appropriate range
-fun keepIfValid(kbInput: String, validIndices: IntRange): Int {
+fun keepIfValid(
+    kbInput: String,
+    validIndices: IntRange,
+): Int {
     return if (isAnInteger(kbInput)) {
         val index = kbInput.toInt() - 1
         if (index in validIndices) index else -1
@@ -434,7 +425,10 @@ fun chooseOption(decks: List<Deck>): Deck {
     //       or not one in [1, size], return -1; otherwise
     //       return the string converted to an integer, but
     //       subtract 1, which makes it a valid list index.
-    fun transitionOptionChoice(ignoredState: Int, kbInput: String): Int {
+    fun transitionOptionChoice(
+        ignoredState: Int,
+        kbInput: String,
+    ): Int {
         return keepIfValid(kbInput, decks.indices)
     }
 
@@ -453,13 +447,15 @@ fun chooseOption(decks: List<Deck>): Deck {
         return choiceAnnouncement(getDeckName(decks[state]))
     }
 
-    return decks[reactConsole(
-        initialState = -1,
-        stateToText = ::renderDeckOptions,
-        nextState = ::transitionOptionChoice,
-        isTerminalState = ::validChoiceEntered,
-        terminalStateToText = ::renderChoice,
-    )]
+    return decks[
+        reactConsole(
+            initialState = -1,
+            stateToText = ::renderDeckOptions,
+            nextState = ::transitionOptionChoice,
+            isTerminalState = ::validChoiceEntered,
+            terminalStateToText = ::renderChoice,
+        ),
+    ]
 }
 
 // -----------------------------------------------------------------
@@ -489,10 +485,9 @@ fun chooseOption(decks: List<Deck>): Deck {
 
 data class StudyState(val currentDeck: Deck, val currentCard: Int, val isFront: Boolean, val correctAnswers: Int)
 
-val studyState1 = StudyState(deck1, 1,true, 0)
+val studyState1 = StudyState(deck1, 1, true, 0)
 val studyState2 = StudyState(deck1, 1, false, 1)
-val studyState3= StudyState(deck1, 1, false, 2)
-
+val studyState3 = StudyState(deck1, 1, false, 2)
 
 // TODO 2/2: Now, using reactConsole, design the program studyDeck
 //           that for each card in a supplied deck, allows the
@@ -549,7 +544,6 @@ val studyState3= StudyState(deck1, 1, false, 2)
 val studyThink = "Think of the result? Press enter to continue"
 val studyCheck = "Correct? (Y)es/(N)o"
 
-
 // checks to see if the user is done studying
 fun isDoneStudying(state: StudyState): Boolean {
     return state.currentCard == state.currentDeck.cards.size
@@ -569,9 +563,11 @@ fun renderStudy(state: StudyState): String {
 
 testSame(renderStudy(studyState1), linesToString("2^2 = ?", "", studyThink), "renderStudy")
 
-
 // transitions the study state
-fun transitionStudy(state: StudyState, kbInput: String): StudyState {
+fun transitionStudy(
+    state: StudyState,
+    kbInput: String,
+): StudyState {
     val card = state.currentDeck.cards[state.currentCard]
     return if (state.isFront) {
         StudyState(state.currentDeck, state.currentCard, false, state.correctAnswers)
@@ -585,7 +581,6 @@ fun transitionStudy(state: StudyState, kbInput: String): StudyState {
 val deckTest = Deck("deck1", listOf(FlashCard("front1", "back1"), FlashCard("front2", "back2")))
 val studyStateTest1 = StudyState(deckTest, 0, true, 0)
 val studyStateTest2 = StudyState(deckTest, 0, false, 0)
-
 
 testSame(transitionStudy(studyState1, "yes").isFront, false, "transitionStudy 1")
 testSame(transitionStudy(studyState1, "yes").correctAnswers, 0, "transitionStudy 1")
@@ -603,7 +598,6 @@ fun renderStudyTerminal(state: StudyState): String {
 }
 
 testSame(renderStudyTerminal(studyState1), "You got 0 correct", "renderStudyTerminal")
-
 
 // allows user to interact with the deck and then retursn the number of correct answers
 fun studyDeck(deck: Deck): Int {
@@ -659,7 +653,6 @@ fun testStudyDeck() {
     )
 }
 
-
 // -----------------------------------------------------------------
 // Final app!
 // -----------------------------------------------------------------
@@ -690,22 +683,22 @@ fun testStudyDeck() {
 //           results of all your hard work so far this semester!)
 //
 
-
 // lets the user choose a deck and study it,
 // returning the number self-reported correct
 fun chooseAndStudy(): Int {
     // 1. Construct a list of options
     // (ala the instructions above)
 
-    val deckOptions = listOf(
-        // TODO: at least...
-        // deck from file via readCardsFile,
-        // deck from code via perfectSquares
-        // deck hand-coded
-        Deck("deck1", readCardsFile("example.txt")),
-        Deck("deck2", perfectSquares(3)),
-        Deck("deck3", listOf(card1, card2, card3))
-    )
+    val deckOptions =
+        listOf(
+            // TODO: at least...
+            // deck from file via readCardsFile,
+            // deck from code via perfectSquares
+            // deck hand-coded
+            Deck("deck1", readCardsFile("example.txt")),
+            Deck("deck2", perfectSquares(3)),
+            Deck("deck3", listOf(card1, card2, card3)),
+        )
 
     // 2. Use chooseOption to let the user
     //    select a deck
@@ -803,9 +796,6 @@ fun testChooseAndStudy() {
         "chooseAndStudy deck3",
     )
 }
-
-
-
 
 // -----------------------------------------------------------------
 
