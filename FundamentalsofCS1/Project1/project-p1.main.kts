@@ -770,7 +770,7 @@ fun testChooseAndStudy() {
             "3",
             "y",
             "y",
-            "y",
+            "n",
         ),
         CapturedResult(
             Unit,
