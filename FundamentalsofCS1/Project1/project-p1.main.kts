@@ -459,6 +459,48 @@ fun chooseOption(decks: List<Deck>): Deck {
     ]
 }
 
+@EnabledTest
+fun testChooseOption() {
+    fun helpTest(decks: List<Deck>): () -> Unit {
+        fun chooseMyDeck() {
+            chooseOption(decks)
+        }
+
+        return ::chooseMyDeck
+    }
+
+    testSame(
+        captureResults(
+            helpTest(listOf(deck1, deck2)),
+            "1",
+        ),
+        CapturedResult(
+            Unit,
+            "1. deck1",
+            "2. deck2",
+            "",
+            "Enter your choice",
+            "you chose: deck1",
+        ),
+        "deck1",
+    )
+    testSame(
+        captureResults(
+            helpTest(listOf(deck1, deck2)),
+            "2",
+        ),
+        CapturedResult(
+            Unit,
+            "1. deck1",
+            "2. deck2",
+            "",
+            "Enter your choice",
+            "you chose: deck2",
+        ),
+        "deck2",
+    )
+}
+
 // -----------------------------------------------------------------
 // Studying a deck
 // -----------------------------------------------------------------
