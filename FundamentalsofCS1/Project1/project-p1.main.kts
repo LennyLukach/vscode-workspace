@@ -766,9 +766,12 @@ fun testChooseAndStudy() {
         captureResults(
             helpTest(),
             "2",
+            "",
+            "n",
+            "",
             "y",
-            "y",
-            "y",
+            "",
+            "n",
         ),
         CapturedResult(
             Unit,
@@ -804,8 +807,11 @@ fun testChooseAndStudy() {
         captureResults(
             helpTest(),
             "3",
+            "",
             "y",
+            "",
             "y",
+            ",",
             "n",
         ),
         CapturedResult(
@@ -834,7 +840,7 @@ fun testChooseAndStudy() {
             "9",
             "",
             "Correct? (Y)es/(N)o",
-            "You got 1 correct",
+            "You got 2 correct",
         ),
         "chooseAndStudy deck3",
     )
