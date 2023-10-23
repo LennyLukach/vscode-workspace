@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "testJava",
+            "request": "launch",
+            "mainClass": "testJava",
+            "projectName": "TestJava"
+        },
+        {
+            "type": "java",
             "name": "ghostLemmings",
             "request": "launch",
             "mainClass": "ghostLemmings",
