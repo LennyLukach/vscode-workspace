@@ -3,6 +3,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 //TODO: Check for books every time a card is drawn
+//TODO: Check if user/computer have card in hand before asking for it
 
 public class goFish {
 

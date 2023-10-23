@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "goFish",
+            "request": "launch",
+            "mainClass": "goFish",
+            "projectName": "GoFish"
+        },
+        {
+            "type": "java",
             "name": "example",
             "request": "launch",
             "mainClass": "example",
