@@ -1,6 +1,6 @@
-import khoury.testSame
 import khoury.EnabledTest
 import khoury.runEnabledTests
+import khoury.testSame
 
 // -----------------------------------------------------------------
 // Homework 5, Problem 3
@@ -34,18 +34,16 @@ import khoury.runEnabledTests
 //           function that has been annotated as @EnabledTest).
 //
 
-
 data class TaggedFlashCard(val front: String, val back: String, val tags: List<String>) {
     fun isTagged(tag: String): Boolean = tags.contains(tag)
+
     fun fileFormat(): String = "$front$sepCard$back$sepCard${tags.joinToString(sepTag)}"
 }
-
 
 val sepCard = "|"
 val sepTag = ","
 // (just useful values for
 // the separation characters)
-
 
 val card1 = TaggedFlashCard("What is the capital of MA?", "Boston", listOf("geography", "hard"))
 val card2 = TaggedFlashCard("What is the capital of NY?", "Albany", listOf("geography"))
@@ -56,61 +54,61 @@ fun testTaggedFlashCard() {
     testSame(
         card1.isTagged("hard"),
         true,
-        "card1.isTagged(\"hard\")"
+        "card1.isTagged(\"hard\")",
     )
 
     testSame(
         card1.isTagged("easy"),
         false,
-        "card1.isTagged(\"easy\")"
+        "card1.isTagged(\"easy\")",
     )
 
     testSame(
         card2.isTagged("geography"),
         true,
-        "card2.isTagged(\"geography\")"
+        "card2.isTagged(\"geography\")",
     )
 
     testSame(
         card2.isTagged("hard"),
         false,
-        "card2.isTagged(\"hard\")"
+        "card2.isTagged(\"hard\")",
     )
 
     testSame(
         card3.isTagged("state"),
         true,
-        "card3.isTagged(\"state\")"
+        "card3.isTagged(\"state\")",
     )
 
     testSame(
         card3.isTagged("hard"),
         true,
-        "card3.isTagged(\"hard\")"
+        "card3.isTagged(\"hard\")",
     )
 
     testSame(
         card3.isTagged("easy"),
         false,
-        "card3.isTagged(\"easy\")"
+        "card3.isTagged(\"easy\")",
     )
 
     testSame(
         card1.fileFormat(),
         "What is the capital of MA?|Boston|geography,hard",
-        "card1.fileFormat()"
+        "card1.fileFormat()",
     )
 
     testSame(
         card2.fileFormat(),
         "What is the capital of NY?|Albany|geography",
-        "card2.fileFormat()"
+        "card2.fileFormat()",
     )
 
     testSame(
         card3.fileFormat(),
         "What is the capital of CA?|Sacramento|geography,hard,state",
-        "card3.fileFormat()"
+        "card3.fileFormat()",
     )
 }
 

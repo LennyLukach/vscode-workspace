@@ -1,6 +1,6 @@
-import khoury.testSame
-import khoury.runEnabledTests
 import khoury.EnabledTest
+import khoury.runEnabledTests
+import khoury.testSame
 
 
 
@@ -17,7 +17,6 @@ import khoury.EnabledTest
 
 interface INamedThing {
     fun getName(): String
-
 }
 
 //           Your task is to finish designing the function
@@ -35,18 +34,17 @@ fun renderNamedThings(items: List<INamedThing>): String {
     return items.joinToString(", ") { it.getName() }
 }
 
-
-data class NamedInt(val num: Int): INamedThing {
+data class NamedInt(val num: Int) : INamedThing {
     // name is the number
     override fun getName(): String = "$num"
 }
 
-data class NamedPerson(val first: String, val last: String): INamedThing {
+data class NamedPerson(val first: String, val last: String) : INamedThing {
     // name is combo of first/last
     override fun getName(): String = "$first $last"
 }
 
-data class SamedNamedInt(val num: Int): INamedThing {
+data class SamedNamedInt(val num: Int) : INamedThing {
     // name is always the same
     override fun getName(): String = "Inigo Montoya"
 }
@@ -56,20 +54,22 @@ fun testRenderNamedThings() {
     testSame(
         renderNamedThings(emptyList<INamedThing>()),
         "",
-        "empty"
+        "empty",
     )
 
     testSame(
-        renderNamedThings(listOf(
-            NamedInt(0),
-            NamedInt(42),
-            NamedPerson("Harry", "Potter"),
-            NamedPerson("Hermione", "Granger"),
-            SamedNamedInt(42),
-            SamedNamedInt(0),
-        )),
+        renderNamedThings(
+            listOf(
+                NamedInt(0),
+                NamedInt(42),
+                NamedPerson("Harry", "Potter"),
+                NamedPerson("Hermione", "Granger"),
+                SamedNamedInt(42),
+                SamedNamedInt(0),
+            ),
+        ),
         "0, 42, Harry Potter, Hermione Granger, Inigo Montoya, Inigo Montoya",
-        "non-empty"
+        "non-empty",
     )
 }
 

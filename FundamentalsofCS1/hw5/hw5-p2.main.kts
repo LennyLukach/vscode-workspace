@@ -1,10 +1,10 @@
-import khoury.testSame
-import khoury.runEnabledTests
-import khoury.EnabledTest
-
 // -----------------------------------------------------------------
 // Homework 5, Problem 2
 // -----------------------------------------------------------------
+
+import khoury.EnabledTest
+import khoury.runEnabledTests
+import khoury.testSame
 
 // In this problem, you'll practice implementing one of the built-
 // in list abstractions using a different abstraction, along with
@@ -23,20 +23,18 @@ import khoury.EnabledTest
 //                 function.
 //
 
-//Work on multiple types
-//Pass two arguments, a list, and a predicate to test on each element
-fun <T> myMap(list: List<T>, pred: (T) -> T): List<T>{
-    //Using a for loop (based on the size of the list)
-    //Run the predicate on each element
-    //Adding the new element to a list
-    //Return that list
-
-    for (i in list){
-        pred(i)
-    }
-
-    return list
-
+// Work on multiple types
+// Pass two arguments, a list, and a predicate to test on each element
+fun <T, U> myMap(
+    list: List<T>,
+    mapFunc: (T) -> U,
+): List<U> {
+    return List<U>(
+        list.size,
+        // Allows the function to be called on each index of the original list
+        { mapFunc(list[it]) },
+        // Recursive lamda function
+    )
 }
 
 @EnabledTest
@@ -80,6 +78,5 @@ fun testMyMap() {
         "non-empty, length->add1",
     )
 }
-
 
 runEnabledTests(this)
