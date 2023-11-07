@@ -1,3 +1,5 @@
+import khoury.testSame
+
 // -----------------------------------------------------------------
 // Homework 6, Problem 1
 // -----------------------------------------------------------------
@@ -20,3 +22,39 @@
 //           including empty vs lists that have elements, as well
 //           as differing types.
 //
+
+var test1 = mutableListOf(1, 2, 3)
+var result1 = mutableListOf(2, 4, 6)
+var testEmptyList: MutableList<Any> = mutableListOf()
+var resultEmptyList: MutableList<Any> = mutableListOf()
+var test2 = mutableListOf<Any>("a", 2, "c")
+var result2 = mutableListOf<Any>("aa", 4, "cc")
+
+fun myInplaceMap(myList: MutableList<Any>, pred: (Any) -> Any) {
+    for (i in 0..myList.size-1) {
+        myList[i] = pred(myList[i])
+    }
+}
+
+
+// Test case 1
+testSame(test1, mutableListOf(1, 2, 3), "Before Change")
+
+myInplaceMap(test1, {it * 2})
+
+testSame(test1, result1, "After Change")
+
+print("\n")
+
+// Test case 2
+myInplaceMap(testEmptyList, {it * 2})
+
+testSame(testEmptyList, resultEmptyList, "Empty List")
+
+
+// Test case 3
+testSame(test2, mutableListOf("a", "2", "c"), "Before Change")
+
+myInplaceMap(test2, {it + it})
+
+testSame(test2, result2, "After Change")
