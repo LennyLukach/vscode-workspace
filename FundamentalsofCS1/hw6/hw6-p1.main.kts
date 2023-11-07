@@ -27,8 +27,8 @@ var test1 = mutableListOf(1, 2, 3)
 var result1 = mutableListOf(2, 4, 6)
 var testEmptyList: MutableList<Any> = mutableListOf()
 var resultEmptyList: MutableList<Any> = mutableListOf()
-var test2 = mutableListOf<Any>("a", 2, "c")
-var result2 = mutableListOf<Any>("aa", 4, "cc")
+var test3 = mutableListOf<Any>("a", 2, "c")
+var result3 = mutableListOf<Any>("aa", 4, "cc")
 
 fun myInplaceMap(myList: MutableList<Any>, pred: (Any) -> Any) {
     for (i in 0..myList.size-1) {
@@ -38,7 +38,7 @@ fun myInplaceMap(myList: MutableList<Any>, pred: (Any) -> Any) {
 
 
 // Test case 1
-testSame(test1, mutableListOf(1, 2, 3), "Before Change")
+testSame(test1, mutableListOf<Any>(1, 2, 3), "Before Change")
 
 myInplaceMap(test1, {it * 2})
 
@@ -53,8 +53,8 @@ testSame(testEmptyList, resultEmptyList, "Empty List")
 
 
 // Test case 3
-testSame(test2, mutableListOf("a", "2", "c"), "Before Change")
+testSame(test3, mutableListOf("a", "2", "c"), "Before Change")
 
-myInplaceMap(test2, {it + it})
+myInplaceMap(test3, {it + it})
 
-testSame(test2, result2, "After Change")
+testSame(test3, result3, "After Change")
