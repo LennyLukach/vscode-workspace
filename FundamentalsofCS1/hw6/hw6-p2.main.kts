@@ -56,7 +56,7 @@ fun secretMessage(sneakyNodes: List<SneakyNode>, phrases: List<String>) {
 
 @EnabledTest
 fun testSecretMessage() {
-    val phrases = list5Of(
+    val phrases = listOf(
         "how are you doing?",
         "i hope you have a lovely day!",
         "programming is fun :)",
