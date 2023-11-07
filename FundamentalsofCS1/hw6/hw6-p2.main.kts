@@ -1,3 +1,9 @@
+import khoury.testSame
+import khoury.runEnabledTests
+import khoury.EnabledTest
+import khoury.CapturedResult
+import khoury.captureResults
+
 // -----------------------------------------------------------------
 // Homework 6, Problem 2
 // -----------------------------------------------------------------
@@ -20,6 +26,9 @@ data class SneakyNode(
     val nextNodeIndex: Int,
 )
 
+
+
+
 //           Finish designing secretMessage that accepts a list of
 //           these sneaky nodes, as well as a corresponding list of
 //           phrases, and prints to the screen the message that is
@@ -36,57 +45,69 @@ data class SneakyNode(
 //           approach!).
 //
 
-// @EnabledTest
-// fun testSecretMessage() {
-//     val phrases = listOf(
-//         "how are you doing?",
-//         "i hope you have a lovely day!",
-//         "programming is fun :)",
-//     )
+fun secretMessage(sneakyNodes: List<SneakyNode>, phrases: List<String>) {
+    var currentNode: SneakyNode? = sneakyNodes[0]
+    while (currentNode != null) {
+        print(phrases[currentNode.phraseIndex][currentNode.characterIndex])
+        currentNode = if (currentNode.nextNodeIndex != -1) sneakyNodes[currentNode.nextNodeIndex] else null
+    }
+    println()
+}
 
-//     val startNode1 = SneakyNode(2, 19, 8)
-//     val startNode2 = SneakyNode(1, 2, 2)
+@EnabledTest
+fun testSecretMessage() {
+    val phrases = list5Of(
+        "how are you doing?",
+        "i hope you have a lovely day!",
+        "programming is fun :)",
+    )
 
-//     val otherNodes = listOf(
-//         SneakyNode(0, 2, 5),
-//         SneakyNode(2, 2, 1),
-//         SneakyNode(1, 28, -1),
-//         SneakyNode(2, 0, -1),
-//         SneakyNode(0, 12, 6),
-//         SneakyNode(1, 27, 3),
-//         SneakyNode(1, 1, 1),
-//         SneakyNode(2, 20, -1),
-//     )
+    val startNode1 = SneakyNode(2, 19, 8)
+    val startNode2 = SneakyNode(1, 2, 2)
 
-//     testSame(
-//         captureResults(
-//             {
-//                 secretMessage(
-//                     listOf(startNode1) + otherNodes,
-//                     phrases
-//                 )
-//             }
-//         ),
-//         CapturedResult(
-//             Unit,
-//             ":)"
-//         ),
-//         "example 1"
-//     )
+    val otherNodes = listOf(
+        SneakyNode(0, 2, 5),
+        SneakyNode(2, 2, 1),
+        SneakyNode(1, 28, -1),
+        SneakyNode(2, 0, -1),
+        SneakyNode(0, 12, 6),
+        SneakyNode(1, 27, 3),
+        SneakyNode(1, 1, 1),
+        SneakyNode(2, 20, -1),
+    )
 
-//     testSame(
-//         captureResults(
-//             {
-//                 secretMessage(
-//                     listOf(startNode2) + otherNodes,
-//                     phrases
-//                 )
-//             }
-//         ),
-//         CapturedResult(
-//             Unit,
-//             "howdy!"
-//         ),
-//         "example 2"
-//     )
-// }
+    testSame(
+        captureResults(
+            {
+                secretMessage(
+                    listOf(startNode1) + otherNodes,
+                    phrases
+                )
+            }
+        ),
+        CapturedResult(
+            Unit,
+            ":)"
+        ),
+        "example 1"
+    )
+
+    testSame(
+        captureResults(
+            {
+                secretMessage(
+                    listOf(startNode2) + otherNodes,
+                    phrases
+                )
+            }
+        ),
+        CapturedResult(
+            Unit,
+            "howdy!"
+        ),
+        "example 2"
+    )
+}
+
+
+runEnabledTests(this)
