@@ -1,6 +1,5 @@
 // lenny and jaden
 
-
 import khoury.testSame
 
 // -----------------------------------------------------------------
@@ -33,18 +32,20 @@ var resultEmptyList: MutableList<Int> = mutableListOf()
 var test2 = mutableListOf<String>("a", "2", "c")
 var result2 = mutableListOf<String>("aa", "22", "cc")
 
-fun <I> myInplaceMap(myList: MutableList<I>, pred: (I) -> I) {
-    for (i in 0..myList.size-1) {
+fun <I> myInplaceMap(
+    myList: MutableList<I>,
+    pred: (I) -> I,
+) {
+    for (i in 0..myList.size - 1) {
         myList[i] = pred(myList[i])
     }
 }
-
 
 // Test case 1
 
 testSame(test1, mutableListOf(1, 2, 3), "Before Change")
 
-myInplaceMap(test1, {it * 2})
+myInplaceMap(test1, { it * 2 })
 
 testSame(test1, result1, "After Change")
 
@@ -54,7 +55,7 @@ print("\n")
 
 testSame(test2, mutableListOf("a", "2", "c"), "Before Change")
 
-myInplaceMap(test2, {it + it})
+myInplaceMap(test2, { it + it })
 
 testSame(test2, result2, "After Change")
 
@@ -62,6 +63,6 @@ print("\n")
 
 // Test case 3
 
-myInplaceMap(testEmptyList, {it * 2})
+myInplaceMap(testEmptyList, { it * 2 })
 
 testSame(testEmptyList, resultEmptyList, "Empty List")
