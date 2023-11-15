@@ -28,17 +28,17 @@ import khoury.testSame
 // a way to "score" a particular type of data
 typealias EvaluationFunction<T> = (T) -> Int
 
-fun stringToScore(element: String): Int  {
+fun stringToScore(element: String): Int {
     // Return a high score for large words and low scores for high numbers
     return element.length
 }
 
-fun smallNumtToScore(num: Int): Int  {
+fun smallNumtToScore(num: Int): Int {
     // Return a high score for low numbers and a low score for high numbers
     return 0 - num
 }
 
-fun pointToScore(point: Point2D): Int  {
+fun pointToScore(point: Point2D): Int {
     // Return a high score for points closest to the y-axis and low scores for points furthest away
     return 0 - point.distToYAxis()
 }
