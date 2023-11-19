@@ -1,24 +1,21 @@
 import khoury.testSame
 
 
-fun foldConcat(los: List<String>): String {
-    return los.fold(
-         "",
-         { acc, element -> acc + element },
-         )
-}
 
+fun foldFlatten(llos: List<List<String>>): List<String> {
+     return llos.fold(emptyList()) {acc, element -> acc + element}
 
 
 
 testSame(
-     foldConcat(emptyList<String>()),
-     "",
-     "empty",
+     foldFlatten(emptyList<List<String>>()),
+     emptyList<String>(),
 )
-
 testSame(
-     foldConcat(listOf("a", "b", "c")),
-     "abc",
-     "alpha",
-)
+     foldFlatten(listOf(
+          listOf("a", "bb"),
+          listOf("c"),
+          listOf()
+     )),
+     listOf("a", "bb", "c"),
+)    
