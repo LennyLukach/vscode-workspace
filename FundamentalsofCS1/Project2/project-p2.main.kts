@@ -1,11 +1,26 @@
-import khoury.testSame
-import khoury.captureResults
+/*
+Project 1 - Part 2
+Jaden Parker
+and
+Lenny Lukach
+*/
+
 import khoury.CapturedResult
-import khoury.reactConsole
 import khoury.EnabledTest
-import khoury.runEnabledTests
+import khoury.captureResults
 import khoury.fileExists
 import khoury.fileReadAsList
+import khoury.isAnInteger
+import khoury.linesToString
+import khoury.reactConsole
+import khoury.runEnabledTests
+import khoury.testSame
+
+/*
+For some reason, my computer fails to access file paths correctly, to avoid this issue, I am forced to pass the full path
+for testing purposes. I have included a constant that represents the file path.
+*/
+val testFilePath = "C:/Users/jotis/OneDrive/Desktop/CS2500/Project2/example_tagged.txt"
 
 // -----------------------------------------------------------------
 // Project: Part 2, Summary
@@ -109,7 +124,6 @@ import khoury.fileReadAsList
 val sepCard = "|"
 val sepTag = ","
 
-
 // data class for TaggedFlashCard with frontText, backText, and tags
 data class TaggedFlashCard(val frontText: String, val backText: String, val tags: List<String>) {
     fun isTagged(): Boolean {
@@ -126,7 +140,6 @@ val testFC1 = TaggedFlashCard("Los Angeles", "California", listOf("Cities", "Sta
 val testFC2 = TaggedFlashCard("2 + 2", "4", listOf("Math", "Addition", "Easy"))
 val testFC3 = TaggedFlashCard("Orange", "Blue", listOf("Contrasting Colors", "Art", "Hard"))
 val testFCUntagged = TaggedFlashCard("Hola", "Hello", listOf())
-
 
 @EnabledTest
 fun testTaggedFlashCardFunctions() {
@@ -158,9 +171,8 @@ fun testTaggedFlashCardFunctions() {
 //           Hint: review part 1 of the project, TODO 2/3
 //
 
-
 // takes a string and splits it into frontText, backText, and tags
-fun stringToTaggedFlashCard(cardTextFormatted: String): TaggedFlashCard{
+fun stringToTaggedFlashCard(cardTextFormatted: String): TaggedFlashCard {
     val splitString = cardTextFormatted.split(sepCard)
     val frontText = splitString[0]
     val backText = splitString[1]
@@ -170,11 +182,10 @@ fun stringToTaggedFlashCard(cardTextFormatted: String): TaggedFlashCard{
     // checks if the card has tags, if it does then it splits the tags into a list, otherwise it is an empty list
     if (splitString[2] == "") {
         tags = listOf()
-    }
-    else {
+    } else {
         tags = splitString[2].split(sepTag)
     }
-    
+
     return TaggedFlashCard(frontText, backText, tags)
 }
 
@@ -186,7 +197,6 @@ fun testStringToTaggedFlashCard() {
     testSame(stringToTaggedFlashCard("Orange|Blue|Contrasting Colors,Art,Hard"), testFC3, "testFC3")
     testSame(stringToTaggedFlashCard("Hola|Hello|"), testFCUntagged, "testFCUntagged")
 }
-
 
 // TODO 2/2: Design the function readTaggedFlashCardsFile that
 //           takes a path to a file and produces a list of
@@ -204,7 +214,6 @@ fun testStringToTaggedFlashCard() {
 //             exist!
 //
 
-
 // reads a file and returns a list of strings from the file
 fun readTaggedFlashCardsFile(filePath: String): List<TaggedFlashCard> {
     return when {
@@ -217,7 +226,6 @@ fun readTaggedFlashCardsFile(filePath: String): List<TaggedFlashCard> {
         }
         else -> emptyList()
     }
-
 }
 
 // takes a list of strings and returns a list of tagged flashcards recursivly
@@ -228,7 +236,6 @@ fun generateList(list: List<String>): List<TaggedFlashCard> {
     }
 }
 
-
 // example tagged flash cards from the file
 val exampleFC1 = TaggedFlashCard("c", "3", listOf("hard", "science"))
 val exampleFC2 = TaggedFlashCard("d", "4", listOf("hard"))
@@ -237,13 +244,24 @@ val exampleList: List<TaggedFlashCard> = listOf(exampleFC1, exampleFC2)
 @EnabledTest
 fun testReadTaggedFlashCardsFile() {
     // test readTaggedFlashCardsFile
-    testSame(readTaggedFlashCardsFile("C:/Users/jotis/OneDrive/Desktop/CS2500/Project2/example_tagged.txt"), exampleList, "example_tagged.txt")
+    testSame(readTaggedFlashCardsFile(testFilePath), exampleList, "example_tagged.txt")
 }
 
 @EnabledTest
 fun testGenerateList() {
     // test generateList
-    testSame(generateList(listOf("Los Angeles|California|Cities,States,Geography", "2 + 2|4|Math,Addition,Easy", "Orange|Blue|Contrasting Colors,Art,Hard", "Hola|Hello|")), listOf(testFC1, testFC2, testFC3, testFCUntagged), "example_tagged.txt")
+    testSame(
+        generateList(
+            listOf(
+                "Los Angeles|California|Cities,States,Geography",
+                "2 + 2|4|Math,Addition,Easy",
+                "Orange|Blue|Contrasting Colors,Art,Hard",
+                "Hola|Hello|",
+            ),
+        ),
+        listOf(testFC1, testFC2, testFC3, testFCUntagged),
+        "example_tagged.txt",
+    )
 }
 
 // -----------------------------------------------------------------
@@ -314,10 +332,8 @@ interface IDeck {
 //           kotlinlang.org/docs/functions.html#default-arguments
 //
 
-
 // creates a deck of flashcards from a list of tagged flashcards
-class TFCListDeck(private val cards: List<TaggedFlashCard>, private val index: Int, private val state: DeckState) : IDeck {
-    
+data class TFCListDeck(private val cards: List<TaggedFlashCard>, private val index: Int, private val state: DeckState) : IDeck {
     // returns the state of the deck
     override fun getState(): DeckState {
         return state
@@ -346,20 +362,18 @@ class TFCListDeck(private val cards: List<TaggedFlashCard>, private val index: I
     }
 
     // moves to the next card
-    override fun next(correct: Boolean) : IDeck {
+    override fun next(correct: Boolean): IDeck {
         return when (state) {
             DeckState.ANSWER -> {
                 if (correct) {
-                    //Drop first, check if empty, if it is, go to exhausted, otherwise go to next question
+                    // Drop first, check if empty, if it is, go to exhausted, otherwise go to next question
                     val newCards = cards.drop(1)
                     if (newCards.isEmpty()) {
                         TFCListDeck(newCards, 0, DeckState.EXHAUSTED)
-                    }
-                    else {
+                    } else {
                         TFCListDeck(newCards, 0, DeckState.QUESTION)
                     }
-                }
-                else {
+                } else {
                     // if incorrect, drop the first element and append it to the end of the deck
                     TFCListDeck(cards.drop(1) + cards[index], 0, DeckState.QUESTION)
                 }
@@ -369,56 +383,73 @@ class TFCListDeck(private val cards: List<TaggedFlashCard>, private val index: I
     }
 }
 
+val deck1 = TFCListDeck(listOf(testFC1, testFC2, testFC3), 0, DeckState.QUESTION)
+val deckEmpty = TFCListDeck(listOf(), 0, DeckState.EXHAUSTED)
+
 @EnabledTest
 fun testTFCListDeck() {
     // test TFCListDeck
     val testDeck = TFCListDeck(listOf(testFC1, testFC2, testFC3), 0, DeckState.QUESTION)
     var testDeck2: IDeck = testDeck
-    
+
+    /*
+    The tests below run through a full sequence of looking through a deck of flashcards
+    While not directly using testSame on the flip and next functions, they are used to proceded to the next card/other side of a given card
+    getState and getText functions are then tested on the new flashcard.
+     */
+
+    // First card front
     testSame(testDeck2.getState(), DeckState.QUESTION, "testDeck2.getState()")
     testSame(testDeck2.getText(), "Los Angeles", "testDeck2.getText()")
     testSame(testDeck2.getSize(), 3, "testDeck2.getSize()")
 
     testDeck2 = testDeck2.flip()
 
+    // First card back, correct anwser given
     testSame(testDeck2.getState(), DeckState.ANSWER, "testDeck2.getState()")
     testSame(testDeck2.getText(), "California", "testDeck2.getText()")
 
     testDeck2 = testDeck2.next(true)
 
-    testSame(testDeck2.getState(), DeckState.QUE`STION, "testDeck2.getState()")
+    // Second card front
+    testSame(testDeck2.getState(), DeckState.QUESTION, "testDeck2.getState()")
     testSame(testDeck2.getText(), "2 + 2", "testDeck2.getText()")
 
     testDeck2 = testDeck2.flip()
 
+    // Second card back, incorrect anwser given
     testSame(testDeck2.getState(), DeckState.ANSWER, "testDeck2.getState()")
     testSame(testDeck2.getText(), "4", "testDeck2.getText()")
 
     testDeck2 = testDeck2.next(false)
 
+    // Third card front
     testSame(testDeck2.getState(), DeckState.QUESTION, "testDeck2.getState()")
     testSame(testDeck2.getText(), "Orange", "testDeck2.getText()")
 
     testDeck2 = testDeck2.flip()
 
+    // Third card back, correct anwser given
     testSame(testDeck2.getState(), DeckState.ANSWER, "testDeck2.getState()")
     testSame(testDeck2.getText(), "Blue", "testDeck2.getText()")
 
     testDeck2 = testDeck2.next(true)
 
+    // Second card front
     testSame(testDeck2.getState(), DeckState.QUESTION, "testDeck2.getState()")
     testSame(testDeck2.getText(), "2 + 2", "testDeck2.getText()")
 
     testDeck2 = testDeck2.flip()
 
+    // Second card back, correct anwser given
     testSame(testDeck2.getState(), DeckState.ANSWER, "testDeck2.getState()")
     testSame(testDeck2.getText(), "4", "testDeck2.getText()")
 
     testDeck2 = testDeck2.next(true)
 
+    // As each card has been anwsered correctly, the deck should be exhausted
     testSame(testDeck2.getState(), DeckState.EXHAUSTED, "testDeck2.getState()")
     testSame(testDeck2.getText(), null, "testDeck2.getText()")
-    
 }
 
 // TODO 2/2: Now design PerfectSquaresDeck to implement the IDeck
@@ -436,7 +467,135 @@ fun testTFCListDeck() {
 //                 responses).
 //
 
+class PerfectSquaresDeck(private val perfectSquares: List<Int>, private val index: Int, private val state: DeckState) : IDeck {
+    // returns the state of the deck
+    override fun getState(): DeckState {
+        return state
+    }
 
+    // returns the text of the card
+    override fun getText(): String? {
+        return when (state) {
+            DeckState.EXHAUSTED -> null
+            DeckState.QUESTION -> perfectSquares[index].toString()
+            DeckState.ANSWER -> (perfectSquares[index] * perfectSquares[index]).toString()
+        }
+    }
+
+    // returns the size of the deck
+    override fun getSize(): Int {
+        return perfectSquares.size
+    }
+
+    // flips the card
+    override fun flip(): IDeck {
+        return when (state) {
+            DeckState.QUESTION -> PerfectSquaresDeck(perfectSquares, index, DeckState.ANSWER)
+            else -> this
+        }
+    }
+
+    // moves to the next card
+    override fun next(correct: Boolean): IDeck {
+        return when (state) {
+            DeckState.ANSWER -> {
+                if (correct) {
+                    // Drop first, check if empty, if it is, go to exhausted, otherwise go to next question
+                    val newCards = perfectSquares.drop(1)
+                    if (newCards.isEmpty()) {
+                        PerfectSquaresDeck(newCards, 0, DeckState.EXHAUSTED)
+                    } else {
+                        PerfectSquaresDeck(newCards, 0, DeckState.QUESTION)
+                    }
+                } else {
+                    // if incorrect, drop the first element and append it to the end of the deck
+                    PerfectSquaresDeck((perfectSquares.drop(1) + perfectSquares[0]), 0, DeckState.QUESTION)
+                }
+            }
+            else -> this
+        }
+    }
+}
+
+@EnabledTest
+fun testPerfectSquaresDeck() {
+    // test PerfectSquaresDeck
+    val perfectSquaresTestList = listOf(1, 2, 3, 4)
+
+    val testDeck = PerfectSquaresDeck(perfectSquaresTestList, 0, DeckState.QUESTION)
+    var testDeck2: IDeck = testDeck
+
+    /*
+    The tests below run through a full sequence of looking through a deck of flashcards
+    While not directly using testSame on the flip and next functions, they are used to proceded to the next card/other side of a given card
+    getState and getText functions are then tested on the new flashcard.
+     */
+
+    // First card front
+    testSame(testDeck2.getState(), DeckState.QUESTION, "testDeck2.getState()")
+    testSame(testDeck2.getText(), "1", "testDeck2.getText()")
+    testSame(testDeck2.getSize(), 4, "testDeck2.getSize()")
+
+    testDeck2 = testDeck2.flip()
+
+    // First card back, correct anwser given
+    testSame(testDeck2.getState(), DeckState.ANSWER, "testDeck2.getState()")
+    testSame(testDeck2.getText(), "1", "testDeck2.getText()")
+
+    testDeck2 = testDeck2.next(true)
+
+    // Second card front
+    testSame(testDeck2.getState(), DeckState.QUESTION, "testDeck2.getState()")
+    testSame(testDeck2.getText(), "2", "testDeck2.getText()")
+
+    testDeck2 = testDeck2.flip()
+
+    // Second card back, incorrect anwser given
+    testSame(testDeck2.getState(), DeckState.ANSWER, "testDeck2.getState()")
+    testSame(testDeck2.getText(), "4", "testDeck2.getText()")
+
+    testDeck2 = testDeck2.next(false)
+
+    // Third card front
+    testSame(testDeck2.getState(), DeckState.QUESTION, "testDeck2.getState()")
+    testSame(testDeck2.getText(), "3", "testDeck2.getText()")
+
+    testDeck2 = testDeck2.flip()
+
+    // Third card back, correct anwser given
+    testSame(testDeck2.getState(), DeckState.ANSWER, "testDeck2.getState()")
+    testSame(testDeck2.getText(), "9", "testDeck2.getText()")
+
+    testDeck2 = testDeck2.next(true)
+
+    // Fourth card front
+    testSame(testDeck2.getState(), DeckState.QUESTION, "testDeck2.getState()")
+    testSame(testDeck2.getText(), "4", "testDeck2.getText()")
+
+    testDeck2 = testDeck2.flip()
+
+    // Fourth card back, correct anwser given
+    testSame(testDeck2.getState(), DeckState.ANSWER, "testDeck2.getState()")
+    testSame(testDeck2.getText(), "16", "testDeck2.getText()")
+
+    testDeck2 = testDeck2.next(true)
+
+    // Second card front
+    testSame(testDeck2.getState(), DeckState.QUESTION, "testDeck2.getState()")
+    testSame(testDeck2.getText(), "2", "testDeck2.getText()")
+
+    testDeck2 = testDeck2.flip()
+
+    // Second card back, correct anwser given
+    testSame(testDeck2.getState(), DeckState.ANSWER, "testDeck2.getState()")
+    testSame(testDeck2.getText(), "4", "testDeck2.getText()")
+
+    testDeck2 = testDeck2.next(true)
+
+    // As each card has been anwsered correctly, the deck should be exhausted
+    testSame(testDeck2.getState(), DeckState.EXHAUSTED, "testDeck2.getState()")
+    testSame(testDeck2.getText(), null, "testDeck2.getText()")
+}
 
 // -----------------------------------------------------------------
 // Menu design
@@ -479,6 +638,13 @@ val opt1A = NamedMenuOption(1, "apple")
 val opt2B = NamedMenuOption(2, "banana")
 val optsExample = listOf(opt1A, opt2B)
 
+@EnabledTest
+fun testMenuTitle() {
+    // test menuTitle
+    testSame(opt1A.menuTitle(), "apple", "opt1A.menuTitle()")
+    testSame(opt2B.menuTitle(), "banana", "opt2B.menuTitle()")
+}
+
 // TODO 1/1: Finish designing the program chooseMenuOption that
 //           takes a list (assumed to be non-empty) of any type
 //           (as long as it implements the IMenuOption interface),
@@ -506,88 +672,131 @@ val optsExample = listOf(opt1A, opt2B)
 val menuPrompt = "Enter your choice (or 0 to quit)"
 val menuQuit = "You quit"
 val menuChoicePrefix = "You chose: "
+val invalidVal = -2
 
-// Provides an interactive opportunity for the user to choose
-// an option or quit.
 fun <T : IMenuOption> chooseMenuOption(options: List<T>): T? {
     // your code here!
     // - call reactConsole (with appropriate handlers)
     // - return the selected option (or null for quit)
 
-    while (true) {
-        println(menuPrompt)
-        val userInput = readLine() ?: continue
-        if (userInput == "0") {
-            println(menuQuit)
-            return null
+    fun choicesToText(list: List<String>): String {
+        return linesToString(List(list.size, { i -> "${i + 1}. " + list[i] }) + listOf("", menuPrompt))
+    }
+
+    // Takes the options from a list of type T and turns it into a list of Strings
+    fun renderMenuOptions(choice: Int): String {
+        return choicesToText(options.map { it.menuTitle() })
+    }
+
+    // check if the input is one of the options or zero (indicating quiting)
+    fun keepIfValid(
+        input: String,
+        validIndex: IntRange,
+    ): Int {
+        if (isAnInteger(input)) {
+            val numInput = (input.toInt() - 1)
+            when {
+                numInput in validIndex -> return numInput
+                else -> return invalidVal
+            }
+        } else {
+            return invalidVal
         }
-        val chosenOption = options.find { it.optionNumber == userInput.toIntOrNull() }
-        if (chosenOption != null) {
-            println("$menuChoicePrefix${chosenOption.optionText}")
-            return chosenOption
+    }
+
+    // Runs keepIfValid on an input, then returns the next state
+    fun transitionOptionChoice(
+        state: Int,
+        kbInput: String,
+    ): Int {
+        return keepIfValid(kbInput, (-1..options.size - 1))
+    }
+
+    // Returns true if the given state is within the intRange
+    fun isDone(state: Int): Boolean {
+        return state in (-1..options.size - 1)
+    }
+
+    // Either print the quit message or the menuTitle.
+    fun renderTerminalState(state: Int): String {
+        when (state) {
+            -1 -> return menuQuit
+            else -> return (menuChoicePrefix + options[state].menuTitle())
         }
-        println("Invalid choice, please try again.")
+    }
+
+    val returnIndex =
+        reactConsole(
+            initialState = -2,
+            stateToText = ::renderMenuOptions,
+            nextState = ::transitionOptionChoice,
+            isTerminalState = ::isDone,
+            terminalStateToText = ::renderTerminalState,
+        )
+
+    when (returnIndex) {
+        -1 -> return null
+        else -> return options[returnIndex]
     }
 }
 
+@EnabledTest
+fun testChooseMenuOption() {
+    testSame(
+        captureResults(
+            { chooseMenuOption(listOf(opt1A)) },
+            "howdy",
+            "0",
+        ),
+        CapturedResult(
+            null,
+            "1. ${opt1A.name}",
+            "",
+            menuPrompt,
+            "1. ${opt1A.name}",
+            "",
+            menuPrompt,
+            menuQuit,
+        ),
+        "quit",
+    )
 
-// @EnabledTest
-// fun testChooseMenuOption() {
-//     testSame(
-//         captureResults(
-//             { chooseMenuOption(listOf(opt1A)) },
-//             "howdy",
-//             "0",
-//         ),
-//         CapturedResult(
-//             null,
-//             "1. ${opt1A.name}",
-//             "",
-//             menuPrompt,
-//             "1. ${opt1A.name}",
-//             "",
-//             menuPrompt,
-//             menuQuit,
-//         ),
-//         "quit",
-//     )
+    testSame(
+        captureResults(
+            { chooseMenuOption(optsExample) },
+            "hello",
+            "10",
+            "-3",
+            "1",
+        ),
+        CapturedResult(
+            opt1A,
+            "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
+            "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
+            "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
+            "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
+            "${menuChoicePrefix}${opt1A.name}",
+        ),
+        "1",
+    )
 
-//     testSame(
-//         captureResults(
-//             { chooseMenuOption(optsExample) },
-//             "hello",
-//             "10",
-//             "-3",
-//             "1",
-//         ),
-//         CapturedResult(
-//             opt1A,
-//             "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
-//             "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
-//             "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
-//             "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
-//             "${menuChoicePrefix}${opt1A.name}",
-//         ),
-//         "1",
-//     )
-
-//     testSame(
-//         captureResults(
-//             { chooseMenuOption(optsExample) },
-//             "3",
-//             "-1",
-//             "2",
-//         ),
-//         CapturedResult(
-//             opt2B,
-//             "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
-//             "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
-//             "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
-//             "${menuChoicePrefix}${opt2B.name}",
-//         ),
-//         "2",
-//     )
-// }
+    testSame(
+        captureResults(
+            { chooseMenuOption(optsExample) },
+            "3",
+            "-1",
+            "2",
+        ),
+        CapturedResult(
+            opt2B,
+            "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
+            "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
+            "1. ${opt1A.name}", "2. ${opt2B.name}", "", menuPrompt,
+            "${menuChoicePrefix}${opt2B.name}",
+        ),
+        "2",
+    )
+}
 
 // -----------------------------------------------------------------
 // Machine learning for sentiment analysis
@@ -659,54 +868,54 @@ val datasetYN: List<LabeledExample<String, Boolean>> =
 // this code (including the comments in the tests about when & how
 // the heuristic is predictably getting the answer wrong).
 
-// // Heuristically determines if the supplied string
-// // is positive based upon the first letter being Y
-// fun isPositiveSimple(s: String): Boolean {
-//     return s.uppercase().startsWith("Y")
-// }
+// Heuristically determines if the supplied string
+// is positive based upon the first letter being Y
+fun isPositiveSimple(s: String): Boolean {
+    return s.uppercase().startsWith("Y")
+}
 
-// // tests that an element of the dataset matches
-// // with expectation of its correctness on a
-// // particular classifier
-// fun helpTestElement(
-//     index: Int,
-//     expectedIsCorrect: Boolean,
-//     isPos: PositivityClassifier,
-// ) {
-//     testSame(
-//         isPos(datasetYN[index].example),
-//         when (expectedIsCorrect) {
-//             true -> datasetYN[index].label
-//             false -> !datasetYN[index].label
-//         },
-//         when (expectedIsCorrect) {
-//             true -> datasetYN[index].example
-//             false -> "${ datasetYN[index].example } <- WRONG"
-//         },
-//     )
-// }
+// tests that an element of the dataset matches
+// with expectation of its correctness on a
+// particular classifier
+fun helpTestElement(
+    index: Int,
+    expectedIsCorrect: Boolean,
+    isPos: PositivityClassifier,
+) {
+    testSame(
+        isPos(datasetYN[index].example),
+        when (expectedIsCorrect) {
+            true -> datasetYN[index].label
+            false -> !datasetYN[index].label
+        },
+        when (expectedIsCorrect) {
+            true -> datasetYN[index].example
+            false -> "${ datasetYN[index].example } <- WRONG"
+        },
+    )
+}
 
-// @EnabledTest
-// fun testIsPositiveSimple() {
-//     val classifier = ::isPositiveSimple
+@EnabledTest
+fun testIsPositiveSimple() {
+    val classifier = ::isPositiveSimple
 
-//     // correctly responds with positive
-//     for (i in 0..1) {
-//         helpTestElement(i, true, classifier)
-//     }
+    // correctly responds with positive
+    for (i in 0..1) {
+        helpTestElement(i, true, classifier)
+    }
 
-//     // incorrectly responds with negative
-//     for (i in 2..8) {
-//         helpTestElement(i, false, classifier)
-//     }
+    // incorrectly responds with negative
+    for (i in 2..8) {
+        helpTestElement(i, false, classifier)
+    }
 
-//     // correctly responds with negative, sometimes
-//     // due to luck (i.e., anything not starting
-//     // with the letter Y is assumed negative)
-//     for (i in 9..17) {
-//         helpTestElement(i, true, classifier)
-//     }
-// }
+    // correctly responds with negative, sometimes
+    // due to luck (i.e., anything not starting
+    // with the letter Y is assumed negative)
+    for (i in 9..17) {
+        helpTestElement(i, true, classifier)
+    }
+}
 
 // One approach we *could* take is just to have the computer learn
 // by rote memorization: that is, respond with the labeled answer
@@ -740,8 +949,6 @@ val datasetYN: List<LabeledExample<String, Boolean>> =
 //           of some type and associates an output "score" (where
 //           bigger scores are understood to be better):
 
-typealias EvaluationFunction<T> = (T) -> Int
-
 //          Design the function topK that takes a list of
 //          items, k (assumed to be a postive integer), and a
 //          corresponding evaluation function, and then returns
@@ -759,6 +966,32 @@ typealias EvaluationFunction<T> = (T) -> Int
 //                  is a small swap from the sample solution).
 //
 
+typealias EvaluationFunction<T> = (T) -> Int
+
+// topK will take a list of items, a number k, and an evaluation function, and  return the k items in the list that get the highest score
+fun <T> topK(
+    items: List<T>,
+    k: Int,
+    eval: EvaluationFunction<T>,
+): List<T> {
+    val scoreList = List(items.size, { i -> Pair(items[i], eval(items[i])) })
+    val sortedList = scoreList.sortedByDescending { it.second }
+    val topKList = sortedList.take(k)
+    val topKItems = List(topKList.size, { i -> topKList[i].first })
+
+    return topKItems
+}
+
+@EnabledTest
+fun testTopK() {
+    // test topK
+    testSame(topK(listOf("a", "bb", "ccc", "dddd"), 1, { it.length }), listOf("dddd"), "topK 1")
+    testSame(topK(listOf("a", "bb", "ccc", "dddd"), 2, { it.length }), listOf("dddd", "ccc"), "topK 2")
+    testSame(topK(listOf("a", "bb", "ccc", "dddd"), 3, { it.length }), listOf("dddd", "ccc", "bb"), "topK 3")
+    testSame(topK(listOf("a", "bb", "ccc", "dddd"), 4, { it.length }), listOf("dddd", "ccc", "bb", "a"), "topK 4")
+    testSame(topK(listOf("a", "bb", "ccc", "dddd"), 5, { it.length }), listOf("dddd", "ccc", "bb", "a"), "topK 5")
+}
+
 // TODO 2/5: Great! Now we have to answer the question from before:
 //           what does it mean for two strings to be "close"?
 //           There are actually multiple reasonable ways of
@@ -774,6 +1007,50 @@ typealias EvaluationFunction<T> = (T) -> Int
 //
 //           Hint: Homework 7, Problem 2 :)
 //
+
+// levenshteinDistance will compute the minimum number of single-character changes required to change one sequence into another
+fun levenshteinDistance(
+    s1: String,
+    s2: String,
+): Int {
+    /*
+    this function takes in two strings and two indexes
+    then returns the minimum number of single-character
+    changes required to change one sequence into another
+     */
+    fun levenshteinDistanceHelper(
+        s1: String,
+        s2: String,
+        s1Index: Int,
+        s2Index: Int,
+    ): Int {
+        return when {
+            s1Index == s1.length -> s2.length - s2Index
+            s2Index == s2.length -> s1.length - s1Index
+            else -> {
+                val cost =
+                    when {
+                        s1[s1Index] == s2[s2Index] -> 0
+                        else -> 1
+                    }
+                val delete = levenshteinDistanceHelper(s1, s2, s1Index + 1, s2Index) + 1
+                val insert = levenshteinDistanceHelper(s1, s2, s1Index, s2Index + 1) + 1
+                val substitute = levenshteinDistanceHelper(s1, s2, s1Index + 1, s2Index + 1) + cost
+                minOf(delete, insert, substitute)
+            }
+        }
+    }
+    return levenshteinDistanceHelper(s1, s2, 0, 0)
+}
+
+@EnabledTest
+fun testLevenshteinDistance() {
+    // test levenshteinDistance
+    testSame(levenshteinDistance("kitten", "sitting"), 3, "levenshteinDistance 1")
+    testSame(levenshteinDistance("saturday", "sunday"), 3, "levenshteinDistance 2")
+    testSame(levenshteinDistance("saturday", "saturday"), 0, "levenshteinDistance 3")
+    testSame(levenshteinDistance("saturday", "saturdaze"), 2, "levenshteinDistance 4")
+}
 
 // TODO 3/5: Great! Now let's design a "k-Nearest Neighbor"
 //           classifier (you can read online description, such as
@@ -803,116 +1080,136 @@ data class ResultWithVotes<L>(val label: L, val votes: Int)
 //           You'll find guiding comments to help.
 //
 
-// // uses k-nearest-neighbor (kNN) to predict the label
-// // for a supplied example given a labeled dataset
-// // and distance function
-// fun <E, L> nnLabel(
-//     queryExample: E,
-//     dataset: List<LabeledExample<E, L>>,
-//     distFunc: DistanceFunction<E>,
-//     k: Int,
-// ): ResultWithVotes<L> {
-//     // 1. Use topK to find the k-closest dataset elements:
-//     //    finding the elements whose negated distance is the
-//     //    greatest is the same as finding those that are closest.
-//     val closestK =
-//         topK(dataset, k) {
-//             -distFunc(queryExample, it.example)
-//         }
+// uses k-nearest-neighbor (kNN) to predict the label
+// for a supplied example given a labeled dataset
+// and distance function
+fun <E, L> nnLabel(
+    queryExample: E,
+    dataset: List<LabeledExample<E, L>>,
+    distFunc: DistanceFunction<E>,
+    k: Int,
+): ResultWithVotes<L> {
+    // 1. Use topK to find the k-closest dataset elements:
+    //    finding the elements whose negated distance is the
+    //    greatest is the same as finding those that are closest.
+    val closestK =
+        topK(dataset, k) {
+            -distFunc(queryExample, it.example)
+        }
 
-//     // 2. Discard the examples, we only care about their labels
-//     val closestKLabels = closestK.map { it.label }
+    // 2. Discard the examples, we only care about their labels
+    val closestKLabels = closestK.map { it.label }
 
-//     // 3. For each distinct label, count up how many time it
-//     //    showed up in step #2
-//     //    (Note: once we know the Map type, there are WAY simpler
-//     //           ways to do this!)
-//     val labelsWithCounts =
-//         closestKLabels.distinct().map {
-//                 label ->
-//             Pair(
-//                 // first = label
-//                 label,
-//                 // second = number of votes
-//                 closestKLabels.filter({ it == label }).size,
-//             )
-//         }
+    // 3. For each distinct label, count up how many time it
+    //    showed up in step #2
+    //    (Note: once we know the Map type, there are WAY simpler
+    //           ways to do this!)
+    val labelsWithCounts =
+        closestKLabels.distinct().map {
+                label ->
+            Pair(
+                // first = label
+                label,
+                // second = number of votes
+                closestKLabels.filter({ it == label }).size,
+            )
+        }
 
-//     // 4. Use topK to get the label with the greatest count
-//     val topLabelWithCount = topK(labelsWithCounts, 1, { it.second })[0]
+    // 4. Use topK to get the label with the greatest count
+    val topLabelWithCount = topK(labelsWithCounts, 1, { it.second })[0]
 
-//     // 5. Return both the label and the number of votes (of k)
-//     return ResultWithVotes(
-//         topLabelWithCount.first,
-//         topLabelWithCount.second,
-//     )
-// }
+    // 5. Return both the label and the number of votes (of k)
+    return ResultWithVotes(
+        topLabelWithCount.first,
+        topLabelWithCount.second,
+    )
+}
 
-// @EnabledTest
-// fun testNNLabel() {
-//     // don't change this dataset:
-//     // think of them as points on a line...
-//     // (with ? referring to the example below)
-//     //
-//     //       a   a       ?       b           b
-//     // |--- --- --- --- --- --- --- --- --- ---|
-//     //   1   2   3   4   5   6   7   8   9  10
-//     val dataset =
-//         listOf(
-//             LabeledExample(2, "a"),
-//             LabeledExample(3, "a"),
-//             LabeledExample(7, "b"),
-//             LabeledExample(10, "b"),
-//         )
+@EnabledTest
+fun testNNLabel() {
+    // don't change this dataset:
+    // think of them as points on a line...
+    // (with ? referring to the example below)
+    //
+    //       a   a       ?       b           b
+    // |--- --- --- --- --- --- --- --- --- ---|
+    //   1   2   3   4   5   6   7   8   9  10
+    val dataset =
+        listOf(
+            LabeledExample(2, "a"),
+            LabeledExample(3, "a"),
+            LabeledExample(7, "b"),
+            LabeledExample(10, "b"),
+        )
 
-//     // A simple distance: just the absolute value
-//     fun myAbsVal(
-//         a: Int,
-//         b: Int,
-//     ): Int {
-//         val diff = a - b
+    // A simple distance: just the absolute value
+    fun myAbsVal(
+        a: Int,
+        b: Int,
+    ): Int {
+        val diff = a - b
 
-//         return when (diff >= 0) {
-//             true -> diff
-//             false -> -diff
-//         }
-//     }
+        return when (diff >= 0) {
+            true -> diff
+            false -> -diff
+        }
+    }
 
-//     // TODO: to demonstrate that you understand how kNN is
-//     //       supposed to work (and what the supplied code returns),
-//     //       you are going to write tests here for a selection of
-//     //       cases that use the dataset and distance function above.
-//     //
-//     //       To help you get started, consider testing for point 5,
-//     //       with k=3:
-//     //       a) All the points with their distances are...
-//     //          a = |2 - 5| = 3
-//     //          a = |3 - 5| = 3
-//     //          b = |7 - 5| = 2
-//     //          b = |10 - 5| = 5
-//     //       b) SO, the labels of the three closest are...
-//     //          a (2 votes)
-//     //          b (1 vote)
-//     //       c) SO, kNN in this situation would predict the label
-//     //          for this point to be "a", with confidence 2/3 (medium)
-//     //
-//     //       We capture this test as...
-//     //
+    // TODO: to demonstrate that you understand how kNN is
+    //       supposed to work (and what the supplied code returns),
+    //       you are going to write tests here for a selection of
+    //       cases that use the dataset and distance function above.
+    //
+    //       To help you get started, consider testing for point 5,
+    //       with k=3:
+    //       a) All the points with their distances are...
+    //          a = |2 - 5| = 3
+    //          a = |3 - 5| = 3
+    //          b = |7 - 5| = 2
+    //          b = |10 - 5| = 5
+    //       b) SO, the labels of the three closest are...
+    //          a (2 votes)
+    //          b (1 vote)
+    //       c) SO, kNN in this situation would predict the label
+    //          for this point to be "a", with confidence 2/3 (medium)
+    //
+    //       We capture this test as...
+    //
 
-//     testSame(
-//         nnLabel(5, dataset, ::myAbsVal, k = 3),
-//         ResultWithVotes("a", 2),
-//         "NN: 5->a, 2/3",
-//         // medium confidence
-//     )
+    testSame(
+        nnLabel(5, dataset, ::myAbsVal, k = 3),
+        ResultWithVotes("a", 2),
+        "NN: 5->a, 2/3",
+    )
 
-//     //       Now your task is to write tests for the following
-//     //       additional cases...
-//     //       1. 1 (k=1)
-//     //       2. 1 (k=2)
-//     //       3. 10 (k=1)
-//     //       4. 10 (k=2)
-// }
+    //       Now your task is to write tests for the following
+    //       additional cases...
+
+    //       1. 1 (k=1)
+    testSame(
+        nnLabel(1, dataset, ::myAbsVal, k = 1),
+        ResultWithVotes("a", 1),
+        "NN: 1->a, 1/1",
+    )
+    //       2. 1 (k=2)
+    testSame(
+        nnLabel(1, dataset, ::myAbsVal, k = 2),
+        ResultWithVotes("a", 2),
+        "NN: 1->a, 2/2",
+    )
+    //       3. 10 (k=1)
+    testSame(
+        nnLabel(10, dataset, ::myAbsVal, k = 1),
+        ResultWithVotes("b", 1),
+        "NN: 10->b, 1/1",
+    )
+    //       4. 10 (k=2)
+    testSame(
+        nnLabel(10, dataset, ::myAbsVal, k = 2),
+        ResultWithVotes("b", 2),
+        "NN: 10->b, 2/2",
+    )
+}
 
 // TODO 4/5: Ok - now it's time to put some pieces together!!
 //           Finish designing the function yesNoClassifier below -
@@ -924,78 +1221,82 @@ data class ResultWithVotes<L>(val label: L, val votes: Int)
 // we'll generally use k=3 in our classifier
 val classifierK = 3
 
-// fun yesNoClassifier(s: String): ResultWithVotes<Boolean> {
-//     // 1. Convert the input to lowercase
-//     //    (since) the data set is all lowercase
+fun yesNoClassifier(s: String): ResultWithVotes<Boolean> {
+    // 1. Convert the input to lowercase
+    //    (since) the data set is all lowercase
+    val lowerCaseInput = s.lowercase()
+    // 2. Check to see if the lower-case input
+    //    shows up exactly within the dataset
+    //    (you can assume there are no duplicates)
+    val exactMatch = datasetYN.find { it.example == lowerCaseInput }
+    // 3. If the input was found, simply return its label with 100%
+    //    confidence (3/3); otherwise, return the result of
+    //    performing a 3-NN classification using the dataset and
+    //    Levenshtein distance metric.
+    return when (exactMatch) {
+        null -> nnLabel(lowerCaseInput, datasetYN, ::levenshteinDistance, classifierK)
+        else -> ResultWithVotes(exactMatch.label, classifierK)
+    }
+}
 
-//     // 2. Check to see if the lower-case input
-//     //    shows up exactly within the dataset
-//     //    (you can assume there are no duplicates)
+@EnabledTest
+fun testYesNoClassifier() {
+    testSame(
+        yesNoClassifier("YES"),
+        ResultWithVotes(true, 3),
+        "YES: 3/3",
+    )
 
-//     // 3. If the input was found, simply return its label with 100%
-//     //    confidence (3/3); otherwise, return the result of
-//     //    performing a 3-NN classification using the dataset and
-//     //    Levenshtein distance metric.
-// }
+    testSame(
+        yesNoClassifier("no"),
+        ResultWithVotes(false, 3),
+        "no: 3/3",
+    )
 
-// @EnabledTest
-// fun testYesNoClassifier() {
-//     testSame(
-//         yesNoClassifier("YES"),
-//         ResultWithVotes(true, 3),
-//         "YES: 3/3",
-//     )
+    testSame(
+        yesNoClassifier("nadda"),
+        ResultWithVotes(false, 2),
+        "nadda: 2/3",
+    ) // pretty good ML!
 
-//     testSame(
-//         yesNoClassifier("no"),
-//         ResultWithVotes(false, 3),
-//         "no: 3/3",
-//     )
+    testSame(
+        yesNoClassifier("yerp"),
+        ResultWithVotes(true, 3),
+        "yerp: 3/3",
+    ) // pretty good ML!
 
-//     testSame(
-//         yesNoClassifier("nadda"),
-//         ResultWithVotes(false, 2),
-//         "nadda: 2/3",
-//     ) // pretty good ML!
+    testSame(
+        yesNoClassifier("ouch"),
+        ResultWithVotes(true, 3),
+        "ouch: 3/3",
+    ) // seems very confident in this wrong answer...
 
-//     testSame(
-//         yesNoClassifier("yerp"),
-//         ResultWithVotes(true, 3),
-//         "yerp: 3/3",
-//     ) // pretty good ML!
-
-//     testSame(
-//         yesNoClassifier("ouch"),
-//         ResultWithVotes(true, 3),
-//         "ouch: 3/3",
-//     ) // seems very confident in this wrong answer...
-
-//     testSame(
-//         yesNoClassifier("now"),
-//         ResultWithVotes(false, 3),
-//         "now 3/3",
-//     ) // seems very confident, given the input doesn't make sense?
-// }
+    testSame(
+        yesNoClassifier("now"),
+        ResultWithVotes(false, 3),
+        "now 3/3",
+    ) // seems very confident, given the input doesn't make sense?
+}
 
 // TODO 5/5: Now that you have a sense of how this approach works,
 //           including some of the (confident) mistakes it can make,
 //           uncomment the following lines to have a classifier
 //           (that we could use side-by-side with our heuristic).
 
-// fun isPositiveML(s: String): Boolean = yesNoClassifier(s).label
+fun isPositiveML(s: String): Boolean = yesNoClassifier(s).label
 
-// @EnabledTest
-// fun testIsPositiveML() {
-//     // correctly responds with positive (rote memorization)
-//     for (i in 0..8) {
-//         helpTestElement(i, true, ::isPositiveML)
-//     }
+@EnabledTest
+fun testIsPositiveML() {
+    // correctly responds with positive (rote memorization)
+    for (i in 0..8) {
+        helpTestElement(i, true, ::isPositiveML)
+    }
 
-//     // correctly responds with negative (rote memorization)
-//     for (i in 9..17) {
-//         helpTestElement(i, true, ::isPositiveML)
-//     }
-// }
+    // correctly responds with negative (rote memorization)
+    for (i in 9..17) {
+        helpTestElement(i, true, ::isPositiveML)
+    }
+}
 
 // -----------------------------------------------------------------
 // Final app!
@@ -1019,6 +1320,8 @@ val classifierK = 3
 // how many total attempts were required to get
 // them all correct!
 data class StudyDeckResult(val numQuestions: Int, val numAttempts: Int)
+
+data class StudyState(val deck: IDeck, val result: StudyDeckResult)
 
 //           Look back to the process you followed for studyDeck in
 //           part 1 of the project: you'll first want to design a
@@ -1061,6 +1364,140 @@ data class StudyDeckResult(val numQuestions: Int, val numAttempts: Int)
 val studyThink = "Think of the result? Press enter to continue"
 val studyCheck = "Correct? (Y)es/(N)o"
 
+val testState1 = StudyState(deck1, StudyDeckResult(4, 0))
+val testState2 = StudyState(deck1, StudyDeckResult(4, 1))
+val testState3 = StudyState(deck1, StudyDeckResult(4, 2))
+val testState4 = StudyState(deck1, StudyDeckResult(4, 3))
+
+// returns the text to display for a given state
+fun studyStateToText(state: StudyState): String {
+    return when (state.deck.getState()) {
+        DeckState.QUESTION -> (state.deck.getText() + "\n" + studyThink)
+        else -> (state.deck.getText() + "\n" + studyCheck)
+    }
+}
+
+@EnabledTest
+fun testStudyStateToText() {
+    testSame(studyStateToText(testState1), "Los Angeles\nThink of the result? Press enter to continue", "testState1")
+}
+
+// returns the next state given the current state and keyboard input
+fun nextStudyState(
+    state: StudyState,
+    kbInput: String,
+    classifier: PositivityClassifier,
+): StudyState {
+    val deck = state.deck
+    val result = state.result
+
+    return when (deck.getState()) {
+        DeckState.QUESTION -> StudyState(deck.flip(), StudyDeckResult(result.numQuestions, result.numAttempts + 1))
+        else -> StudyState(deck.next(classifier(kbInput)), result)
+    }
+}
+
+@EnabledTest
+fun testNextStudyState() {
+    testSame(nextStudyState(testState1, "", ::isPositiveML), StudyState(deck1.flip(), StudyDeckResult(4, 1)), "testState1")
+}
+
+// returns true if the given state is terminal
+fun isDone(state: StudyState): Boolean {
+    return state.deck.getState() == DeckState.EXHAUSTED
+}
+
+@EnabledTest
+fun testIsDone() {
+    testSame(isDone(testState1), false, "testState1")
+    testSame(isDone(testState2), false, "testState2")
+}
+
+// returns the text to display for a given terminal state
+fun studyTerminalStateToText(state: StudyState): String {
+    val result = state.result
+    return "Questions: ${result.numQuestions}, Attempts: ${result.numAttempts}"
+}
+
+@EnabledTest
+fun testStudyTerminalStateToText() {
+    testSame(studyTerminalStateToText(testState1), "Questions: 4, Attempts: 0", "testState1")
+    testSame(studyTerminalStateToText(testState2), "Questions: 4, Attempts: 1", "testState2")
+    testSame(studyTerminalStateToText(testState3), "Questions: 4, Attempts: 2", "testState3")
+    testSame(studyTerminalStateToText(testState4), "Questions: 4, Attempts: 3", "testState4")
+}
+
+fun studyDeck2(
+    deck: IDeck,
+    classifier: PositivityClassifier,
+): StudyDeckResult {
+    val initialState = StudyState(deck, StudyDeckResult(deck.getSize(), 0))
+    val returnState =
+        reactConsole(
+            initialState = initialState,
+            stateToText = ::studyStateToText,
+            nextState = { state, input -> nextStudyState(state, input, classifier) },
+            isTerminalState = ::isDone,
+            terminalStateToText = ::studyTerminalStateToText,
+        )
+    return returnState.result
+}
+
+@EnabledTest
+fun testStudyDeck2() {
+    testSame(
+        captureResults({ studyDeck2(deck1, ::isPositiveML) }, "", "sure", "", "mhmm", "", "yuppers"),
+        CapturedResult(
+            StudyDeckResult(3, 3),
+            testFC1.frontText,
+            studyThink,
+            testFC1.backText,
+            studyCheck,
+            testFC2.frontText,
+            studyThink,
+            testFC2.backText,
+            studyCheck,
+            testFC3.frontText,
+            studyThink,
+            testFC3.backText,
+            studyCheck,
+            "Questions: 3, Attempts: 3",
+        ),
+    )
+
+    testSame(
+        captureResults({ studyDeck2(deck1, ::isPositiveML) }, "", "no", "", "yes", "", "yes", "", "yes"),
+        CapturedResult(
+            StudyDeckResult(3, 4),
+            testFC1.frontText,
+            studyThink,
+            testFC1.backText,
+            studyCheck,
+            testFC2.frontText,
+            studyThink,
+            testFC2.backText,
+            studyCheck,
+            testFC3.frontText,
+            studyThink,
+            testFC3.backText,
+            studyCheck,
+            testFC1.frontText,
+            studyThink,
+            testFC1.backText,
+            studyCheck,
+            "Questions: 3, Attempts: 4",
+        ),
+    )
+
+    testSame(
+        captureResults({ studyDeck2(deckEmpty, ::isPositiveML) }),
+        CapturedResult(
+            StudyDeckResult(0, 0),
+            "Questions: 0, Attempts: 0",
+        ),
+    )
+}
+
 // TODO 2/2: Finally, design the program study2 that...
 //           a) Uses chooseMenuOption to select from amongst a
 //              list of decks; the options must include at least
@@ -1090,9 +1527,102 @@ val studyCheck = "Correct? (Y)es/(N)o"
 val optSimple = "Simple Self-Report Evaluation"
 val optML = "ML Self-Report Evaluation"
 
+fun study2() {
+    // add do while loop to this to allow user to keep studying after finishing a deck
+
+    val options =
+        listOf(
+            NamedMenuOption(TFCListDeck(readTaggedFlashCardsFile(testFilePath), 0, DeckState.QUESTION), "Read from File"),
+            NamedMenuOption(PerfectSquaresDeck(listOf(1, 2, 3, 4, 5), 0, DeckState.QUESTION), "Perfect Squares"),
+        )
+
+    do {
+        val deck = chooseMenuOption(options)
+        var classifier: IMenuOption? = null
+        when (deck) {
+            null -> null
+            else -> {
+                // val deck2: IDeck = deck.option
+                val options2 =
+                    listOf(
+                        NamedMenuOption(::isPositiveSimple, optSimple),
+                        NamedMenuOption(::isPositiveML, optML),
+                    )
+                classifier = chooseMenuOption(options2)
+                when (classifier) {
+                    null -> null
+                    else -> {
+                        val result = studyDeck2(deck.option, classifier.option)
+                    }
+                }
+            }
+        }
+    } while (deck != null && classifier != null)
+}
+
+@EnabledTest
+fun testStudy2() {
+    // Testing quiting
+    testSame(
+        captureResults({ study2() }, "0"),
+        CapturedResult(Unit, "1. Read from File", "2. Perfect Squares", "", "Enter your choice (or 0 to quit)", "You quit"),
+        "Quit immediately : 0",
+    )
+
+    testSame(
+        captureResults({ study2() }, "1", "0"),
+        CapturedResult(
+            Unit, "1. Read from File", "2. Perfect Squares", "", "Enter your choice (or 0 to quit)",
+            "You chose: Read from File", "1. Simple Self-Report Evaluation",
+            "2. $optML", "", "Enter your choice (or 0 to quit)", "You quit",
+        ),
+        "Quit after first selection : 1 0",
+    )
+    testSame(
+        captureResults({ study2() }, "1", "2", "", "no", "", "YETH", "", "nope", "", "yass", "0"),
+        CapturedResult(
+            Unit,
+            "1. Read from File",
+            "2. Perfect Squares",
+            "",
+            "Enter your choice (or 0 to quit)",
+            "You chose: Read from File",
+            "1. Simple Self-Report Evaluation",
+            "2. $optML",
+            "",
+            "Enter your choice (or 0 to quit)",
+            "You chose: ML Self-Report Evaluation",
+            "c",
+            "Think of the result? Press enter to continue",
+            "3",
+            "Correct? (Y)es/(N)o",
+            "d",
+            "Think of the result? Press enter to continue",
+            "4",
+            "Correct? (Y)es/(N)o",
+            "c",
+            "Think of the result? Press enter to continue",
+            "3",
+            "Correct? (Y)es/(N)o",
+            "c",
+            "Think of the result? Press enter to continue",
+            "3",
+            "Correct? (Y)es/(N)o",
+            "Questions: 2, Attempts: 4",
+            "1. Read from File",
+            "2. Perfect Squares",
+            "",
+            "Enter your choice (or 0 to quit)",
+            "You quit",
+        ),
+        "Study through at least one deck",
+    )
+}
+
 // -----------------------------------------------------------------
 
 fun main() {
+    study2()
 }
 
 runEnabledTests(this)
