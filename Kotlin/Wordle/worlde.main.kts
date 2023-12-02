@@ -5,11 +5,11 @@ val words = File("sgb-words.txt").readLines()
 
 val chosenWord = words.random()
 val letterBank = mutableListOf<Char>()
-val displayedWord = chosenWord.map { "_'" }.toMutableList()
+val displayedWord = chosenWord.map { "_" }.toMutableList()
 val bannedWords = mutableListOf<Char>()
 
 println("Welcome to Wordle!")
-println(chosenWord)
+//println(chosenWord)
 while (!(displayedWord.joinToString("") == chosenWord)){
     println("The word is: ${displayedWord.joinToString(" ")}")
     println("These letters are somewhere in the word: ${letterBank.joinToString(" ")}\n")
