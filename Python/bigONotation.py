@@ -8,3 +8,4 @@ notations = [(n * n) * math.log(n), n, "big infinity 2^n", n^3, 2^n, pow(n, 1.5)
 for i in range(len(notations)):
     print(i + 1, notations[i])
 
+#fsgdf
