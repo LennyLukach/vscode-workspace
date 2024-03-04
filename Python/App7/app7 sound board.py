@@ -5,7 +5,16 @@ from pygame import mouse
 from pygame.locals import *
 import sys
 import random
-from playsound import playsound
+import os
+import simpleaudio as sa
+
+def playsound(file_path):
+    wave_obj = sa.WaveObject.from_wave_file(file_path)
+    play_obj = wave_obj.play()
+    play_obj.wait_done()
+
+
+cwd = "/Users/llukach/VSCode/vscode-workspace/Python/App7/"
 
 #VARS
 screenX = 840
@@ -17,6 +26,9 @@ squareColor = (255, 255, 255)
 
 startMenu = True
 tutDone = False
+
+cwd = "/Users/llukach/VSCode/vscode-workspace/Python/App7/"
+
 
 played = None
 
@@ -54,7 +66,7 @@ def onClick(buttons, num):
     pygame.draw.rect(screen, (0, 255, 0), buttons[num - 1])
     pygame.display.update()
     note = NOTES[num - 1]
-    playsound(note)
+    playsound(os.path.join(cwd, note))
     #pygame.time.delay(10)
 
 def detectClickO(order):
