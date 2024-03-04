@@ -123,8 +123,10 @@ def l() :
     pen.lt(90)
     pen.pd()
 
+start()
 
 pen.setheading(90)
+
 d()
 a()
 b()
@@ -133,4 +135,4 @@ d()
 a()
 d()
 
-delay = raw_input()
+delay = input()
