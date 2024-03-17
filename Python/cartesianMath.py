@@ -12,4 +12,4 @@ def cartesianMath(x, y, op):
         raise ValueError('op must be either add or mult')
     
 
-print(cartesianMath(np.array([1,2,3]), np.array([4,5,6]), 'mult'))
+print(cartesianMath(np.array([1,2,3]), np.array([4,5,6]), input()))

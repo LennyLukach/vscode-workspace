@@ -9,15 +9,3 @@ for x in range(1000):
 
 
 pc.copy(sentence)
-"""
-hello = "Accent, Accolades, Accompaniment, Acoustics, Act, Adaptation, Admiration, Admission, Affect, Aficionado, Airplay, Album, Amphitheater, Amplifier, Applause, Appreciate, Arrangement, Array, Artist, Assemble, Atonal, Audience, Auditorium, Aulochrome, AweBackground, Band, Banjo, Bassist, Beat, Bebop, Beginnings, Big time, Blues, Bones, Boogie-woogie, Bookings, Bop, Box office, Brass, Business, BuzzCajun, CD, Charismatic, Clamorous, Clarinet, Classics, Clubs, Collaboration, Complex, Composer, Composition, Concept, Concert, Contemporary, Contracts, Cool jazz, Cornet, Creative, Crows, Current, Cutting edgeDance, Date, Derivations, Devotee, Distinctive, Distinguish, Distortion, Drummer, DrumsEffect, Element, Emotional, Emphasis, Energy, Enjoyment, Entertainment, Era, Event, Exciting, Exposure, ExtravaganzaFame, Famous, Fans, Favorites, Featuring, Feeling, Festival, Finest, Focus, Format, Fundraiser, Fusion, Fusion jazzGenre, Golden age, Groove, Group, Guests, GuitarHarmony, Headphones, Hear, Hit, Homage, Homemade, HornsImitation, Improvisation, Include, Influences, Information, Inspiring, Instruments, International, Interpolation, Interpretation, Invigorating, Invitation, IrregularJam session, Jazz, JugKeyboard, KeysLegend, Limit, Listen, Lively, Loud, Loud, Lover, LyricsMasses, Mega-event, Mellow, Melody, Meter, Microphone, Mike, Mixture, Modes, Mouthpiece, Multimedia, Music, MusiciansNew, New Orleans, Night, Nightclub, NonetOld, Orchestra, Organized, OriginsPartnership, Passionate, Percussion, Perform, Performance, Periods, Personality, Phrase, Piano, Play, Pleasure, Polish, Popular, Primitive, Produce, Product, PulseQuartetRagtime, Range, Raucous, Raw, Recording, Regional, Regular, Relaxation, Repetitive, Reunion, Revere, Revere, Rhythm, Rhythm-and-blues, Riff, RootsSatchmo, Saxophone, Scalpers, Section, Sensational, Set, Share, Show, Show business, Singer, Solo, Song, Songwriter, Soothing, Soul, Sounds, Southern, Speakers, Stage, Staging, Star, Start, Stdio, String bass, Strong, Style, Superstars, Swing, Syncopation, SynthesizerTalent, Taps, Technique, Tickets, Timeless, Timing, Tones, Tour, Traditional, Trend, Tribute, Trio, Trombone, Trombone, Troupe, Trumpet, TubaUpbeat, UrbanVenue, Verses, Veteran, Veteran, Violin, Visionary, Vocalization, VolumeWashboardZealous, Zobo, Zydeco"
-
-startOfWord = 0
-count = -1
-for letter in hello:
-    count += 1
-    if letter == ",":
-        jazzWords.append(hello[startOfWord:count])
-        startOfWord = count + 2
-print (jazzWords)
-"""

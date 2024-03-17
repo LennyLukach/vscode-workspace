@@ -1,5 +1,9 @@
 import pyfiglet
+import random
 
-phrase = "Fuck this class "
+words = ["poopy", "fecal", "excrement", "peepee", "urine", "urination", "farting", "flatulence", "gas", "breaking wind"]
+
+
+phrase = words[random.randint(0, len(words) - 1)]
+
 print(pyfiglet.figlet_format(phrase, font="standard"))
-
